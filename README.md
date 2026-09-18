@@ -18,7 +18,7 @@ market-aware currencies, tax, demand, and locale data.
 ecomgen generate --preset garden-decor --markets de,at,fr --customers 5000 --months 12 --seed 42 --out ./output
 ```
 
-This writes seven CSV files to `./output`:
+This writes seven CSV files and a `manifest.json` to `./output`:
 
 ```text
 products.csv
@@ -28,6 +28,7 @@ orders.csv
 order_items.csv
 returns.csv
 marketing_spend.csv
+manifest.json
 ```
 
 Use `--format json` for records-oriented JSON files or `--format all` for both CSV
@@ -60,7 +61,8 @@ ecomgen generate [OPTIONS]
 --months INTEGER        Number of months; must be at least 1. Default: 12
 --start-date DATE       Start of the generation window. Default: 2024-01-01
 --seed INTEGER          Random seed. Default: 42
---out PATH              Output directory. Default: dataset
+--out PATH              Output directory: new, empty, or an earlier ecomgen
+                        export, which is replaced. Default: dataset
 --format [csv|json|all] Dataset export format. Default: csv
 --shopify-export        Also write products_shopify.csv. Default: disabled
 --help                  Show command help.
@@ -84,7 +86,10 @@ ecomgen generate --markets uk,ch --months 6 --start-date 2025-01-01 --out ./outp
 
 Bundled market codes are `de`, `at`, `ch`, `fr`, `be`, `es`, `it`, `nl`, and `uk`.
 Repeated market codes are de-duplicated. An unknown market, an empty market list, or
-an unknown preset causes generation to exit with status 1.
+an unknown preset causes generation to exit with status 1. So does an `--out`
+directory that is not empty and is not an earlier ecomgen export; see
+[Output directory and manifest](#output-directory-and-manifest). Pressing Ctrl+C
+prints `Aborted`, leaves the destination untouched, and exits with status 130.
 
 ### `ecomgen presets`
 
@@ -254,6 +259,56 @@ The export is for product import workflows only; it does not import customers,
 orders, returns, or marketing data. Variant prices are the neutral EUR catalog
 prices, not market-converted prices, and inventory is the remaining generated
 inventory.
+
+## Output directory and manifest
+
+Every export is atomic. All files are written and flushed to disk in a temporary
+directory next to `--out`, which then replaces `--out` as a whole. An interrupted or
+failed run never leaves a half-written or mixed dataset behind.
+
+- A new or empty `--out` directory is always accepted.
+- An earlier ecomgen export (a directory with an ecomgen `manifest.json` and only
+  the files it lists) is replaced completely. Tables from the earlier run that the
+  new run does not write, such as JSON files after switching to `--format csv`,
+  are removed.
+- Any other non-empty directory is refused with exit status 1, so ecomgen never
+  deletes files it did not write.
+
+Windows cannot atomically replace a non-empty directory, so an existing export is
+swapped with two renames: the old directory moves to a hidden `.<name>.old-*`
+sibling, the new one moves into place, and the old one is deleted. If the process
+is killed in the instant between the two renames, `--out` is missing and the
+previous export survives in that `.old-*` directory. A hard kill during writing can
+leave a `.<name>.tmp-*` sibling, which is safe to delete; `--out` itself is never
+partially written.
+
+`manifest.json` describes the export. It contains no timestamps, so a fixed seed
+and arguments give an identical manifest:
+
+```json
+{
+  "generator": "ecomgen",
+  "version": "0.1.0",
+  "arguments": {
+    "preset": "garden-decor",
+    "markets": ["de", "at", "fr"],
+    "customers": 5000,
+    "months": 12,
+    "start_date": "2024-01-01",
+    "seed": 42,
+    "format": "csv",
+    "shopify_export": false
+  },
+  "files": {
+    "customers.csv": {"rows": 5000, "sha256": "..."},
+    "...": {}
+  }
+}
+```
+
+`rows` counts data rows: CSV rows after the header, or the length of a JSON array.
+Every file written is listed, including `products_shopify.csv`. The SHA-256 digests
+detect edited, truncated, or swapped tables.
 
 ## Summary output
 

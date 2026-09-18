@@ -7,6 +7,8 @@ from pathlib import Path
 
 from ecomgen.schemas import Dataset
 
+from ._io import record_values, sync_file
+
 
 def export_json(dataset: Dataset, output_dir: str | Path) -> list[Path]:
     """Write one records-oriented JSON array per exact dataset table."""
@@ -16,10 +18,9 @@ def export_json(dataset: Dataset, output_dir: str | Path) -> list[Path]:
     paths: list[Path] = []
     for table_name, records in dataset.tables().items():
         path = destination / f"{table_name}.json"
-        rows = [record.model_dump(mode="json") for record in records]
-        path.write_text(
-            json.dumps(rows, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
+        rows = [record_values(record) for record in records]
+        with path.open("w", encoding="utf-8") as handle:
+            handle.write(json.dumps(rows, ensure_ascii=False, indent=2))
+            sync_file(handle)
         paths.append(path)
     return paths

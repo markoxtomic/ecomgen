@@ -13,7 +13,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 
 from ecomgen.config import available_presets
-from ecomgen.exporters import export_csv, export_json, export_shopify
+from ecomgen.exporters import check_output_dir, export_dataset
 from ecomgen.pipeline import (
     DEFAULT_CUSTOMERS,
     DEFAULT_MARKETS,
@@ -88,34 +88,79 @@ def generate(
 
     market_codes = tuple(code.strip().lower() for code in markets.split(",") if code.strip())
     try:
-        parsed_start_date = date.fromisoformat(start_date)
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("{task.description}"),
-            console=console,
-            transient=True,
-        ) as progress:
-            progress.add_task("Generating dataset", total=None)
-            dataset = generate_dataset(
-                preset=preset,
-                markets=market_codes,
-                customers=customers,
-                months=months,
-                start_date=parsed_start_date,
-                seed=seed,
-            )
-        if format in {ExportFormat.csv, ExportFormat.all}:
-            export_csv(dataset, out)
-        if format in {ExportFormat.json, ExportFormat.all}:
-            export_json(dataset, out)
-        if shopify_export:
-            export_shopify(dataset, out)
+        dataset = _generate_and_export(
+            preset=preset,
+            market_codes=market_codes,
+            customers=customers,
+            months=months,
+            start_date=start_date,
+            seed=seed,
+            out=out,
+            format=format,
+            shopify_export=shopify_export,
+        )
+    except KeyboardInterrupt:
+        console.print("[red]Aborted[/red]: no output was written to the destination.")
+        raise typer.Exit(code=130) from None
     except (OSError, ValueError) as exc:
         console.print(f"[red]Error:[/red] {exc}", highlight=False)
         raise typer.Exit(code=1) from None
 
     console.print(f"Exported to {out}")
     _summary(dataset)
+
+
+def _generate_and_export(
+    *,
+    preset: str,
+    market_codes: tuple[str, ...],
+    customers: int,
+    months: int,
+    start_date: str,
+    seed: int,
+    out: Path,
+    format: ExportFormat,
+    shopify_export: bool,
+) -> Dataset:
+    parsed_start_date = date.fromisoformat(start_date)
+    check_output_dir(out)
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("{task.description}"),
+        console=console,
+        transient=True,
+    ) as progress:
+        progress.add_task("Generating dataset", total=None)
+        dataset = generate_dataset(
+            preset=preset,
+            markets=market_codes,
+            customers=customers,
+            months=months,
+            start_date=parsed_start_date,
+            seed=seed,
+        )
+    formats = {
+        ExportFormat.csv: ("csv",),
+        ExportFormat.json: ("json",),
+        ExportFormat.all: ("csv", "json"),
+    }[format]
+    export_dataset(
+        dataset,
+        out,
+        formats=formats,
+        shopify=shopify_export,
+        arguments={
+            "preset": preset,
+            "markets": list(dict.fromkeys(market_codes)),
+            "customers": customers,
+            "months": months,
+            "start_date": parsed_start_date.isoformat(),
+            "seed": seed,
+            "format": format.value,
+            "shopify_export": shopify_export,
+        },
+    )
+    return dataset
 
 
 @app.command("presets")

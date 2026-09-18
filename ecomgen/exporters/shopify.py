@@ -8,6 +8,8 @@ from pathlib import Path
 
 from ecomgen.schemas import Dataset
 
+from ._io import sync_file
+
 SHOPIFY_HEADERS = (
     "Handle",
     "Title",
@@ -53,4 +55,5 @@ def export_shopify(dataset: Dataset, output_dir: str | Path) -> Path:
                     "Variant Inventory Qty": variant.inventory,
                 }
             )
+        sync_file(handle)
     return path
