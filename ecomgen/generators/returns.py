@@ -2,15 +2,19 @@
 
 from __future__ import annotations
 
+from collections import defaultdict
 from collections.abc import Sequence
-from datetime import timedelta
+from datetime import datetime, timedelta
 from decimal import Decimal
 
 import numpy as np
 
-from ecomgen.accounting import item_paid_value
+from ecomgen.accounting import item_paid_values
 from ecomgen.config.models import PresetConfig
 from ecomgen.schemas import Order, OrderItem, Product, Return, Variant
+
+RETURN_DELAY_MIN_DAYS = 3
+RETURN_DELAY_MAX_DAYS = 30
 
 
 def _unique_by_id(records: Sequence[object], name: str) -> dict[str, object]:
@@ -34,15 +38,17 @@ def generate_returns(
     orders: Sequence[Order],
     order_items: Sequence[OrderItem],
     rng: np.random.Generator,
+    *,
+    return_cutoff: datetime | None = None,
 ) -> list[Return]:
     """Sample at most one return per item using its product category settings.
 
-    Refunds are what the customer paid for the whole line in the order's
-    currency: the line value less its share of the order discount, plus the
-    matching share of the order's tax (see ``ecomgen.accounting``). Item ids
-    are required to be unique and each item is sampled once, so an order item
-    never receives more than one return and cumulative refunds can never exceed
-    its paid value. All randomness comes from the caller-provided NumPy generator.
+    Refunds are the VAT-inclusive line value less its share of the order
+    discount (see ``ecomgen.accounting``). When ``return_cutoff`` is supplied,
+    returns after that inclusive boundary are omitted. Item ids are required to
+    be unique and each item is sampled once, so an order item never receives
+    more than one return and cumulative refunds can never exceed its paid value.
+    All randomness comes from the caller-provided NumPy generator.
     """
 
     product_by_id = _unique_by_id(products, "product")
@@ -76,6 +82,15 @@ def generate_returns(
     if unknown_categories:
         raise ValueError(f"products use categories absent from the preset: {unknown_categories}")
 
+    items_by_order: defaultdict[str, list[OrderItem]] = defaultdict(list)
+    for item in order_items:
+        items_by_order[item.order_id].append(item)
+    paid_values = {
+        item_id: paid_value
+        for order_id, related_items in items_by_order.items()
+        for item_id, paid_value in item_paid_values(order_by_id[order_id], related_items).items()
+    }
+
     returns: list[Return] = []
     for item in order_items:
         variant = variant_by_id[item.variant_id]
@@ -85,8 +100,19 @@ def generate_returns(
             continue
 
         order = order_by_id[item.order_id]
-        delay_days = int(rng.integers(3, 31))
-        refund = item_paid_value(order, item)
+        max_delay_days = RETURN_DELAY_MAX_DAYS
+        if return_cutoff is not None:
+            try:
+                available_days = (return_cutoff - order.created_at) // timedelta(days=1)
+            except TypeError as exc:
+                raise ValueError(
+                    "return_cutoff timezone awareness must match order created_at"
+                ) from exc
+            max_delay_days = min(max_delay_days, available_days)
+        if max_delay_days < RETURN_DELAY_MIN_DAYS:
+            continue
+        delay_days = int(rng.integers(RETURN_DELAY_MIN_DAYS, int(max_delay_days) + 1))
+        refund = paid_values[item.id]
         returns.append(
             Return(
                 id=f"ret-{len(returns) + 1:09d}",

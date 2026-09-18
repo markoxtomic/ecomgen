@@ -5,7 +5,7 @@ from __future__ import annotations
 import calendar
 import re
 from collections.abc import Mapping, Sequence
-from datetime import UTC, date, datetime, timedelta
+from datetime import UTC, date, datetime
 from decimal import ROUND_FLOOR, Decimal
 from typing import TypeAlias
 
@@ -13,6 +13,7 @@ import numpy as np
 from faker import Faker
 
 from ecomgen.config.models import MarketConfig, PresetConfig
+from ecomgen.generators.local_time import LocalDaySampler, as_utc, window_day_samplers
 from ecomgen.schemas import Customer
 
 MarketMapping: TypeAlias = Mapping[str, MarketConfig]
@@ -64,7 +65,7 @@ def _window(start_date: date | datetime, months: int) -> tuple[datetime, datetim
         raise ValueError("months must be positive")
 
     if isinstance(start_date, datetime):
-        start = start_date
+        start = as_utc(start_date)
     else:
         start = datetime.combine(start_date, datetime.min.time(), tzinfo=UTC)
 
@@ -74,12 +75,6 @@ def _window(start_date: date | datetime, months: int) -> tuple[datetime, datetim
     end_day = min(start.day, calendar.monthrange(end_year, end_month)[1])
     end = start.replace(year=end_year, month=end_month, day=end_day)
     return start, end
-
-
-def _created_at(start: datetime, end: datetime, rng: np.random.Generator) -> datetime:
-    span_microseconds = (end - start) // datetime.resolution
-    offset = int(rng.integers(0, span_microseconds))
-    return start + offset * datetime.resolution
 
 
 def _channel(config: PresetConfig, rng: np.random.Generator) -> str:
@@ -107,17 +102,20 @@ def _acquired_customers(
         raise ValueError(f"acquisitions reference unknown markets: {unknown}")
     start, end = _window(start_date, months)
     customers: list[Customer] = []
-    for market_code, _, faker in market_values:
+    for market_code, market_config, faker in market_values:
         planned: list[tuple[datetime, str]] = []
-        for (market, day, channel), quantity in sorted(acquisitions.items()):
-            if market != market_code or quantity <= 0:
+        for (acquisition_market, day, channel), quantity in sorted(acquisitions.items()):
+            if acquisition_market != market_code or quantity <= 0:
                 continue
-            day_start = datetime.combine(day, datetime.min.time(), tzinfo=start.tzinfo)
-            lower = max(day_start, start)
-            upper = min(day_start + timedelta(days=1), end)
-            if lower >= upper:
+            sampler = LocalDaySampler(
+                market_config,
+                day,
+                lower=start,
+                upper=end,
+            )
+            if not sampler.has_weighted_time:
                 raise ValueError(f"acquisition date {day} is outside the generation window")
-            planned.extend((_created_at(lower, upper, rng), channel) for _ in range(quantity))
+            planned.extend((sampler.sample(rng), channel) for _ in range(quantity))
         planned.sort()
         for market_number, (created_at, channel) in enumerate(planned, start=1):
             customer_id = f"cust-{market_code}-{market_number:06d}"
@@ -161,10 +159,10 @@ def generate_customers(
 
     ``acquisitions``, typically from ``generate_marketing``, maps
     ``(market, date, channel)`` to the number of customers acquired that day;
-    it must sum to ``count``. Each such customer is created at a uniform time
-    on that date (within the window) with that acquisition channel. Without it,
-    creation times are uniform over the window and channels follow the
-    preset's channel weights.
+    it must sum to ``count``. Each such customer is created on that market-local
+    date using its configured hourly profile and acquisition channel. Without
+    it, local dates are sampled across the window and channels follow the
+    preset's channel weights. All timestamps are returned in UTC.
     """
 
     if count < 0:
@@ -177,9 +175,11 @@ def generate_customers(
     start, end = _window(start_date, months)
     customers: list[Customer] = []
 
-    for market_code, _, faker in market_values:
+    for market_code, market, faker in market_values:
+        samplers = window_day_samplers(market, start, end)
         for market_number in range(1, allocations[market_code] + 1):
             customer_id = f"cust-{market_code}-{market_number:06d}"
+            sampler = samplers[int(rng.integers(len(samplers)))]
             customers.append(
                 Customer(
                     id=customer_id,
@@ -188,7 +188,7 @@ def generate_customers(
                     first_name=faker.first_name(),
                     last_name=faker.last_name(),
                     city=faker.city(),
-                    created_at=_created_at(start, end, rng),
+                    created_at=sampler.sample(rng),
                     acquisition_channel=_channel(config, rng),
                 )
             )

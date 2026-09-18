@@ -4,12 +4,14 @@ from decimal import Decimal
 import numpy as np
 import pytest
 
+from ecomgen.accounting import item_paid_values
 from ecomgen.config import load_preset
 from ecomgen.generators import generate_returns
 from ecomgen.schemas import Order, OrderItem, Product, Variant
 
 
 def _inputs(item_count: int = 4_000):
+    subtotal = Decimal("39.98") * item_count
     product = Product(
         id="product-1",
         title="Test shirt",
@@ -34,11 +36,11 @@ def _inputs(item_count: int = 4_000):
         market="de",
         created_at=datetime(2025, 1, 1, 12, tzinfo=UTC),
         currency="EUR",
-        subtotal=Decimal("39.98"),
+        subtotal=subtotal,
         discount=Decimal("0.00"),
         shipping=Decimal("0.00"),
         tax=Decimal("0.00"),
-        total=Decimal("39.98"),
+        total=subtotal,
         discount_code=None,
         is_repeat=False,
     )
@@ -111,3 +113,32 @@ def test_returns_are_deterministic_and_validate_foreign_keys() -> None:
             [items[0].model_copy(update={"variant_id": "missing"})],
             np.random.default_rng(7),
         )
+
+
+def test_full_line_refunds_use_order_level_cent_allocation() -> None:
+    preset = load_preset("fashion")
+    category = preset.categories["tops"].model_copy(
+        update={"return_rate": Decimal("1.00"), "return_reasons": {"test": Decimal("1.00")}}
+    )
+    preset = preset.model_copy(update={"categories": {"tops": category}})
+    products, variants, orders, items = _inputs(3)
+    order = orders[0].model_copy(
+        update={
+            "subtotal": Decimal("0.03"),
+            "discount": Decimal("0.01"),
+            "total": Decimal("0.02"),
+            "discount_code": "SAVE33",
+        }
+    )
+    items = [
+        item.model_copy(update={"id": item_id, "quantity": 1, "unit_price": Decimal("0.01")})
+        for item, item_id in zip(items, ("item-c", "item-a", "item-b"), strict=True)
+    ]
+
+    generated = generate_returns(
+        preset, products, variants, [order], items, np.random.default_rng(11)
+    )
+    expected = item_paid_values(order, items)
+
+    assert len(generated) == len(items)
+    assert {returned.order_item_id: returned.refund_amount for returned in generated} == expected

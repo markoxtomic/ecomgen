@@ -18,6 +18,7 @@ dependencies = [
     "numpy",
     "faker",
     "pyyaml",
+    "tzdata",
 ]
 
 [project.optional-dependencies]

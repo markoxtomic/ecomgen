@@ -4,6 +4,7 @@ import re
 from datetime import date
 from decimal import Decimal
 from typing import Any, Self
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from pydantic import (
     BaseModel,
@@ -23,6 +24,12 @@ class ConfigModel(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
 
+class TitleWordsConfig(ConfigModel):
+    adjectives: list[str] = Field(min_length=1)
+    materials: list[str] = Field(min_length=1)
+    nouns: list[str] = Field(min_length=1)
+
+
 class MarketConfig(ConfigModel):
     code: str = Field(pattern=r"^[a-z]{2}$")
     currency: str = Field(pattern=r"^[A-Z]{3}$")
@@ -31,6 +38,26 @@ class MarketConfig(ConfigModel):
     fx_rate_from_eur: Decimal = Field(gt=0)
     shipping_cost: Decimal = Field(ge=0)
     demand_weight: Decimal = Field(gt=0)
+    timezone: str
+    order_hour_weights: tuple[Decimal, ...] = Field(min_length=24, max_length=24)
+
+    @field_validator("timezone")
+    @classmethod
+    def validate_timezone(cls, value: str) -> str:
+        try:
+            ZoneInfo(value)
+        except (ZoneInfoNotFoundError, ValueError):
+            raise ValueError(f"timezone {value!r} must be a valid IANA timezone") from None
+        return value
+
+    @field_validator("order_hour_weights")
+    @classmethod
+    def validate_hour_weights(cls, value: tuple[Decimal, ...]) -> tuple[Decimal, ...]:
+        if any(not weight.is_finite() or weight < 0 for weight in value):
+            raise ValueError("order_hour_weights must contain 24 finite nonnegative weights")
+        if sum(value, Decimal(0)) <= 0:
+            raise ValueError("order_hour_weights must have a positive sum")
+        return value
 
 
 class CategoryConfig(ConfigModel):
@@ -39,11 +66,12 @@ class CategoryConfig(ConfigModel):
     variant_options: dict[str, list[str]]
     return_rate: Decimal = Field(ge=0, le=1)
     return_reasons: dict[str, Decimal]
+    title_words: TitleWordsConfig
 
     @model_validator(mode="after")
     def validate_ranges_and_weights(self) -> Self:
-        if self.price_range[0] < 0 or self.price_range[0] > self.price_range[1]:
-            raise ValueError("price_range must be non-negative and ordered")
+        if self.price_range[0] <= 0 or self.price_range[0] > self.price_range[1]:
+            raise ValueError("price_range must be strictly positive and ordered")
         low, high = self.cost_ratio_range
         if low < 0 or high > 1 or low > high:
             raise ValueError("cost_ratio_range must be between 0 and 1 and ordered")
@@ -128,12 +156,6 @@ class InventoryConfig(ConfigModel):
     cover_days: int = Field(default=45, ge=0, le=3650)
 
 
-class TitleWordsConfig(ConfigModel):
-    adjectives: list[str] = Field(min_length=1)
-    materials: list[str] = Field(min_length=1)
-    nouns: list[str] = Field(min_length=1)
-
-
 class PresetConfig(ConfigModel):
     name: str
     categories: dict[str, CategoryConfig] = Field(min_length=1)
@@ -155,7 +177,6 @@ class PresetConfig(ConfigModel):
     channel_mix: dict[str, ChannelConfig]
     repeat_purchase: RepeatPurchaseConfig
     discount: DiscountConfig
-    title_words: TitleWordsConfig
     inventory: InventoryConfig = Field(default_factory=InventoryConfig)
 
     @field_validator("special_spikes", mode="wrap")
@@ -183,4 +204,11 @@ class PresetConfig(ConfigModel):
         total = sum((channel.weight for channel in self.channel_mix.values()), Decimal(0))
         if abs(total - Decimal(1)) > Decimal("0.0001"):
             raise ValueError("channel_mix weights must sum to 1")
+        for name in ("email", "google", "meta"):
+            channel = self.channel_mix[name]
+            if channel.weight > 0 and channel.cac_range[0] <= 0:
+                raise ValueError(
+                    f"paid channel {name!r} must have a positive minimum CAC "
+                    "when its weight is positive"
+                )
         return self

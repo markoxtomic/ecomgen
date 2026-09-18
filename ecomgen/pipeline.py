@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import hashlib
 from collections.abc import Callable
-from datetime import date
+from datetime import date, timedelta
 from decimal import Decimal
 
 import numpy as np
@@ -18,7 +18,8 @@ from ecomgen.generators import (
     generate_products,
     generate_returns,
 )
-from ecomgen.generators.orders import check_stockouts
+from ecomgen.generators.orders import check_stockouts, order_window
+from ecomgen.generators.returns import RETURN_DELAY_MAX_DAYS, RETURN_DELAY_MIN_DAYS
 from ecomgen.schemas import Dataset
 
 DEFAULT_PRESET = "garden-decor"
@@ -27,6 +28,26 @@ DEFAULT_CUSTOMERS = 5_000
 DEFAULT_MONTHS = 12
 DEFAULT_START_DATE = date(2024, 1, 1)
 DEFAULT_SEED = 42
+SCHEMA_VERSION = 1
+PRICING_MODE = "gross_vat_inclusive"
+
+
+def manifest_metadata(start_date: date, months: int) -> dict[str, object]:
+    """Build deterministic metadata describing one generation window."""
+
+    order_start, order_end = order_window(start_date, months)
+    return_cutoff = order_end + timedelta(days=RETURN_DELAY_MAX_DAYS)
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "pricing_mode": PRICING_MODE,
+        "order_window_start": order_start.date().isoformat(),
+        "order_window_end": order_end.date().isoformat(),
+        "return_cutoff": return_cutoff.date().isoformat(),
+        "return_delay_days": {
+            "min": RETURN_DELAY_MIN_DAYS,
+            "max": RETURN_DELAY_MAX_DAYS,
+        },
+    }
 
 
 def _faker_seed(seed: int, market: str) -> int:
@@ -71,6 +92,8 @@ def generate_dataset(
         raise ValueError("customers must be non-negative")
     if months <= 0:
         raise ValueError("months must be positive")
+    _, order_end = order_window(start_date, months)
+    return_cutoff = order_end + timedelta(days=RETURN_DELAY_MAX_DAYS)
 
     market_codes = tuple(dict.fromkeys(code.strip().lower() for code in markets if code.strip()))
     if not market_codes:
@@ -142,6 +165,7 @@ def generate_dataset(
         order_result.orders,
         order_result.order_items,
         rng,
+        return_cutoff=return_cutoff,
     )
 
     if progress is not None:

@@ -8,6 +8,10 @@ categories:
       color: [Black, White, Navy, Sage]
     return_rate: 0.22
     return_reasons: {wrong_size: 0.50, not_as_expected: 0.22, changed_mind: 0.18, damaged: 0.10}
+    title_words:
+      adjectives: [Relaxed, Tailored, Essential, Soft]
+      materials: [Linen, Cotton, Wool]
+      nouns: [Shirt, Blouse, Tee]
   dresses:
     price_range: [55, 240]
     cost_ratio_range: [0.25, 0.42]
@@ -16,6 +20,10 @@ categories:
       color: [Black, Berry, Floral, Sand]
     return_rate: 0.28
     return_reasons: {wrong_size: 0.55, not_as_expected: 0.25, changed_mind: 0.15, damaged: 0.05}
+    title_words:
+      adjectives: [Flowing, Evening, Studio, Draped]
+      materials: [Satin, Linen, Velvet]
+      nouns: [Dress, Gown, Sundress]
   accessories:
     price_range: [15, 160]
     cost_ratio_range: [0.20, 0.36]
@@ -24,6 +32,10 @@ categories:
       style: [Classic, Modern]
     return_rate: 0.10
     return_reasons: {not_as_expected: 0.35, changed_mind: 0.35, wrong_size: 0.20, damaged: 0.10}
+    title_words:
+      adjectives: [Classic, Modern, Polished, Everyday]
+      materials: [Leather, Wool, Silk]
+      nouns: [Scarf, Tote, Belt]
 seasonality: [0.82, 0.80, 1.02, 1.08, 1.10, 1.00, 0.92, 0.98, 1.18, 1.12, 1.45, 1.28]
 special_spikes:
   - {name: summer-sale, start: "07-01", end: "07-14", multiplier: 1.40}
@@ -37,8 +49,4 @@ channel_mix:
   direct: {weight: 0.10, cac_range: [0, 2]}
 repeat_purchase: {probability: 0.29, average_days: 72}
 discount: {usage_rate: 0.42, depth_range: [0.10, 0.35]}
-title_words:
-  adjectives: [Relaxed, Tailored, Essential, Soft, Studio]
-  materials: [Linen, Cotton, Satin, Wool, Leather]
-  nouns: [Shirt, Dress, Cardigan, Scarf, Tote]
 inventory: {reorder_point: 30, restock_quantity: 120, lead_time_days: 10, cover_days: 45}

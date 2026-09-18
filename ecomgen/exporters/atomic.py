@@ -102,9 +102,10 @@ def _install(staging: Path, destination: Path) -> None:
     backup.rmdir()
     _retry(lambda: os.rename(destination, backup))
     try:
+        check_output_dir(backup)
         _retry(lambda: os.rename(staging, destination))
     except BaseException:
-        os.rename(backup, destination)
+        _retry(lambda: os.rename(backup, destination))
         raise
     _sync_directory(destination.parent)
     shutil.rmtree(backup, ignore_errors=True)
@@ -117,6 +118,7 @@ def export_dataset(
     formats: Collection[str] = ("csv",),
     shopify: bool = False,
     arguments: Mapping[str, Any] | None = None,
+    metadata: Mapping[str, Any] | None = None,
 ) -> Path:
     """Atomically write ``dataset`` and its ``manifest.json`` to ``destination``.
 
@@ -137,7 +139,7 @@ def export_dataset(
             export_json(dataset, staging)
         if shopify:
             export_shopify(dataset, staging)
-        write_manifest(staging, arguments or {})
+        write_manifest(staging, arguments or {}, metadata=metadata)
         check_output_dir(target)
         _install(staging, target)
     except BaseException:

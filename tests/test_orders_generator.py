@@ -134,9 +134,10 @@ def test_repeat_rate_tracks_preset_probability() -> None:
     assert Decimal("0.19") <= Decimal(str(repeat_rate)) <= Decimal("0.29")
 
 
-def test_money_totals_discounts_and_psychological_prices_are_exact() -> None:
+def test_money_totals_are_gross_vat_inclusive_and_psychological_prices_are_exact() -> None:
     result, _, _, _ = _generated()
     preset = load_preset("garden-decor")
+    market = load_markets()["de"]
     items_by_order = defaultdict(list)
     for item in result.order_items:
         items_by_order[item.order_id].append(item)
@@ -154,9 +155,11 @@ def test_money_totals_discounts_and_psychological_prices_are_exact() -> None:
             Decimal("0.00"),
         )
         assert order.subtotal == expected_subtotal
-        assert order.total == order.subtotal - order.discount + order.shipping + order.tax
+        assert order.shipping == market.shipping_cost
+        gross_taxable = order.subtotal - order.discount + order.shipping
+        assert order.total == gross_taxable
         assert order.tax == (
-            (order.subtotal - order.discount + order.shipping) * Decimal("0.19")
+            gross_taxable * market.vat_rate / (Decimal(1) + market.vat_rate)
         ).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
         for amount in (
             order.subtotal,

@@ -16,6 +16,7 @@ import numpy as np
 
 from ecomgen.config.models import InventoryConfig, MarketConfig, PresetConfig
 from ecomgen.errors import GenerationWarning, StockoutError
+from ecomgen.generators.local_time import LocalDaySampler, as_utc
 from ecomgen.schemas import Customer, Order, OrderItem, Product, Variant
 
 _CENT = Decimal("0.01")
@@ -49,11 +50,13 @@ class OrderGenerationResult(NamedTuple):
     dropped_orders: int = 0
 
 
-def _window(start_date: date | datetime, months: int) -> tuple[datetime, datetime]:
+def order_window(start_date: date | datetime, months: int) -> tuple[datetime, datetime]:
+    """Return the inclusive start and exclusive end of an order window."""
+
     if months <= 0:
         raise ValueError("months must be positive")
     if isinstance(start_date, datetime):
-        start = start_date
+        start = as_utc(start_date)
     else:
         start = datetime.combine(start_date, time.min, tzinfo=UTC)
 
@@ -62,6 +65,12 @@ def _window(start_date: date | datetime, months: int) -> tuple[datetime, datetim
     end_month = month_index % 12 + 1
     end_day = min(start.day, calendar.monthrange(end_year, end_month)[1])
     return start, start.replace(year=end_year, month=end_month, day=end_day)
+
+
+def _window(start_date: date | datetime, months: int) -> tuple[datetime, datetime]:
+    """Backward-compatible private alias for ``order_window``."""
+
+    return order_window(start_date, months)
 
 
 def _market_values(
@@ -175,6 +184,15 @@ def max_repeat_orders(config: PresetConfig, window_days: int) -> int:
     return max(1, math.ceil(2 * window_days / config.repeat_purchase.average_days))
 
 
+def _repeat_attempt_probability(config: PresetConfig, window_days: int) -> float:
+    """Correct repeat attempts for intervals censored by the generation window."""
+
+    target = float(config.repeat_purchase.probability)
+    relative_window = window_days / config.repeat_purchase.average_days
+    observable_mass = 1.0 + math.expm1(-relative_window) / relative_window
+    return min(1.0, target / observable_mass)
+
+
 class _CustomerPool:
     """Incremental first-order and repeat-order candidate indexes for one market.
 
@@ -206,7 +224,7 @@ class _CustomerPool:
         self._last_order_us = np.zeros(len(self.customers), dtype=np.int64)
         self._day_start_us = 0
         self._repeat_positions: np.ndarray | None = None
-        self._repeat_weights: np.ndarray | None = None
+        self._repeat_elapsed_days: np.ndarray | None = None
         self._repeat_mask_positions = np.empty(0, dtype=np.int64)
 
     def start_day(self, day_start: datetime, day_end: datetime) -> None:
@@ -224,36 +242,38 @@ class _CustomerPool:
             & (self._order_counts <= self._max_repeats)
         )
         self._repeat_positions = None
-        self._repeat_weights = None
+        self._repeat_elapsed_days = None
 
     def has_repeat_candidates(self) -> bool:
         if self._repeat_positions is not None:
             return bool(len(self._repeat_positions))
         return bool(len(self._repeat_mask_positions))
 
-    def _repeat_candidates(self, average_days: int) -> tuple[np.ndarray, np.ndarray]:
-        if self._repeat_positions is None or self._repeat_weights is None:
+    def _repeat_candidates(self) -> tuple[np.ndarray, np.ndarray]:
+        if self._repeat_positions is None or self._repeat_elapsed_days is None:
             positions = self._repeat_mask_positions
             elapsed_us = self._day_start_us - self._last_order_us[positions]
-            days = elapsed_us.astype(np.float64) / 1e6 / 86400
             self._repeat_positions = positions
-            self._repeat_weights = np.exp(-np.maximum(1.0, days) / average_days)
-        return self._repeat_positions, self._repeat_weights
+            self._repeat_elapsed_days = elapsed_us.astype(np.float64) / 1e6 / 86400
+        return self._repeat_positions, self._repeat_elapsed_days
 
-    def choose_repeat(self, average_days: int, rng: np.random.Generator) -> int:
-        """Return a repeat candidate's index; ``commit_repeat`` removes it."""
+    def choose_repeat(self, average_days: int, rng: np.random.Generator) -> int | None:
+        """Choose the buyer closest to an exponentially sampled repeat interval."""
 
-        _, weights = self._repeat_candidates(average_days)
-        return _weighted_index(weights, rng)
+        _, elapsed_days = self._repeat_candidates()
+        target_days = rng.exponential(float(average_days))
+        if target_days > elapsed_days.max():
+            return None
+        return int(np.argmin(np.abs(elapsed_days - target_days)))
 
     def repeat_position(self, index: int) -> int:
         assert self._repeat_positions is not None
         return int(self._repeat_positions[index])
 
     def commit_repeat(self, index: int) -> None:
-        assert self._repeat_positions is not None and self._repeat_weights is not None
+        assert self._repeat_positions is not None and self._repeat_elapsed_days is not None
         self._repeat_positions = np.delete(self._repeat_positions, index)
-        self._repeat_weights = np.delete(self._repeat_weights, index)
+        self._repeat_elapsed_days = np.delete(self._repeat_elapsed_days, index)
 
     def choose_first(self, rng: np.random.Generator) -> int:
         """Return a first-order candidate's index; ``commit_first`` removes it."""
@@ -272,16 +292,15 @@ class _CustomerPool:
 def _choose_customer(
     pool: _CustomerPool,
     config: PresetConfig,
+    repeat_attempt_probability: float,
     rng: np.random.Generator,
 ) -> tuple[int, int, bool] | None:
     """Return ``(candidate index, customer position, is_repeat)`` or ``None``."""
 
-    choose_repeat = bool(
-        pool.has_repeat_candidates() and rng.random() < float(config.repeat_purchase.probability)
-    )
-    if choose_repeat:
+    if pool.has_repeat_candidates() and rng.random() < repeat_attempt_probability:
         index = pool.choose_repeat(config.repeat_purchase.average_days, rng)
-        return index, pool.repeat_position(index), True
+        if index is not None:
+            return index, pool.repeat_position(index), True
     if pool.first_pool:
         index = pool.choose_first(rng)
         return index, pool.first_pool[index], False
@@ -292,16 +311,10 @@ def _choose_customer(
 
 def _order_timestamp(
     customer: Customer,
-    day_start: datetime,
-    day_end: datetime,
-    window_start: datetime,
+    sampler: LocalDaySampler,
     rng: np.random.Generator,
 ) -> datetime:
-    lower = max(day_start, window_start, customer.created_at)
-    span_microseconds = (day_end - lower) // datetime.resolution
-    if span_microseconds <= 1:
-        return lower
-    return lower + int(rng.integers(0, span_microseconds)) * datetime.resolution
+    return sampler.sample(rng, not_before=customer.created_at)
 
 
 def _discount(
@@ -473,7 +486,9 @@ def generate_orders(
             f"customer created_at timezone awareness must match start_date: {incompatible[:5]}"
         )
 
-    max_repeats = max_repeat_orders(config, (end - start).days)
+    window_days = (end - start).days
+    max_repeats = max_repeat_orders(config, window_days)
+    repeat_attempt_probability = _repeat_attempt_probability(config, window_days)
     pools = {
         market.code: _CustomerPool(
             [customer for customer in customers if customer.market == market.code],
@@ -521,11 +536,14 @@ def generate_orders(
             continue
 
         for market in market_values:
+            sampler = LocalDaySampler(market, day, lower=start, upper=end)
+            if not sampler.has_weighted_time:
+                continue
             pool = pools[market.code]
-            pool.start_day(day_start, day_end)
+            pool.start_day(sampler.lower, sampler.upper)
             catalog = catalogs[market.code]
             for _ in range(_daily_order_count(config, market, day, base_demand, rng)):
-                choice = _choose_customer(pool, config, rng)
+                choice = _choose_customer(pool, config, repeat_attempt_probability, rng)
                 if choice is None:
                     continue
                 candidate_index, position, is_repeat = choice
@@ -545,16 +563,18 @@ def generate_orders(
 
                 order_number = len(orders) + 1
                 order_id = f"ord-{order_number:09d}"
-                created_at = _order_timestamp(customer, day_start, day_end, start, rng)
+                created_at = _order_timestamp(customer, sampler, rng)
                 subtotal = sum(
                     (unit_price * quantity for _, quantity, unit_price in basket),
                     Decimal("0.00"),
                 ).quantize(_CENT)
                 discount, discount_code = _discount(config, subtotal, rng)
                 shipping = market.shipping_cost.quantize(_CENT, rounding=ROUND_HALF_UP)
-                taxable = subtotal - discount + shipping
-                tax = (taxable * market.vat_rate).quantize(_CENT, rounding=ROUND_HALF_UP)
-                total = (taxable + tax).quantize(_CENT)
+                gross_taxable = subtotal - discount + shipping
+                tax = (gross_taxable * market.vat_rate / (Decimal(1) + market.vat_rate)).quantize(
+                    _CENT, rounding=ROUND_HALF_UP
+                )
+                total = gross_taxable.quantize(_CENT)
                 orders.append(
                     Order(
                         id=order_id,

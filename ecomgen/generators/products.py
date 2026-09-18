@@ -70,22 +70,6 @@ def _cost_for_price(
     return Decimal(int(rng.integers(low_cents, high_cents + 1))) * _CENT
 
 
-def _available_markets(
-    markets: tuple[MarketConfig, ...],
-    rng: np.random.Generator,
-) -> list[str]:
-    max_weight = max(float(market.demand_weight) for market in markets)
-    selected = [
-        market.code
-        for market in markets
-        if rng.random() < 0.55 + 0.40 * float(market.demand_weight) / max_weight
-    ]
-    if not selected:
-        weights = np.array([float(market.demand_weight) for market in markets])
-        selected = [markets[int(rng.choice(len(markets), p=weights / weights.sum()))].code]
-    return selected
-
-
 def generate_products(
     config: PresetConfig,
     markets: Mapping[str, MarketConfig] | Sequence[MarketConfig],
@@ -99,23 +83,44 @@ def generate_products(
     """
 
     market_values = _market_values(markets)
-    words = config.title_words
+    market_codes = [market.code for market in market_values]
     products: list[Product] = []
     variants: list[Variant] = []
     preset_slug = _slug(config.name)
+    used_titles: set[str] = set()
 
     for category_name, category in sorted(config.categories.items()):
         category_slug = _slug(category_name)
-        option_names = tuple(category.variant_options)
+        option_names = tuple(sorted(category.variant_options))
+        words = category.title_words
+        title_parts = [
+            (adjective, material, noun)
+            for adjective in words.adjectives
+            for material in words.materials
+            for noun in words.nouns
+        ]
+        title_order = rng.permutation(len(title_parts))
+        category_titles: list[tuple[str, str, str]] = []
+        for title_index in title_order:
+            parts = title_parts[int(title_index)]
+            normalized = " ".join(parts).casefold()
+            if normalized in used_titles:
+                continue
+            used_titles.add(normalized)
+            category_titles.append(parts)
+            if len(category_titles) == PRODUCTS_PER_CATEGORY:
+                break
+        if len(category_titles) < PRODUCTS_PER_CATEGORY:
+            raise ValueError(
+                f"category {category_name!r} needs at least {PRODUCTS_PER_CATEGORY} "
+                "globally unique title combinations"
+            )
 
         for number in range(1, PRODUCTS_PER_CATEGORY + 1):
             product_id = f"prod-{preset_slug}-{category_slug}-{number:03d}"
-            adjective = words.adjectives[int(rng.integers(len(words.adjectives)))]
-            material = words.materials[int(rng.integers(len(words.materials)))]
-            noun = words.nouns[int(rng.integers(len(words.nouns)))]
+            adjective, material, noun = category_titles[number - 1]
             title = f"{adjective} {material} {noun}"
             price = _random_decimal(*category.price_range, rng)
-            product_markets = _available_markets(market_values, rng)
 
             products.append(
                 Product(
@@ -128,7 +133,7 @@ def generate_products(
                     ),
                     price_eur=price,
                     cost_eur=_cost_for_price(price, category, rng),
-                    markets=product_markets,
+                    markets=market_codes.copy(),
                 )
             )
 

@@ -1,11 +1,11 @@
 from collections import Counter, defaultdict
 from dataclasses import replace
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal
 
 import pytest
 
-from ecomgen.accounting import item_paid_value
+from ecomgen.accounting import item_paid_values
 from ecomgen.pipeline import generate_dataset
 from ecomgen.schemas import Dataset, Return
 from ecomgen.validation import validate_dataset
@@ -27,7 +27,10 @@ def _dataset(preset: str, seed: int) -> Dataset:
 def test_generated_refunds_never_exceed_item_value_cumulatively(preset: str, seed: int) -> None:
     dataset = _dataset(preset, seed)
     items = {item.id: item for item in dataset.order_items}
-    orders = {order.id: order for order in dataset.orders}
+    paid_values: dict[str, Decimal] = {}
+    for order in dataset.orders:
+        related_items = [item for item in dataset.order_items if item.order_id == order.id]
+        paid_values.update(item_paid_values(order, related_items))
     refunded: defaultdict[str, Decimal] = defaultdict(Decimal)
     for returned in dataset.returns:
         refunded[returned.order_item_id] += returned.refund_amount
@@ -35,9 +38,21 @@ def test_generated_refunds_never_exceed_item_value_cumulatively(preset: str, see
     assert dataset.returns
     assert max(Counter(r.order_item_id for r in dataset.returns).values()) == 1
     for item_id, total in refunded.items():
-        item = items[item_id]
-        assert total <= item_paid_value(orders[item.order_id], item)
+        assert item_id in items
+        assert total <= paid_values[item_id]
     assert validate_dataset(dataset).valid
+
+
+def test_returns_are_strictly_after_orders_and_within_the_extended_window() -> None:
+    dataset = _dataset("fashion", 42)
+    orders = {order.id: order for order in dataset.orders}
+    order_window_end = datetime(2024, 7, 1, tzinfo=UTC)
+    return_cutoff = order_window_end + timedelta(days=30)
+
+    assert dataset.returns
+    for returned in dataset.returns:
+        assert returned.created_at > orders[returned.order_id].created_at
+        assert returned.created_at <= return_cutoff
 
 
 def _with_split_refund(dataset: Dataset, *shares: Decimal) -> tuple[Dataset, str, Decimal]:
@@ -45,7 +60,10 @@ def _with_split_refund(dataset: Dataset, *shares: Decimal) -> tuple[Dataset, str
 
     item = dataset.order_items[0]
     order = next(order for order in dataset.orders if order.id == item.order_id)
-    item_value = item_paid_value(order, item)
+    related_items = [
+        candidate for candidate in dataset.order_items if candidate.order_id == order.id
+    ]
+    item_value = item_paid_values(order, related_items)[item.id]
     returns = [
         Return(
             id=f"ret-crafted-{number}",

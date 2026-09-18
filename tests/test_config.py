@@ -5,6 +5,7 @@ import pytest
 from pydantic import ValidationError
 
 from ecomgen.config import available_presets, load_market, load_markets, load_preset
+from ecomgen.config.loader import _read_yaml
 from ecomgen.config.models import PresetConfig
 from ecomgen.generators.orders import _spike_multiplier
 
@@ -38,12 +39,49 @@ def test_unknown_market_name_is_rejected() -> None:
         load_market("xx")
 
 
+@pytest.mark.parametrize(
+    ("content", "message"),
+    [
+        ("name: [unterminated\n", "(?i)yaml"),
+        ("name: first\nname: second\n", "duplicate.*name"),
+        ("- name: not-a-mapping\n", "mapping"),
+    ],
+    ids=["syntax", "duplicate-key", "top-level-list"],
+)
+def test_invalid_yaml_is_rejected_with_actionable_error(
+    tmp_path, content: str, message: str
+) -> None:
+    path = tmp_path / "broken.yaml"
+    path.write_text(content, encoding="utf-8")
+
+    with pytest.raises(ValueError, match=message):
+        _read_yaml(path)
+
+
+def test_zero_category_prices_are_rejected() -> None:
+    raw = load_preset("garden-decor").model_dump(mode="python")
+    category = next(iter(raw["categories"].values()))
+    category["price_range"] = [Decimal(0), Decimal(0)]
+
+    with pytest.raises(ValidationError, match=r"price_range.*positive"):
+        PresetConfig.model_validate(raw)
+
+
 @pytest.mark.parametrize("length", [11, 13])
 def test_malformed_seasonality_is_rejected(length: int) -> None:
     raw = load_preset("garden-decor").model_dump(mode="python")
     raw["seasonality"] = [1] * length
 
     with pytest.raises(ValidationError, match="seasonality"):
+        PresetConfig.model_validate(raw)
+
+
+@pytest.mark.parametrize("channel", ["email", "google", "meta"])
+def test_weighted_paid_channels_require_positive_minimum_cac(channel: str) -> None:
+    raw = load_preset("garden-decor").model_dump(mode="python")
+    raw["channel_mix"][channel]["cac_range"] = [0, 0]
+
+    with pytest.raises(ValidationError, match=rf"paid channel '{channel}'.*positive minimum CAC"):
         PresetConfig.model_validate(raw)
 
 

@@ -34,6 +34,7 @@ from ecomgen.pipeline import (
     DEFAULT_SEED,
     DEFAULT_START_DATE,
     generate_dataset,
+    manifest_metadata,
 )
 from ecomgen.schemas import Dataset
 from ecomgen.validation import validate_path
@@ -231,13 +232,14 @@ def _generate_and_export(
         TextColumn("ETA"),
         TimeRemainingColumn(),
         console=console,
-        transient=True,
+        transient=False,
         disable=not console.is_terminal,
     ) as progress:
         task = progress.add_task("Generating dataset", total=None)
 
         def report(done: int, total: int) -> None:
             progress.update(task, completed=done, total=total)
+            progress.refresh()
 
         with warnings.catch_warnings(record=True) as caught:
             warnings.simplefilter("always", GenerationWarning)
@@ -282,6 +284,7 @@ def _generate_and_export(
             "format": format.value,
             "shopify_export": shopify_export,
         },
+        metadata=manifest_metadata(parsed_start_date, months),
     )
     return dataset, generation_warnings
 
@@ -300,7 +303,7 @@ def validate(
 ) -> None:
     """Validate an existing CSV or JSON dataset export."""
 
-    report = validate_path(path)
+    report = validate_path(path, require_manifest=True)
     if not report.valid:
         console.print("[red]Validation failed:[/red]")
         for error in report.errors:

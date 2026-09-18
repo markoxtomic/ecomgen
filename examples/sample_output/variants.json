@@ -2,326 +2,326 @@
   {
     "id": "var-garden-decor-garden-furniture-001-01",
     "product_id": "prod-garden-decor-garden-furniture-001",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-001-MATERIAL-ACACIA",
-    "option_name": "material",
-    "option_value": "Acacia",
-    "price_eur": "329.60",
-    "inventory": 239
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-001-COLOR-NATURAL",
+    "option_name": "color",
+    "option_value": "Natural",
+    "price_eur": "479.00",
+    "inventory": 39
   },
   {
     "id": "var-garden-decor-garden-furniture-001-02",
     "product_id": "prod-garden-decor-garden-furniture-001",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-001-MATERIAL-METAL",
-    "option_name": "material",
-    "option_value": "Metal",
-    "price_eur": "329.60",
-    "inventory": 190
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-001-COLOR-OLIVE",
+    "option_name": "color",
+    "option_value": "Olive",
+    "price_eur": "479.00",
+    "inventory": 239
   },
   {
     "id": "var-garden-decor-garden-furniture-001-03",
     "product_id": "prod-garden-decor-garden-furniture-001",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-001-MATERIAL-RATTAN",
-    "option_name": "material",
-    "option_value": "Rattan",
-    "price_eur": "329.60",
-    "inventory": 194
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-001-COLOR-GRAPHITE",
+    "option_name": "color",
+    "option_value": "Graphite",
+    "price_eur": "479.00",
+    "inventory": 123
   },
   {
     "id": "var-garden-decor-garden-furniture-002-01",
     "product_id": "prod-garden-decor-garden-furniture-002",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-002-COLOR-NATURAL",
-    "option_name": "color",
-    "option_value": "Natural",
-    "price_eur": "152.15",
-    "inventory": 166
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-002-MATERIAL-ACACIA",
+    "option_name": "material",
+    "option_value": "Acacia",
+    "price_eur": "588.98",
+    "inventory": 192
   },
   {
     "id": "var-garden-decor-garden-furniture-002-02",
     "product_id": "prod-garden-decor-garden-furniture-002",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-002-COLOR-OLIVE",
-    "option_name": "color",
-    "option_value": "Olive",
-    "price_eur": "152.15",
-    "inventory": 113
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-002-MATERIAL-METAL",
+    "option_name": "material",
+    "option_value": "Metal",
+    "price_eur": "588.98",
+    "inventory": 194
   },
   {
     "id": "var-garden-decor-garden-furniture-002-03",
     "product_id": "prod-garden-decor-garden-furniture-002",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-002-COLOR-GRAPHITE",
-    "option_name": "color",
-    "option_value": "Graphite",
-    "price_eur": "152.15",
-    "inventory": 207
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-002-MATERIAL-RATTAN",
+    "option_name": "material",
+    "option_value": "Rattan",
+    "price_eur": "588.98",
+    "inventory": 64
   },
   {
     "id": "var-garden-decor-garden-furniture-003-01",
     "product_id": "prod-garden-decor-garden-furniture-003",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-003-MATERIAL-ACACIA",
-    "option_name": "material",
-    "option_value": "Acacia",
-    "price_eur": "208.75",
-    "inventory": 161
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-003-COLOR-NATURAL",
+    "option_name": "color",
+    "option_value": "Natural",
+    "price_eur": "286.79",
+    "inventory": 133
   },
   {
     "id": "var-garden-decor-garden-furniture-003-02",
     "product_id": "prod-garden-decor-garden-furniture-003",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-003-MATERIAL-METAL",
-    "option_name": "material",
-    "option_value": "Metal",
-    "price_eur": "208.75",
-    "inventory": 53
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-003-COLOR-OLIVE",
+    "option_name": "color",
+    "option_value": "Olive",
+    "price_eur": "286.79",
+    "inventory": 146
   },
   {
     "id": "var-garden-decor-garden-furniture-003-03",
     "product_id": "prod-garden-decor-garden-furniture-003",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-003-MATERIAL-RATTAN",
-    "option_name": "material",
-    "option_value": "Rattan",
-    "price_eur": "208.75",
-    "inventory": 188
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-003-COLOR-GRAPHITE",
+    "option_name": "color",
+    "option_value": "Graphite",
+    "price_eur": "286.79",
+    "inventory": 142
   },
   {
     "id": "var-garden-decor-garden-furniture-004-01",
     "product_id": "prod-garden-decor-garden-furniture-004",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-004-COLOR-NATURAL",
-    "option_name": "color",
-    "option_value": "Natural",
-    "price_eur": "633.27",
-    "inventory": 126
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-004-MATERIAL-ACACIA",
+    "option_name": "material",
+    "option_value": "Acacia",
+    "price_eur": "167.10",
+    "inventory": 177
   },
   {
     "id": "var-garden-decor-garden-furniture-004-02",
     "product_id": "prod-garden-decor-garden-furniture-004",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-004-COLOR-OLIVE",
-    "option_name": "color",
-    "option_value": "Olive",
-    "price_eur": "633.27",
-    "inventory": 131
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-004-MATERIAL-METAL",
+    "option_name": "material",
+    "option_value": "Metal",
+    "price_eur": "167.10",
+    "inventory": 229
   },
   {
     "id": "var-garden-decor-garden-furniture-004-03",
     "product_id": "prod-garden-decor-garden-furniture-004",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-004-COLOR-GRAPHITE",
-    "option_name": "color",
-    "option_value": "Graphite",
-    "price_eur": "633.27",
-    "inventory": 31
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-004-MATERIAL-RATTAN",
+    "option_name": "material",
+    "option_value": "Rattan",
+    "price_eur": "167.10",
+    "inventory": 190
   },
   {
     "id": "var-garden-decor-garden-furniture-005-01",
     "product_id": "prod-garden-decor-garden-furniture-005",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-005-MATERIAL-ACACIA",
-    "option_name": "material",
-    "option_value": "Acacia",
-    "price_eur": "469.02",
-    "inventory": 107
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-005-COLOR-NATURAL",
+    "option_name": "color",
+    "option_value": "Natural",
+    "price_eur": "288.35",
+    "inventory": 115
   },
   {
     "id": "var-garden-decor-garden-furniture-005-02",
     "product_id": "prod-garden-decor-garden-furniture-005",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-005-MATERIAL-METAL",
-    "option_name": "material",
-    "option_value": "Metal",
-    "price_eur": "469.02",
-    "inventory": 41
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-005-COLOR-OLIVE",
+    "option_name": "color",
+    "option_value": "Olive",
+    "price_eur": "288.35",
+    "inventory": 94
   },
   {
     "id": "var-garden-decor-garden-furniture-005-03",
     "product_id": "prod-garden-decor-garden-furniture-005",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-005-MATERIAL-RATTAN",
-    "option_name": "material",
-    "option_value": "Rattan",
-    "price_eur": "469.02",
-    "inventory": 129
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-005-COLOR-GRAPHITE",
+    "option_name": "color",
+    "option_value": "Graphite",
+    "price_eur": "288.35",
+    "inventory": 227
   },
   {
     "id": "var-garden-decor-garden-furniture-006-01",
     "product_id": "prod-garden-decor-garden-furniture-006",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-006-COLOR-NATURAL",
-    "option_name": "color",
-    "option_value": "Natural",
-    "price_eur": "153.18",
-    "inventory": 118
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-006-MATERIAL-ACACIA",
+    "option_name": "material",
+    "option_value": "Acacia",
+    "price_eur": "290.53",
+    "inventory": 127
   },
   {
     "id": "var-garden-decor-garden-furniture-006-02",
     "product_id": "prod-garden-decor-garden-furniture-006",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-006-COLOR-OLIVE",
-    "option_name": "color",
-    "option_value": "Olive",
-    "price_eur": "153.18",
-    "inventory": 52
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-006-MATERIAL-METAL",
+    "option_name": "material",
+    "option_value": "Metal",
+    "price_eur": "290.53",
+    "inventory": 202
   },
   {
     "id": "var-garden-decor-garden-furniture-006-03",
     "product_id": "prod-garden-decor-garden-furniture-006",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-006-COLOR-GRAPHITE",
-    "option_name": "color",
-    "option_value": "Graphite",
-    "price_eur": "153.18",
-    "inventory": 207
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-006-MATERIAL-RATTAN",
+    "option_name": "material",
+    "option_value": "Rattan",
+    "price_eur": "290.53",
+    "inventory": 64
   },
   {
     "id": "var-garden-decor-garden-furniture-007-01",
     "product_id": "prod-garden-decor-garden-furniture-007",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-007-MATERIAL-ACACIA",
-    "option_name": "material",
-    "option_value": "Acacia",
-    "price_eur": "257.36",
-    "inventory": 86
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-007-COLOR-NATURAL",
+    "option_name": "color",
+    "option_value": "Natural",
+    "price_eur": "343.34",
+    "inventory": 178
   },
   {
     "id": "var-garden-decor-garden-furniture-007-02",
     "product_id": "prod-garden-decor-garden-furniture-007",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-007-MATERIAL-METAL",
-    "option_name": "material",
-    "option_value": "Metal",
-    "price_eur": "257.36",
-    "inventory": 72
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-007-COLOR-OLIVE",
+    "option_name": "color",
+    "option_value": "Olive",
+    "price_eur": "343.34",
+    "inventory": 130
   },
   {
     "id": "var-garden-decor-garden-furniture-007-03",
     "product_id": "prod-garden-decor-garden-furniture-007",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-007-MATERIAL-RATTAN",
-    "option_name": "material",
-    "option_value": "Rattan",
-    "price_eur": "257.36",
-    "inventory": 175
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-007-COLOR-GRAPHITE",
+    "option_name": "color",
+    "option_value": "Graphite",
+    "price_eur": "343.34",
+    "inventory": 95
   },
   {
     "id": "var-garden-decor-garden-furniture-008-01",
     "product_id": "prod-garden-decor-garden-furniture-008",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-008-COLOR-NATURAL",
-    "option_name": "color",
-    "option_value": "Natural",
-    "price_eur": "193.14",
-    "inventory": 176
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-008-MATERIAL-ACACIA",
+    "option_name": "material",
+    "option_value": "Acacia",
+    "price_eur": "208.56",
+    "inventory": 175
   },
   {
     "id": "var-garden-decor-garden-furniture-008-02",
     "product_id": "prod-garden-decor-garden-furniture-008",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-008-COLOR-OLIVE",
-    "option_name": "color",
-    "option_value": "Olive",
-    "price_eur": "193.14",
-    "inventory": 79
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-008-MATERIAL-METAL",
+    "option_name": "material",
+    "option_value": "Metal",
+    "price_eur": "208.56",
+    "inventory": 237
   },
   {
     "id": "var-garden-decor-garden-furniture-008-03",
     "product_id": "prod-garden-decor-garden-furniture-008",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-008-COLOR-GRAPHITE",
-    "option_name": "color",
-    "option_value": "Graphite",
-    "price_eur": "193.14",
-    "inventory": 191
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-008-MATERIAL-RATTAN",
+    "option_name": "material",
+    "option_value": "Rattan",
+    "price_eur": "208.56",
+    "inventory": 116
   },
   {
     "id": "var-garden-decor-garden-furniture-009-01",
     "product_id": "prod-garden-decor-garden-furniture-009",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-009-MATERIAL-ACACIA",
-    "option_name": "material",
-    "option_value": "Acacia",
-    "price_eur": "403.75",
-    "inventory": 126
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-009-COLOR-NATURAL",
+    "option_name": "color",
+    "option_value": "Natural",
+    "price_eur": "170.75",
+    "inventory": 165
   },
   {
     "id": "var-garden-decor-garden-furniture-009-02",
     "product_id": "prod-garden-decor-garden-furniture-009",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-009-MATERIAL-METAL",
-    "option_name": "material",
-    "option_value": "Metal",
-    "price_eur": "403.75",
-    "inventory": 212
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-009-COLOR-OLIVE",
+    "option_name": "color",
+    "option_value": "Olive",
+    "price_eur": "170.75",
+    "inventory": 180
   },
   {
     "id": "var-garden-decor-garden-furniture-009-03",
     "product_id": "prod-garden-decor-garden-furniture-009",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-009-MATERIAL-RATTAN",
-    "option_name": "material",
-    "option_value": "Rattan",
-    "price_eur": "403.75",
-    "inventory": 149
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-009-COLOR-GRAPHITE",
+    "option_name": "color",
+    "option_value": "Graphite",
+    "price_eur": "170.75",
+    "inventory": 40
   },
   {
     "id": "var-garden-decor-garden-furniture-010-01",
     "product_id": "prod-garden-decor-garden-furniture-010",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-010-COLOR-NATURAL",
-    "option_name": "color",
-    "option_value": "Natural",
-    "price_eur": "441.43",
-    "inventory": 27
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-010-MATERIAL-ACACIA",
+    "option_name": "material",
+    "option_value": "Acacia",
+    "price_eur": "257.36",
+    "inventory": 210
   },
   {
     "id": "var-garden-decor-garden-furniture-010-02",
     "product_id": "prod-garden-decor-garden-furniture-010",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-010-COLOR-OLIVE",
-    "option_name": "color",
-    "option_value": "Olive",
-    "price_eur": "441.43",
-    "inventory": 98
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-010-MATERIAL-METAL",
+    "option_name": "material",
+    "option_value": "Metal",
+    "price_eur": "257.36",
+    "inventory": 120
   },
   {
     "id": "var-garden-decor-garden-furniture-010-03",
     "product_id": "prod-garden-decor-garden-furniture-010",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-010-COLOR-GRAPHITE",
-    "option_name": "color",
-    "option_value": "Graphite",
-    "price_eur": "441.43",
-    "inventory": 119
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-010-MATERIAL-RATTAN",
+    "option_name": "material",
+    "option_value": "Rattan",
+    "price_eur": "257.36",
+    "inventory": 200
   },
   {
     "id": "var-garden-decor-garden-furniture-011-01",
     "product_id": "prod-garden-decor-garden-furniture-011",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-011-MATERIAL-ACACIA",
-    "option_name": "material",
-    "option_value": "Acacia",
-    "price_eur": "312.27",
-    "inventory": 85
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-011-COLOR-NATURAL",
+    "option_name": "color",
+    "option_value": "Natural",
+    "price_eur": "559.61",
+    "inventory": 227
   },
   {
     "id": "var-garden-decor-garden-furniture-011-02",
     "product_id": "prod-garden-decor-garden-furniture-011",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-011-MATERIAL-METAL",
-    "option_name": "material",
-    "option_value": "Metal",
-    "price_eur": "312.27",
-    "inventory": 229
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-011-COLOR-OLIVE",
+    "option_name": "color",
+    "option_value": "Olive",
+    "price_eur": "559.61",
+    "inventory": 88
   },
   {
     "id": "var-garden-decor-garden-furniture-011-03",
     "product_id": "prod-garden-decor-garden-furniture-011",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-011-MATERIAL-RATTAN",
-    "option_name": "material",
-    "option_value": "Rattan",
-    "price_eur": "312.27",
-    "inventory": 87
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-011-COLOR-GRAPHITE",
+    "option_name": "color",
+    "option_value": "Graphite",
+    "price_eur": "559.61",
+    "inventory": 78
   },
   {
     "id": "var-garden-decor-garden-furniture-012-01",
     "product_id": "prod-garden-decor-garden-furniture-012",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-012-COLOR-NATURAL",
-    "option_name": "color",
-    "option_value": "Natural",
-    "price_eur": "397.07",
-    "inventory": 202
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-012-MATERIAL-ACACIA",
+    "option_name": "material",
+    "option_value": "Acacia",
+    "price_eur": "468.71",
+    "inventory": 52
   },
   {
     "id": "var-garden-decor-garden-furniture-012-02",
     "product_id": "prod-garden-decor-garden-furniture-012",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-012-COLOR-OLIVE",
-    "option_name": "color",
-    "option_value": "Olive",
-    "price_eur": "397.07",
-    "inventory": 94
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-012-MATERIAL-METAL",
+    "option_name": "material",
+    "option_value": "Metal",
+    "price_eur": "468.71",
+    "inventory": 213
   },
   {
     "id": "var-garden-decor-garden-furniture-012-03",
     "product_id": "prod-garden-decor-garden-furniture-012",
-    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-012-COLOR-GRAPHITE",
-    "option_name": "color",
-    "option_value": "Graphite",
-    "price_eur": "397.07",
-    "inventory": 56
+    "sku": "GARDEN-DECOR-GARDEN-FURNITURE-012-MATERIAL-RATTAN",
+    "option_name": "material",
+    "option_value": "Rattan",
+    "price_eur": "468.71",
+    "inventory": 68
   },
   {
     "id": "var-garden-decor-outdoor-lighting-001-01",
@@ -329,8 +329,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-001-FINISH-BLACK",
     "option_name": "finish",
     "option_value": "Black",
-    "price_eur": "38.95",
-    "inventory": 124
+    "price_eur": "68.61",
+    "inventory": 83
   },
   {
     "id": "var-garden-decor-outdoor-lighting-001-02",
@@ -338,8 +338,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-001-FINISH-BRASS",
     "option_name": "finish",
     "option_value": "Brass",
-    "price_eur": "38.95",
-    "inventory": 226
+    "price_eur": "68.61",
+    "inventory": 120
   },
   {
     "id": "var-garden-decor-outdoor-lighting-001-03",
@@ -347,8 +347,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-001-FINISH-STEEL",
     "option_name": "finish",
     "option_value": "Steel",
-    "price_eur": "38.95",
-    "inventory": 54
+    "price_eur": "68.61",
+    "inventory": 167
   },
   {
     "id": "var-garden-decor-outdoor-lighting-002-01",
@@ -356,8 +356,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-002-POWER-SOLAR",
     "option_name": "power",
     "option_value": "Solar",
-    "price_eur": "94.15",
-    "inventory": 100
+    "price_eur": "44.57",
+    "inventory": 128
   },
   {
     "id": "var-garden-decor-outdoor-lighting-002-02",
@@ -365,8 +365,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-002-POWER-WIRED",
     "option_name": "power",
     "option_value": "Wired",
-    "price_eur": "94.15",
-    "inventory": 232
+    "price_eur": "44.57",
+    "inventory": 191
   },
   {
     "id": "var-garden-decor-outdoor-lighting-003-01",
@@ -374,8 +374,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-003-FINISH-BLACK",
     "option_name": "finish",
     "option_value": "Black",
-    "price_eur": "77.53",
-    "inventory": 191
+    "price_eur": "179.40",
+    "inventory": 109
   },
   {
     "id": "var-garden-decor-outdoor-lighting-003-02",
@@ -383,8 +383,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-003-FINISH-BRASS",
     "option_name": "finish",
     "option_value": "Brass",
-    "price_eur": "77.53",
-    "inventory": 235
+    "price_eur": "179.40",
+    "inventory": 110
   },
   {
     "id": "var-garden-decor-outdoor-lighting-003-03",
@@ -392,8 +392,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-003-FINISH-STEEL",
     "option_name": "finish",
     "option_value": "Steel",
-    "price_eur": "77.53",
-    "inventory": 72
+    "price_eur": "179.40",
+    "inventory": 110
   },
   {
     "id": "var-garden-decor-outdoor-lighting-004-01",
@@ -401,8 +401,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-004-POWER-SOLAR",
     "option_name": "power",
     "option_value": "Solar",
-    "price_eur": "147.30",
-    "inventory": 52
+    "price_eur": "151.18",
+    "inventory": 57
   },
   {
     "id": "var-garden-decor-outdoor-lighting-004-02",
@@ -410,8 +410,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-004-POWER-WIRED",
     "option_name": "power",
     "option_value": "Wired",
-    "price_eur": "147.30",
-    "inventory": 126
+    "price_eur": "151.18",
+    "inventory": 96
   },
   {
     "id": "var-garden-decor-outdoor-lighting-005-01",
@@ -419,8 +419,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-005-FINISH-BLACK",
     "option_name": "finish",
     "option_value": "Black",
-    "price_eur": "72.42",
-    "inventory": 193
+    "price_eur": "28.52",
+    "inventory": 36
   },
   {
     "id": "var-garden-decor-outdoor-lighting-005-02",
@@ -428,8 +428,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-005-FINISH-BRASS",
     "option_name": "finish",
     "option_value": "Brass",
-    "price_eur": "72.42",
-    "inventory": 125
+    "price_eur": "28.52",
+    "inventory": 194
   },
   {
     "id": "var-garden-decor-outdoor-lighting-005-03",
@@ -437,8 +437,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-005-FINISH-STEEL",
     "option_name": "finish",
     "option_value": "Steel",
-    "price_eur": "72.42",
-    "inventory": 181
+    "price_eur": "28.52",
+    "inventory": 175
   },
   {
     "id": "var-garden-decor-outdoor-lighting-006-01",
@@ -446,8 +446,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-006-POWER-SOLAR",
     "option_name": "power",
     "option_value": "Solar",
-    "price_eur": "122.23",
-    "inventory": 108
+    "price_eur": "133.00",
+    "inventory": 182
   },
   {
     "id": "var-garden-decor-outdoor-lighting-006-02",
@@ -455,8 +455,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-006-POWER-WIRED",
     "option_name": "power",
     "option_value": "Wired",
-    "price_eur": "122.23",
-    "inventory": 193
+    "price_eur": "133.00",
+    "inventory": 58
   },
   {
     "id": "var-garden-decor-outdoor-lighting-007-01",
@@ -464,8 +464,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-007-FINISH-BLACK",
     "option_name": "finish",
     "option_value": "Black",
-    "price_eur": "54.17",
-    "inventory": 194
+    "price_eur": "164.60",
+    "inventory": 231
   },
   {
     "id": "var-garden-decor-outdoor-lighting-007-02",
@@ -473,8 +473,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-007-FINISH-BRASS",
     "option_name": "finish",
     "option_value": "Brass",
-    "price_eur": "54.17",
-    "inventory": 51
+    "price_eur": "164.60",
+    "inventory": 54
   },
   {
     "id": "var-garden-decor-outdoor-lighting-007-03",
@@ -482,8 +482,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-007-FINISH-STEEL",
     "option_name": "finish",
     "option_value": "Steel",
-    "price_eur": "54.17",
-    "inventory": 82
+    "price_eur": "164.60",
+    "inventory": 128
   },
   {
     "id": "var-garden-decor-outdoor-lighting-008-01",
@@ -491,8 +491,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-008-POWER-SOLAR",
     "option_name": "power",
     "option_value": "Solar",
-    "price_eur": "94.29",
-    "inventory": 116
+    "price_eur": "132.93",
+    "inventory": 118
   },
   {
     "id": "var-garden-decor-outdoor-lighting-008-02",
@@ -500,8 +500,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-008-POWER-WIRED",
     "option_name": "power",
     "option_value": "Wired",
-    "price_eur": "94.29",
-    "inventory": 125
+    "price_eur": "132.93",
+    "inventory": 59
   },
   {
     "id": "var-garden-decor-outdoor-lighting-009-01",
@@ -509,8 +509,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-009-FINISH-BLACK",
     "option_name": "finish",
     "option_value": "Black",
-    "price_eur": "37.82",
-    "inventory": 145
+    "price_eur": "84.06",
+    "inventory": 84
   },
   {
     "id": "var-garden-decor-outdoor-lighting-009-02",
@@ -518,8 +518,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-009-FINISH-BRASS",
     "option_name": "finish",
     "option_value": "Brass",
-    "price_eur": "37.82",
-    "inventory": 138
+    "price_eur": "84.06",
+    "inventory": 173
   },
   {
     "id": "var-garden-decor-outdoor-lighting-009-03",
@@ -527,8 +527,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-009-FINISH-STEEL",
     "option_name": "finish",
     "option_value": "Steel",
-    "price_eur": "37.82",
-    "inventory": 129
+    "price_eur": "84.06",
+    "inventory": 161
   },
   {
     "id": "var-garden-decor-outdoor-lighting-010-01",
@@ -536,8 +536,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-010-POWER-SOLAR",
     "option_name": "power",
     "option_value": "Solar",
-    "price_eur": "76.39",
-    "inventory": 197
+    "price_eur": "119.12",
+    "inventory": 240
   },
   {
     "id": "var-garden-decor-outdoor-lighting-010-02",
@@ -545,8 +545,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-010-POWER-WIRED",
     "option_name": "power",
     "option_value": "Wired",
-    "price_eur": "76.39",
-    "inventory": 17
+    "price_eur": "119.12",
+    "inventory": 38
   },
   {
     "id": "var-garden-decor-outdoor-lighting-011-01",
@@ -554,8 +554,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-011-FINISH-BLACK",
     "option_name": "finish",
     "option_value": "Black",
-    "price_eur": "71.84",
-    "inventory": 69
+    "price_eur": "78.10",
+    "inventory": 93
   },
   {
     "id": "var-garden-decor-outdoor-lighting-011-02",
@@ -563,8 +563,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-011-FINISH-BRASS",
     "option_name": "finish",
     "option_value": "Brass",
-    "price_eur": "71.84",
-    "inventory": 166
+    "price_eur": "78.10",
+    "inventory": 232
   },
   {
     "id": "var-garden-decor-outdoor-lighting-011-03",
@@ -572,8 +572,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-011-FINISH-STEEL",
     "option_name": "finish",
     "option_value": "Steel",
-    "price_eur": "71.84",
-    "inventory": 182
+    "price_eur": "78.10",
+    "inventory": 105
   },
   {
     "id": "var-garden-decor-outdoor-lighting-012-01",
@@ -581,8 +581,8 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-012-POWER-SOLAR",
     "option_name": "power",
     "option_value": "Solar",
-    "price_eur": "74.70",
-    "inventory": 48
+    "price_eur": "165.83",
+    "inventory": 179
   },
   {
     "id": "var-garden-decor-outdoor-lighting-012-02",
@@ -590,331 +590,331 @@
     "sku": "GARDEN-DECOR-OUTDOOR-LIGHTING-012-POWER-WIRED",
     "option_name": "power",
     "option_value": "Wired",
-    "price_eur": "74.70",
-    "inventory": 144
+    "price_eur": "165.83",
+    "inventory": 124
   },
   {
     "id": "var-garden-decor-planters-001-01",
     "product_id": "prod-garden-decor-planters-001",
-    "sku": "GARDEN-DECOR-PLANTERS-001-SIZE-SMALL",
-    "option_name": "size",
-    "option_value": "Small",
-    "price_eur": "102.64",
-    "inventory": 89
+    "sku": "GARDEN-DECOR-PLANTERS-001-COLOR-TERRACOTTA",
+    "option_name": "color",
+    "option_value": "Terracotta",
+    "price_eur": "77.94",
+    "inventory": 59
   },
   {
     "id": "var-garden-decor-planters-001-02",
     "product_id": "prod-garden-decor-planters-001",
-    "sku": "GARDEN-DECOR-PLANTERS-001-SIZE-MEDIUM",
-    "option_name": "size",
-    "option_value": "Medium",
-    "price_eur": "102.64",
-    "inventory": 161
+    "sku": "GARDEN-DECOR-PLANTERS-001-COLOR-SAND",
+    "option_name": "color",
+    "option_value": "Sand",
+    "price_eur": "77.94",
+    "inventory": 82
   },
   {
     "id": "var-garden-decor-planters-001-03",
     "product_id": "prod-garden-decor-planters-001",
-    "sku": "GARDEN-DECOR-PLANTERS-001-SIZE-LARGE",
-    "option_name": "size",
-    "option_value": "Large",
-    "price_eur": "102.64",
-    "inventory": 139
+    "sku": "GARDEN-DECOR-PLANTERS-001-COLOR-CHARCOAL",
+    "option_name": "color",
+    "option_value": "Charcoal",
+    "price_eur": "77.94",
+    "inventory": 225
   },
   {
     "id": "var-garden-decor-planters-002-01",
     "product_id": "prod-garden-decor-planters-002",
-    "sku": "GARDEN-DECOR-PLANTERS-002-COLOR-TERRACOTTA",
-    "option_name": "color",
-    "option_value": "Terracotta",
-    "price_eur": "113.48",
-    "inventory": 242
+    "sku": "GARDEN-DECOR-PLANTERS-002-SIZE-SMALL",
+    "option_name": "size",
+    "option_value": "Small",
+    "price_eur": "118.95",
+    "inventory": 120
   },
   {
     "id": "var-garden-decor-planters-002-02",
     "product_id": "prod-garden-decor-planters-002",
-    "sku": "GARDEN-DECOR-PLANTERS-002-COLOR-SAND",
-    "option_name": "color",
-    "option_value": "Sand",
-    "price_eur": "113.48",
-    "inventory": 51
+    "sku": "GARDEN-DECOR-PLANTERS-002-SIZE-MEDIUM",
+    "option_name": "size",
+    "option_value": "Medium",
+    "price_eur": "118.95",
+    "inventory": 97
   },
   {
     "id": "var-garden-decor-planters-002-03",
     "product_id": "prod-garden-decor-planters-002",
-    "sku": "GARDEN-DECOR-PLANTERS-002-COLOR-CHARCOAL",
-    "option_name": "color",
-    "option_value": "Charcoal",
-    "price_eur": "113.48",
-    "inventory": 217
+    "sku": "GARDEN-DECOR-PLANTERS-002-SIZE-LARGE",
+    "option_name": "size",
+    "option_value": "Large",
+    "price_eur": "118.95",
+    "inventory": 160
   },
   {
     "id": "var-garden-decor-planters-003-01",
     "product_id": "prod-garden-decor-planters-003",
-    "sku": "GARDEN-DECOR-PLANTERS-003-SIZE-SMALL",
-    "option_name": "size",
-    "option_value": "Small",
-    "price_eur": "108.86",
-    "inventory": 185
+    "sku": "GARDEN-DECOR-PLANTERS-003-COLOR-TERRACOTTA",
+    "option_name": "color",
+    "option_value": "Terracotta",
+    "price_eur": "78.27",
+    "inventory": 144
   },
   {
     "id": "var-garden-decor-planters-003-02",
     "product_id": "prod-garden-decor-planters-003",
-    "sku": "GARDEN-DECOR-PLANTERS-003-SIZE-MEDIUM",
-    "option_name": "size",
-    "option_value": "Medium",
-    "price_eur": "108.86",
-    "inventory": 91
+    "sku": "GARDEN-DECOR-PLANTERS-003-COLOR-SAND",
+    "option_name": "color",
+    "option_value": "Sand",
+    "price_eur": "78.27",
+    "inventory": 52
   },
   {
     "id": "var-garden-decor-planters-003-03",
     "product_id": "prod-garden-decor-planters-003",
-    "sku": "GARDEN-DECOR-PLANTERS-003-SIZE-LARGE",
-    "option_name": "size",
-    "option_value": "Large",
-    "price_eur": "108.86",
-    "inventory": 163
+    "sku": "GARDEN-DECOR-PLANTERS-003-COLOR-CHARCOAL",
+    "option_name": "color",
+    "option_value": "Charcoal",
+    "price_eur": "78.27",
+    "inventory": 238
   },
   {
     "id": "var-garden-decor-planters-004-01",
     "product_id": "prod-garden-decor-planters-004",
-    "sku": "GARDEN-DECOR-PLANTERS-004-COLOR-TERRACOTTA",
-    "option_name": "color",
-    "option_value": "Terracotta",
-    "price_eur": "27.63",
-    "inventory": 72
+    "sku": "GARDEN-DECOR-PLANTERS-004-SIZE-SMALL",
+    "option_name": "size",
+    "option_value": "Small",
+    "price_eur": "60.65",
+    "inventory": 117
   },
   {
     "id": "var-garden-decor-planters-004-02",
     "product_id": "prod-garden-decor-planters-004",
-    "sku": "GARDEN-DECOR-PLANTERS-004-COLOR-SAND",
-    "option_name": "color",
-    "option_value": "Sand",
-    "price_eur": "27.63",
-    "inventory": 24
+    "sku": "GARDEN-DECOR-PLANTERS-004-SIZE-MEDIUM",
+    "option_name": "size",
+    "option_value": "Medium",
+    "price_eur": "60.65",
+    "inventory": 193
   },
   {
     "id": "var-garden-decor-planters-004-03",
     "product_id": "prod-garden-decor-planters-004",
-    "sku": "GARDEN-DECOR-PLANTERS-004-COLOR-CHARCOAL",
-    "option_name": "color",
-    "option_value": "Charcoal",
-    "price_eur": "27.63",
-    "inventory": 50
+    "sku": "GARDEN-DECOR-PLANTERS-004-SIZE-LARGE",
+    "option_name": "size",
+    "option_value": "Large",
+    "price_eur": "60.65",
+    "inventory": 144
   },
   {
     "id": "var-garden-decor-planters-005-01",
     "product_id": "prod-garden-decor-planters-005",
-    "sku": "GARDEN-DECOR-PLANTERS-005-SIZE-SMALL",
-    "option_name": "size",
-    "option_value": "Small",
-    "price_eur": "33.63",
-    "inventory": 61
+    "sku": "GARDEN-DECOR-PLANTERS-005-COLOR-TERRACOTTA",
+    "option_name": "color",
+    "option_value": "Terracotta",
+    "price_eur": "26.43",
+    "inventory": 124
   },
   {
     "id": "var-garden-decor-planters-005-02",
     "product_id": "prod-garden-decor-planters-005",
-    "sku": "GARDEN-DECOR-PLANTERS-005-SIZE-MEDIUM",
-    "option_name": "size",
-    "option_value": "Medium",
-    "price_eur": "33.63",
-    "inventory": 79
+    "sku": "GARDEN-DECOR-PLANTERS-005-COLOR-SAND",
+    "option_name": "color",
+    "option_value": "Sand",
+    "price_eur": "26.43",
+    "inventory": 165
   },
   {
     "id": "var-garden-decor-planters-005-03",
     "product_id": "prod-garden-decor-planters-005",
-    "sku": "GARDEN-DECOR-PLANTERS-005-SIZE-LARGE",
-    "option_name": "size",
-    "option_value": "Large",
-    "price_eur": "33.63",
-    "inventory": 86
+    "sku": "GARDEN-DECOR-PLANTERS-005-COLOR-CHARCOAL",
+    "option_name": "color",
+    "option_value": "Charcoal",
+    "price_eur": "26.43",
+    "inventory": 122
   },
   {
     "id": "var-garden-decor-planters-006-01",
     "product_id": "prod-garden-decor-planters-006",
-    "sku": "GARDEN-DECOR-PLANTERS-006-COLOR-TERRACOTTA",
-    "option_name": "color",
-    "option_value": "Terracotta",
-    "price_eur": "117.13",
-    "inventory": 70
+    "sku": "GARDEN-DECOR-PLANTERS-006-SIZE-SMALL",
+    "option_name": "size",
+    "option_value": "Small",
+    "price_eur": "63.00",
+    "inventory": 56
   },
   {
     "id": "var-garden-decor-planters-006-02",
     "product_id": "prod-garden-decor-planters-006",
-    "sku": "GARDEN-DECOR-PLANTERS-006-COLOR-SAND",
-    "option_name": "color",
-    "option_value": "Sand",
-    "price_eur": "117.13",
-    "inventory": 83
+    "sku": "GARDEN-DECOR-PLANTERS-006-SIZE-MEDIUM",
+    "option_name": "size",
+    "option_value": "Medium",
+    "price_eur": "63.00",
+    "inventory": 147
   },
   {
     "id": "var-garden-decor-planters-006-03",
     "product_id": "prod-garden-decor-planters-006",
-    "sku": "GARDEN-DECOR-PLANTERS-006-COLOR-CHARCOAL",
-    "option_name": "color",
-    "option_value": "Charcoal",
-    "price_eur": "117.13",
-    "inventory": 50
+    "sku": "GARDEN-DECOR-PLANTERS-006-SIZE-LARGE",
+    "option_name": "size",
+    "option_value": "Large",
+    "price_eur": "63.00",
+    "inventory": 137
   },
   {
     "id": "var-garden-decor-planters-007-01",
     "product_id": "prod-garden-decor-planters-007",
-    "sku": "GARDEN-DECOR-PLANTERS-007-SIZE-SMALL",
-    "option_name": "size",
-    "option_value": "Small",
-    "price_eur": "30.42",
-    "inventory": 54
+    "sku": "GARDEN-DECOR-PLANTERS-007-COLOR-TERRACOTTA",
+    "option_name": "color",
+    "option_value": "Terracotta",
+    "price_eur": "66.30",
+    "inventory": 76
   },
   {
     "id": "var-garden-decor-planters-007-02",
     "product_id": "prod-garden-decor-planters-007",
-    "sku": "GARDEN-DECOR-PLANTERS-007-SIZE-MEDIUM",
-    "option_name": "size",
-    "option_value": "Medium",
-    "price_eur": "30.42",
-    "inventory": 206
+    "sku": "GARDEN-DECOR-PLANTERS-007-COLOR-SAND",
+    "option_name": "color",
+    "option_value": "Sand",
+    "price_eur": "66.30",
+    "inventory": 233
   },
   {
     "id": "var-garden-decor-planters-007-03",
     "product_id": "prod-garden-decor-planters-007",
-    "sku": "GARDEN-DECOR-PLANTERS-007-SIZE-LARGE",
-    "option_name": "size",
-    "option_value": "Large",
-    "price_eur": "30.42",
-    "inventory": 190
+    "sku": "GARDEN-DECOR-PLANTERS-007-COLOR-CHARCOAL",
+    "option_name": "color",
+    "option_value": "Charcoal",
+    "price_eur": "66.30",
+    "inventory": 93
   },
   {
     "id": "var-garden-decor-planters-008-01",
     "product_id": "prod-garden-decor-planters-008",
-    "sku": "GARDEN-DECOR-PLANTERS-008-COLOR-TERRACOTTA",
-    "option_name": "color",
-    "option_value": "Terracotta",
-    "price_eur": "93.38",
-    "inventory": 104
+    "sku": "GARDEN-DECOR-PLANTERS-008-SIZE-SMALL",
+    "option_name": "size",
+    "option_value": "Small",
+    "price_eur": "73.59",
+    "inventory": 212
   },
   {
     "id": "var-garden-decor-planters-008-02",
     "product_id": "prod-garden-decor-planters-008",
-    "sku": "GARDEN-DECOR-PLANTERS-008-COLOR-SAND",
-    "option_name": "color",
-    "option_value": "Sand",
-    "price_eur": "93.38",
-    "inventory": 243
+    "sku": "GARDEN-DECOR-PLANTERS-008-SIZE-MEDIUM",
+    "option_name": "size",
+    "option_value": "Medium",
+    "price_eur": "73.59",
+    "inventory": 117
   },
   {
     "id": "var-garden-decor-planters-008-03",
     "product_id": "prod-garden-decor-planters-008",
-    "sku": "GARDEN-DECOR-PLANTERS-008-COLOR-CHARCOAL",
-    "option_name": "color",
-    "option_value": "Charcoal",
-    "price_eur": "93.38",
-    "inventory": 86
+    "sku": "GARDEN-DECOR-PLANTERS-008-SIZE-LARGE",
+    "option_name": "size",
+    "option_value": "Large",
+    "price_eur": "73.59",
+    "inventory": 85
   },
   {
     "id": "var-garden-decor-planters-009-01",
     "product_id": "prod-garden-decor-planters-009",
-    "sku": "GARDEN-DECOR-PLANTERS-009-SIZE-SMALL",
-    "option_name": "size",
-    "option_value": "Small",
-    "price_eur": "85.61",
-    "inventory": 25
+    "sku": "GARDEN-DECOR-PLANTERS-009-COLOR-TERRACOTTA",
+    "option_name": "color",
+    "option_value": "Terracotta",
+    "price_eur": "20.20",
+    "inventory": 195
   },
   {
     "id": "var-garden-decor-planters-009-02",
     "product_id": "prod-garden-decor-planters-009",
-    "sku": "GARDEN-DECOR-PLANTERS-009-SIZE-MEDIUM",
-    "option_name": "size",
-    "option_value": "Medium",
-    "price_eur": "85.61",
-    "inventory": 156
+    "sku": "GARDEN-DECOR-PLANTERS-009-COLOR-SAND",
+    "option_name": "color",
+    "option_value": "Sand",
+    "price_eur": "20.20",
+    "inventory": 133
   },
   {
     "id": "var-garden-decor-planters-009-03",
     "product_id": "prod-garden-decor-planters-009",
-    "sku": "GARDEN-DECOR-PLANTERS-009-SIZE-LARGE",
-    "option_name": "size",
-    "option_value": "Large",
-    "price_eur": "85.61",
-    "inventory": 145
+    "sku": "GARDEN-DECOR-PLANTERS-009-COLOR-CHARCOAL",
+    "option_name": "color",
+    "option_value": "Charcoal",
+    "price_eur": "20.20",
+    "inventory": 214
   },
   {
     "id": "var-garden-decor-planters-010-01",
     "product_id": "prod-garden-decor-planters-010",
-    "sku": "GARDEN-DECOR-PLANTERS-010-COLOR-TERRACOTTA",
-    "option_name": "color",
-    "option_value": "Terracotta",
-    "price_eur": "28.80",
-    "inventory": 149
+    "sku": "GARDEN-DECOR-PLANTERS-010-SIZE-SMALL",
+    "option_name": "size",
+    "option_value": "Small",
+    "price_eur": "73.37",
+    "inventory": 84
   },
   {
     "id": "var-garden-decor-planters-010-02",
     "product_id": "prod-garden-decor-planters-010",
-    "sku": "GARDEN-DECOR-PLANTERS-010-COLOR-SAND",
-    "option_name": "color",
-    "option_value": "Sand",
-    "price_eur": "28.80",
-    "inventory": 59
+    "sku": "GARDEN-DECOR-PLANTERS-010-SIZE-MEDIUM",
+    "option_name": "size",
+    "option_value": "Medium",
+    "price_eur": "73.37",
+    "inventory": 144
   },
   {
     "id": "var-garden-decor-planters-010-03",
     "product_id": "prod-garden-decor-planters-010",
-    "sku": "GARDEN-DECOR-PLANTERS-010-COLOR-CHARCOAL",
-    "option_name": "color",
-    "option_value": "Charcoal",
-    "price_eur": "28.80",
-    "inventory": 229
+    "sku": "GARDEN-DECOR-PLANTERS-010-SIZE-LARGE",
+    "option_name": "size",
+    "option_value": "Large",
+    "price_eur": "73.37",
+    "inventory": 92
   },
   {
     "id": "var-garden-decor-planters-011-01",
     "product_id": "prod-garden-decor-planters-011",
-    "sku": "GARDEN-DECOR-PLANTERS-011-SIZE-SMALL",
-    "option_name": "size",
-    "option_value": "Small",
-    "price_eur": "65.67",
-    "inventory": 204
+    "sku": "GARDEN-DECOR-PLANTERS-011-COLOR-TERRACOTTA",
+    "option_name": "color",
+    "option_value": "Terracotta",
+    "price_eur": "29.07",
+    "inventory": 163
   },
   {
     "id": "var-garden-decor-planters-011-02",
     "product_id": "prod-garden-decor-planters-011",
-    "sku": "GARDEN-DECOR-PLANTERS-011-SIZE-MEDIUM",
-    "option_name": "size",
-    "option_value": "Medium",
-    "price_eur": "65.67",
-    "inventory": 73
+    "sku": "GARDEN-DECOR-PLANTERS-011-COLOR-SAND",
+    "option_name": "color",
+    "option_value": "Sand",
+    "price_eur": "29.07",
+    "inventory": 32
   },
   {
     "id": "var-garden-decor-planters-011-03",
     "product_id": "prod-garden-decor-planters-011",
-    "sku": "GARDEN-DECOR-PLANTERS-011-SIZE-LARGE",
-    "option_name": "size",
-    "option_value": "Large",
-    "price_eur": "65.67",
-    "inventory": 192
+    "sku": "GARDEN-DECOR-PLANTERS-011-COLOR-CHARCOAL",
+    "option_name": "color",
+    "option_value": "Charcoal",
+    "price_eur": "29.07",
+    "inventory": 79
   },
   {
     "id": "var-garden-decor-planters-012-01",
     "product_id": "prod-garden-decor-planters-012",
-    "sku": "GARDEN-DECOR-PLANTERS-012-COLOR-TERRACOTTA",
-    "option_name": "color",
-    "option_value": "Terracotta",
-    "price_eur": "72.14",
-    "inventory": 110
+    "sku": "GARDEN-DECOR-PLANTERS-012-SIZE-SMALL",
+    "option_name": "size",
+    "option_value": "Small",
+    "price_eur": "42.87",
+    "inventory": 179
   },
   {
     "id": "var-garden-decor-planters-012-02",
     "product_id": "prod-garden-decor-planters-012",
-    "sku": "GARDEN-DECOR-PLANTERS-012-COLOR-SAND",
-    "option_name": "color",
-    "option_value": "Sand",
-    "price_eur": "72.14",
-    "inventory": 44
+    "sku": "GARDEN-DECOR-PLANTERS-012-SIZE-MEDIUM",
+    "option_name": "size",
+    "option_value": "Medium",
+    "price_eur": "42.87",
+    "inventory": 177
   },
   {
     "id": "var-garden-decor-planters-012-03",
     "product_id": "prod-garden-decor-planters-012",
-    "sku": "GARDEN-DECOR-PLANTERS-012-COLOR-CHARCOAL",
-    "option_name": "color",
-    "option_value": "Charcoal",
-    "price_eur": "72.14",
-    "inventory": 103
+    "sku": "GARDEN-DECOR-PLANTERS-012-SIZE-LARGE",
+    "option_name": "size",
+    "option_value": "Large",
+    "price_eur": "42.87",
+    "inventory": 227
   }
 ]

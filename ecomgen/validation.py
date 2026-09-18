@@ -3,16 +3,24 @@
 from __future__ import annotations
 
 import csv
+import importlib
 import json
+import re
 from collections import defaultdict
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from decimal import ROUND_HALF_UP, Decimal
+from datetime import UTC, date, datetime, time
+from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from pydantic import ValidationError
 
-from ecomgen.accounting import item_paid_value
+from ecomgen.accounting import item_paid_values
+from ecomgen.config import load_markets
+from ecomgen.config.models import CHANNELS, MarketConfig
+from ecomgen.exporters.manifest import MANIFEST_NAME, read_manifest, verify_manifest
 from ecomgen.schemas import (
     Customer,
     Dataset,
@@ -36,6 +44,31 @@ TABLE_MODELS: dict[str, type[Record]] = {
 }
 
 _CENT = Decimal("0.01")
+_DISCOUNT_DEPTH_TOLERANCE = Decimal("0.005")
+_CURRENT_MANIFEST_ARGUMENTS = frozenset(
+    {
+        "preset",
+        "markets",
+        "customers",
+        "months",
+        "start_date",
+        "seed",
+        "format",
+        "shopify_export",
+    }
+)
+_REQUIRED_METADATA = frozenset(
+    {
+        "schema_version",
+        "pricing_mode",
+        "order_window_start",
+        "order_window_end",
+        "return_cutoff",
+        "return_delay_days",
+    }
+)
+_SAVE_CODE = re.compile(r"SAVE([1-9]\d?|100)")
+_PAID_CHANNELS = frozenset({"email", "google", "meta"})
 
 
 class DatasetLoadError(ValueError):
@@ -108,10 +141,9 @@ def _read_rows(path: Path, table: str, format_name: str) -> list[dict[str, Any]]
     return rows
 
 
-def load_dataset(path: str | Path) -> Dataset:
-    """Load a complete CSV or JSON export directory into typed records."""
+def _load_dataset_format(directory: Path, format_name: str) -> Dataset:
+    """Load one complete representation from an export directory."""
 
-    directory, format_name = _dataset_location(path)
     tables: dict[str, list[Record]] = {}
     errors: list[str] = []
     for table, model in TABLE_MODELS.items():
@@ -132,16 +164,131 @@ def load_dataset(path: str | Path) -> Dataset:
     return Dataset(**tables)
 
 
+def load_dataset(path: str | Path) -> Dataset:
+    """Load a complete CSV or JSON export directory into typed records."""
+
+    directory, format_name = _dataset_location(path)
+    return _load_dataset_format(directory, format_name)
+
+
 def _duplicates(records: list[Record]) -> list[str]:
     ids = [str(record.id) for record in records]
     seen: set[str] = set()
     return sorted(identifier for identifier in ids if identifier in seen or seen.add(identifier))
 
 
-def validate_dataset(dataset: Dataset) -> ValidationReport:
+def _market_mapping(
+    markets: Mapping[str, MarketConfig] | Sequence[MarketConfig] | None,
+) -> dict[str, MarketConfig]:
+    if markets is None:
+        return load_markets()
+    if isinstance(markets, Mapping):
+        return dict(markets)
+    return {market.code: market for market in markets}
+
+
+def _as_utc(value: datetime) -> datetime:
+    """Normalize datetimes for comparisons, treating legacy naive values as UTC."""
+
+    if value.tzinfo is None or value.utcoffset() is None:
+        return value.replace(tzinfo=UTC)
+    return value.astimezone(UTC)
+
+
+def _before(left: datetime, right: datetime) -> bool:
+    return _as_utc(left) < _as_utc(right)
+
+
+def _at_or_before(left: datetime, right: datetime) -> bool:
+    return _as_utc(left) <= _as_utc(right)
+
+
+def _manifest_metadata_errors(manifest: Mapping[str, Any] | None) -> list[str]:
+    if manifest is None:
+        return []
+    arguments = manifest.get("arguments")
+    metadata = manifest.get("metadata")
+    is_current = (
+        isinstance(metadata, Mapping)
+        or isinstance(arguments, Mapping)
+        and _CURRENT_MANIFEST_ARGUMENTS <= arguments.keys()
+    )
+    if not is_current:
+        return []
+    if not isinstance(metadata, Mapping):
+        return [f"{MANIFEST_NAME}: current exports require semantic metadata"]
+    missing = sorted(_REQUIRED_METADATA - metadata.keys())
+    errors = [f"{MANIFEST_NAME}: metadata is missing required fields: {missing}"] if missing else []
+    if metadata.get("schema_version") != 1:
+        errors.append(f"{MANIFEST_NAME}: unsupported metadata schema_version")
+    if metadata.get("pricing_mode") != "gross_vat_inclusive":
+        errors.append(f"{MANIFEST_NAME}: metadata pricing_mode must be 'gross_vat_inclusive'")
+    delay = metadata.get("return_delay_days")
+    if not (
+        isinstance(delay, Mapping)
+        and isinstance(delay.get("min"), int)
+        and isinstance(delay.get("max"), int)
+        and 0 <= delay["min"] <= delay["max"]
+    ):
+        errors.append(f"{MANIFEST_NAME}: metadata return_delay_days must be an ordered range")
+    parsed_dates: dict[str, date] = {}
+    for field in ("order_window_start", "order_window_end", "return_cutoff"):
+        value = metadata.get(field)
+        try:
+            parsed_dates[field] = date.fromisoformat(value)
+        except (TypeError, ValueError):
+            errors.append(f"{MANIFEST_NAME}: metadata {field} must be an ISO date")
+    if len(parsed_dates) == 3 and not (
+        parsed_dates["order_window_start"]
+        <= parsed_dates["order_window_end"]
+        <= parsed_dates["return_cutoff"]
+    ):
+        errors.append(f"{MANIFEST_NAME}: metadata window dates are not ordered")
+    return errors
+
+
+def _return_cutoff(manifest: Mapping[str, Any] | None) -> datetime | None:
+    if not isinstance(manifest, Mapping):
+        return None
+    metadata = manifest.get("metadata")
+    if not isinstance(metadata, Mapping):
+        return None
+    value = metadata.get("return_cutoff")
+    if not isinstance(value, str):
+        return None
+    try:
+        parsed = datetime.fromisoformat(value)
+    except ValueError:
+        try:
+            parsed = datetime.combine(date.fromisoformat(value), time.min)
+        except ValueError:
+            return None
+    return _as_utc(parsed)
+
+
+def _selected_markets(manifest: Mapping[str, Any] | None) -> set[str] | None:
+    if not isinstance(manifest, Mapping):
+        return None
+    arguments = manifest.get("arguments")
+    if not isinstance(arguments, Mapping):
+        return None
+    values = arguments.get("markets")
+    if not isinstance(values, list) or any(not isinstance(value, str) for value in values):
+        return None
+    return set(values)
+
+
+def validate_dataset(
+    dataset: Dataset,
+    markets: Mapping[str, MarketConfig] | Sequence[MarketConfig] | None = None,
+    manifest: Mapping[str, Any] | None = None,
+) -> ValidationReport:
     """Run cross-table and accounting integrity checks."""
 
     errors: list[str] = []
+    market_configs = _market_mapping(markets)
+    selected_markets = _selected_markets(manifest)
+    cutoff = _return_cutoff(manifest)
     rows = {name: len(records) for name, records in dataset.tables().items()}
     for table in ("products", "variants", "customers", "orders", "order_items", "returns"):
         duplicates = _duplicates(getattr(dataset, table))
@@ -153,34 +300,148 @@ def validate_dataset(dataset: Dataset) -> ValidationReport:
     customers = {record.id: record for record in dataset.customers}
     orders = {record.id: record for record in dataset.orders}
     items = {record.id: record for record in dataset.order_items}
+    customer_orders: defaultdict[str, list[Order]] = defaultdict(list)
+    items_by_order: defaultdict[str, list[OrderItem]] = defaultdict(list)
     line_subtotals: defaultdict[str, Decimal] = defaultdict(Decimal)
     for item in dataset.order_items:
+        items_by_order[item.order_id].append(item)
         line_subtotals[item.order_id] += item.unit_price * item.quantity
 
+    for product in dataset.products:
+        invalid_markets = sorted(set(product.markets) - set(market_configs))
+        if invalid_markets:
+            errors.append(f"product {product.id}: unknown markets {invalid_markets}")
+        if selected_markets is not None:
+            unselected = sorted(set(product.markets) - selected_markets)
+            if unselected:
+                errors.append(
+                    f"product {product.id}: markets not selected for this run: {unselected}"
+                )
     for variant in dataset.variants:
         if variant.product_id not in products:
             errors.append(f"variant {variant.id}: orphan product_id {variant.product_id}")
         if variant.inventory < 0:
             errors.append(f"variant {variant.id}: inventory must be nonnegative")
     for order in dataset.orders:
-        if order.customer_id not in customers:
+        customer = customers.get(order.customer_id)
+        market = market_configs.get(order.market)
+        if customer is None:
             errors.append(f"order {order.id}: orphan customer_id {order.customer_id}")
+        else:
+            customer_orders[customer.id].append(order)
+            if customer.market != order.market:
+                errors.append(
+                    f"order {order.id}: market {order.market} does not match "
+                    f"customer {customer.id} market {customer.market}"
+                )
+            if _before(order.created_at, customer.created_at):
+                errors.append(
+                    f"order {order.id}: created_at precedes customer {customer.id} created_at"
+                )
+        if market is None:
+            errors.append(f"order {order.id}: unknown market {order.market}")
+        else:
+            if order.currency != market.currency:
+                errors.append(
+                    f"order {order.id}: currency {order.currency} does not match "
+                    f"market {order.market} currency {market.currency}"
+                )
+            expected_shipping = market.shipping_cost.quantize(_CENT, rounding=ROUND_HALF_UP)
+            if order.shipping != expected_shipping:
+                errors.append(
+                    f"order {order.id}: shipping {order.shipping} does not match "
+                    f"market {order.market} shipping {expected_shipping}"
+                )
+            gross = order.subtotal - order.discount + order.shipping
+            expected_tax = (gross * market.vat_rate / (Decimal(1) + market.vat_rate)).quantize(
+                _CENT, rounding=ROUND_HALF_UP
+            )
+            if order.tax != expected_tax:
+                errors.append(
+                    f"order {order.id}: VAT {order.tax} does not match included-tax "
+                    f"amount {expected_tax} for market {order.market}"
+                )
+        if selected_markets is not None and order.market not in selected_markets:
+            errors.append(f"order {order.id}: market {order.market} was not selected for this run")
         line_subtotal = line_subtotals[order.id]
         if line_subtotal != order.subtotal:
             errors.append(
                 f"order {order.id}: subtotal {order.subtotal} != line subtotal {line_subtotal}"
             )
-        expected_total = order.subtotal - order.discount + order.shipping + order.tax
+        expected_total = order.subtotal - order.discount + order.shipping
         if order.total != expected_total:
             errors.append(
                 f"order {order.id}: total {order.total} != subtotal - discount + "
-                f"shipping + tax ({expected_total})"
+                f"shipping ({expected_total})"
             )
+        if (order.discount > 0) != (order.discount_code is not None):
+            errors.append(f"order {order.id}: discount code must exist iff discount is positive")
+        if order.discount_code is not None:
+            match = _SAVE_CODE.fullmatch(order.discount_code)
+            if match is None:
+                errors.append(
+                    f"order {order.id}: discount code {order.discount_code!r} "
+                    "must have SAVE<n> shape"
+                )
+            elif order.subtotal <= 0:
+                errors.append(f"order {order.id}: discount code cannot apply to zero subtotal")
+            else:
+                coded_depth = Decimal(match.group(1)) / Decimal(100)
+                try:
+                    actual_depth = order.discount / order.subtotal
+                except (InvalidOperation, ZeroDivisionError):
+                    errors.append(f"order {order.id}: discount code depth cannot be calculated")
+                else:
+                    rounding_tolerance = _CENT / order.subtotal
+                    if abs(actual_depth - coded_depth) > (
+                        _DISCOUNT_DEPTH_TOLERANCE + rounding_tolerance
+                    ):
+                        errors.append(
+                            f"order {order.id}: discount code {order.discount_code} "
+                            f"is inconsistent with discount depth {actual_depth:.4f}"
+                        )
+    for customer in dataset.customers:
+        if customer.market not in market_configs:
+            errors.append(f"customer {customer.id}: unknown market {customer.market}")
+        if selected_markets is not None and customer.market not in selected_markets:
+            errors.append(
+                f"customer {customer.id}: market {customer.market} was not selected for this run"
+            )
+    for customer_id, related_orders in customer_orders.items():
+        chronological = sorted(
+            related_orders, key=lambda order: (_as_utc(order.created_at), order.id)
+        )
+        for position, order in enumerate(chronological):
+            expected_repeat = position > 0
+            if order.is_repeat != expected_repeat:
+                errors.append(
+                    f"order {order.id}: is_repeat must be {str(expected_repeat).lower()} "
+                    f"for customer {customer_id} in (created_at, id) order"
+                )
     for item in dataset.order_items:
-        if item.order_id not in orders:
+        order = orders.get(item.order_id)
+        variant = variants.get(item.variant_id)
+        if order is None:
             errors.append(f"order item {item.id}: orphan order_id {item.order_id}")
-        if item.variant_id not in variants:
+        if variant is None:
             errors.append(f"order item {item.id}: orphan variant_id {item.variant_id}")
+        if order is not None and variant is not None:
+            product = products.get(variant.product_id)
+            if product is not None and order.market not in product.markets:
+                errors.append(
+                    f"order item {item.id}: product {product.id} is not eligible "
+                    f"in order market {order.market}"
+                )
+    paid_values: dict[str, Decimal] = {}
+    for order_id, related_items in items_by_order.items():
+        order = orders.get(order_id)
+        if order is None or len({item.id for item in related_items}) != len(related_items):
+            continue
+        try:
+            paid_values.update(item_paid_values(order, related_items))
+        except ValueError as exc:
+            errors.append(f"order {order.id}: discount allocation failed: {exc}")
+            continue
     refunded: defaultdict[str, Decimal] = defaultdict(Decimal)
     for returned in dataset.returns:
         order = orders.get(returned.order_id)
@@ -192,14 +453,22 @@ def validate_dataset(dataset: Dataset) -> ValidationReport:
             continue
         if item.order_id != returned.order_id:
             errors.append(f"return {returned.id}: order does not match its order item")
-        if order is not None and returned.created_at < order.created_at:
-            errors.append(f"return {returned.id}: return date precedes order date")
+        if order is not None and _at_or_before(returned.created_at, order.created_at):
+            errors.append(f"return {returned.id}: return date must be strictly after order date")
+        if cutoff is not None and _as_utc(returned.created_at) > cutoff:
+            errors.append(
+                f"return {returned.id}: created_at exceeds manifest return cutoff "
+                f"{cutoff.isoformat()}"
+            )
         refunded[item.id] += returned.refund_amount
     for item_id, refund_total in refunded.items():
         item = items[item_id]
         order = orders.get(item.order_id)
         if order is not None:
-            item_value = item_paid_value(order, item)
+            item_value = paid_values.get(
+                item.id,
+                (item.unit_price * item.quantity).quantize(_CENT, rounding=ROUND_HALF_UP),
+            )
         else:
             item_value = (item.unit_price * item.quantity).quantize(_CENT, rounding=ROUND_HALF_UP)
         refund_total = refund_total.quantize(_CENT, rounding=ROUND_HALF_UP)
@@ -208,14 +477,161 @@ def validate_dataset(dataset: Dataset) -> ValidationReport:
                 f"order item {item_id}: cumulative refunds {refund_total} exceed "
                 f"item value {item_value}"
             )
+    marketing_keys: set[tuple[date, str, str]] = set()
+    marketing_customers: dict[tuple[date, str, str], int] = {}
+    for row in dataset.marketing_spend:
+        key = (row.date, row.market, row.channel)
+        if key in marketing_keys:
+            errors.append(
+                f"marketing: duplicate (date, market, channel) key "
+                f"({row.date}, {row.market}, {row.channel})"
+            )
+        marketing_keys.add(key)
+        marketing_customers[key] = row.new_customers
+        market = market_configs.get(row.market)
+        if market is None:
+            errors.append(f"marketing {key}: unknown market {row.market}")
+        elif row.currency != market.currency:
+            errors.append(
+                f"marketing {key}: currency {row.currency} does not match "
+                f"market currency {market.currency}"
+            )
+        if selected_markets is not None and row.market not in selected_markets:
+            errors.append(f"marketing {key}: market was not selected for this run")
+        if row.channel not in CHANNELS:
+            errors.append(f"marketing {key}: unknown channel {row.channel}")
+        if row.channel in _PAID_CHANNELS:
+            if row.impressions < row.clicks:
+                errors.append(
+                    f"marketing {key}: impressions {row.impressions} must be >= clicks {row.clicks}"
+                )
+            if row.clicks < row.new_customers:
+                errors.append(
+                    f"marketing {key}: clicks {row.clicks} must be >= "
+                    f"new_customers {row.new_customers}"
+                )
+        elif row.impressions != 0 or row.clicks != 0:
+            errors.append(f"marketing {key}: unpaid channels must have zero impressions and clicks")
+    acquired: defaultdict[tuple[date, str, str], int] = defaultdict(int)
+    for customer in dataset.customers:
+        market = market_configs.get(customer.market)
+        if market is None:
+            continue
+        local_date = _as_utc(customer.created_at).astimezone(ZoneInfo(market.timezone)).date()
+        acquired[(local_date, customer.market, customer.acquisition_channel)] += 1
+    for key in sorted(set(marketing_customers) | set(acquired)):
+        actual = marketing_customers.get(key, 0)
+        expected = acquired.get(key, 0)
+        if actual != expected:
+            errors.append(
+                f"marketing {key}: new_customers {actual} does not reconcile "
+                f"to customer acquisitions {expected}"
+            )
     return ValidationReport(errors=errors, row_counts=rows)
 
 
-def validate_path(path: str | Path) -> ValidationReport:
+def _representation_table(error: str) -> str | None:
+    lowered = error.lower()
+    if lowered.startswith("order item"):
+        return "order_items"
+    for prefix, table in (
+        ("product", "products"),
+        ("variant", "variants"),
+        ("customer", "customers"),
+        ("order", "orders"),
+        ("return", "returns"),
+        ("marketing", "marketing_spend"),
+    ):
+        if lowered.startswith(prefix):
+            return table
+    return None
+
+
+def _format_errors(format_name: str, errors: list[str]) -> list[str]:
+    formatted = []
+    for error in errors:
+        table = _representation_table(error)
+        label = f"{table}.{format_name}" if table is not None else format_name.upper()
+        formatted.append(f"{label}: {error}")
+    return formatted
+
+
+def _semantic_tables(dataset: Dataset) -> dict[str, list[str]]:
+    """Canonicalize table rows so export row order is not treated as data."""
+
+    return {
+        table: sorted(
+            json.dumps(record.model_dump(mode="json"), sort_keys=True, separators=(",", ":"))
+            for record in records
+        )
+        for table, records in dataset.tables().items()
+    }
+
+
+def _optional_shopify_errors(directory: Path) -> list[str]:
+    path = directory / "products_shopify.csv"
+    if not path.is_file():
+        return []
+    # Import lazily to avoid an exporters -> validation import cycle.
+    module = importlib.import_module("ecomgen.exporters.shopify")
+    hook = getattr(module, "validate_shopify_export", None)
+    if not callable(hook):
+        return []
+    try:
+        result = hook(path)
+    except (OSError, UnicodeError, csv.Error, ValueError) as exc:
+        return [f"{path.name}: Shopify validation failed: {exc}"]
+    return [f"{path.name}: {error}" for error in result]
+
+
+def validate_path(
+    path: str | Path,
+    markets: Mapping[str, MarketConfig] | Sequence[MarketConfig] | None = None,
+    *,
+    require_manifest: bool = False,
+) -> ValidationReport:
     """Load and validate an exported dataset without raising for user data errors."""
 
-    try:
-        dataset = load_dataset(path)
-    except DatasetLoadError as exc:
-        return ValidationReport(errors=str(exc).splitlines(), row_counts={})
-    return validate_dataset(dataset)
+    source = Path(path)
+    directory = source.parent if source.is_file() else source
+    errors: list[str] = []
+    row_counts: dict[str, int] = {}
+    manifest_path = directory / MANIFEST_NAME
+    manifest = read_manifest(directory)
+    if require_manifest or manifest_path.is_file():
+        errors.extend(verify_manifest(directory))
+    errors.extend(_manifest_metadata_errors(manifest))
+
+    datasets: dict[str, Dataset] = {}
+    for format_name in ("csv", "json"):
+        present = {
+            table for table in Dataset.TABLES if (directory / f"{table}.{format_name}").is_file()
+        }
+        if present and len(present) != len(Dataset.TABLES):
+            missing = sorted(set(Dataset.TABLES) - present)
+            errors.append(
+                f"incomplete {format_name.upper()} representation; missing tables: {missing}"
+            )
+            continue
+        if not present:
+            continue
+        try:
+            dataset = _load_dataset_format(directory, format_name)
+        except DatasetLoadError as exc:
+            errors.extend(f"{format_name.upper()}: {error}" for error in str(exc).splitlines())
+            continue
+        datasets[format_name] = dataset
+        report = validate_dataset(dataset, markets=markets, manifest=manifest)
+        if not row_counts:
+            row_counts = report.row_counts
+        errors.extend(_format_errors(format_name, report.errors))
+
+    if not datasets:
+        errors.append(f"no complete CSV or JSON dataset representation found in {directory}")
+    if {"csv", "json"} <= datasets.keys() and _semantic_tables(datasets["csv"]) != _semantic_tables(
+        datasets["json"]
+    ):
+        errors.append("CSV and JSON dataset representations differ semantically")
+
+    errors.extend(_optional_shopify_errors(directory))
+    return ValidationReport(errors=errors, row_counts=row_counts)

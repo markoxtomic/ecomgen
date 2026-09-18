@@ -1,4 +1,5 @@
 import csv
+import hashlib
 import json
 from dataclasses import replace
 from datetime import date
@@ -20,6 +21,35 @@ def _dataset(seed: int = 42) -> Dataset:
         start_date=date(2024, 1, 1),
         seed=seed,
     )
+
+
+def _generate_with_cli(output, format_name: str) -> None:
+    result = CliRunner().invoke(
+        app,
+        [
+            "generate",
+            "--markets",
+            "de",
+            "--customers",
+            "20",
+            "--months",
+            "1",
+            "--out",
+            str(output),
+            "--format",
+            format_name,
+        ],
+    )
+    assert result.exit_code == 0, result.stdout
+
+
+def _refresh_manifest_hash(output, filename: str) -> None:
+    manifest_path = output / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["files"][filename]["sha256"] = hashlib.sha256(
+        (output / filename).read_bytes()
+    ).hexdigest()
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
 
 def test_csv_and_json_export_every_table_with_stable_headers(tmp_path) -> None:
@@ -122,3 +152,72 @@ def test_cli_generate_presets_and_validate_smoke(tmp_path) -> None:
     validate_result = runner.invoke(app, ["validate", "--path", str(output)])
     assert validate_result.exit_code == 0
     assert "Valid dataset" in validate_result.stdout
+
+
+def test_cli_validate_requires_manifest(tmp_path) -> None:
+    output = tmp_path / "output"
+    export_csv(_dataset(), output)
+
+    result = CliRunner().invoke(app, ["validate", "--path", str(output)])
+
+    assert result.exit_code == 1
+    assert "manifest" in result.stdout.lower()
+
+
+def test_cli_validate_verifies_manifest_before_accepting_dataset(tmp_path) -> None:
+    output = tmp_path / "output"
+    _generate_with_cli(output, "json")
+    products_path = output / "products.json"
+    products = json.loads(products_path.read_text(encoding="utf-8"))
+    products_path.write_text(json.dumps(products, separators=(",", ":")), encoding="utf-8")
+
+    result = CliRunner().invoke(app, ["validate", "--path", str(output)])
+
+    assert result.exit_code == 1
+    assert "products.json" in result.stdout
+    assert "sha-256" in result.stdout.lower()
+
+
+def test_cli_validate_checks_each_complete_export_representation(tmp_path) -> None:
+    output = tmp_path / "output"
+    _generate_with_cli(output, "all")
+    orders_path = output / "orders.json"
+    orders = json.loads(orders_path.read_text(encoding="utf-8"))
+    assert orders
+    orders[0]["currency"] = "GBP"
+    orders_path.write_text(json.dumps(orders), encoding="utf-8")
+    _refresh_manifest_hash(output, "orders.json")
+
+    result = CliRunner().invoke(app, ["validate", "--path", str(output)])
+
+    assert result.exit_code == 1
+    output_text = result.stdout.lower()
+    assert "orders.json" in output_text
+    assert "currency" in output_text
+
+
+def test_cli_validate_detects_cross_format_semantic_divergence(tmp_path) -> None:
+    output = tmp_path / "output"
+    _generate_with_cli(output, "all")
+    products_path = output / "products.json"
+    products = json.loads(products_path.read_text(encoding="utf-8"))
+    assert products
+    products[0]["description_short"] += " JSON-only change."
+    products_path.write_text(json.dumps(products), encoding="utf-8")
+    _refresh_manifest_hash(output, "products.json")
+
+    result = CliRunner().invoke(app, ["validate", "--path", str(output)])
+
+    assert result.exit_code == 1
+    output_text = result.stdout.lower()
+    assert "csv" in output_text and "json" in output_text
+    assert "differ" in output_text or "diverg" in output_text
+
+
+def test_cli_validate_accepts_matching_complete_csv_and_json_exports(tmp_path) -> None:
+    output = tmp_path / "output"
+    _generate_with_cli(output, "all")
+
+    result = CliRunner().invoke(app, ["validate", "--path", str(output)])
+
+    assert result.exit_code == 0, result.stdout

@@ -33,8 +33,7 @@ def test_prices_costs_options_and_markets_follow_configuration() -> None:
         assert category.price_range[0] <= product.price_eur <= category.price_range[1]
         assert product.price_eur * category.cost_ratio_range[0] <= product.cost_eur
         assert product.cost_eur <= product.price_eur * category.cost_ratio_range[1]
-        assert product.markets
-        assert set(product.markets) <= market_codes
+        assert set(product.markets) == market_codes
         assert len(product.markets) == len(set(product.markets))
 
     for variant in variants:
@@ -43,6 +42,32 @@ def test_prices_costs_options_and_markets_follow_configuration() -> None:
         assert variant.option_name in options
         assert variant.option_value in options[variant.option_name]
         assert variant.price_eur == product.price_eur
+
+
+def test_product_titles_are_globally_unique() -> None:
+    products, _ = _generated()
+    normalized_titles = [product.title.casefold() for product in products]
+
+    assert len(normalized_titles) == len(set(normalized_titles))
+
+
+def test_product_titles_use_their_category_vocabulary() -> None:
+    preset = load_preset("fashion")
+    products, _ = _generated()
+
+    for product in products:
+        category = preset.categories[product.category]
+        assert hasattr(category, "title_words"), (
+            f"category {product.category!r} must define its own title vocabulary"
+        )
+        words = category.title_words
+        allowed_titles = {
+            f"{adjective} {material} {noun}"
+            for adjective in words.adjectives
+            for material in words.materials
+            for noun in words.nouns
+        }
+        assert product.title in allowed_titles
 
 
 def test_generation_is_deterministic_for_mapping_or_list_markets() -> None:

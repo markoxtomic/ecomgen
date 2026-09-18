@@ -113,7 +113,8 @@ garden-decor
 ### `ecomgen validate`
 
 Load a complete CSV or JSON export and check its schemas, relationships, inventory,
-return chronology and refund bounds, and order arithmetic.
+return chronology and refund bounds, order arithmetic, market/currency consistency,
+and marketing/customer reconciliation.
 
 ```text
 ecomgen validate --path PATH
@@ -121,8 +122,11 @@ ecomgen validate --path PATH
 
 `--path` is required and must be readable. It may identify an export directory or
 one `.csv`/`.json` table within that directory; all seven tables of the selected
-format must be present beside it. A valid dataset exits with status 0. Load or
-integrity errors are printed and exit with status 1.
+format must be present beside it. The manifest is authoritative: validation requires
+`manifest.json`, verifies every listed row count and SHA-256 digest, rejects unlisted
+dataset files, reads the selected markets and semantic window metadata from it, and
+compares CSV and JSON representations when both are present. A valid dataset exits
+with status 0. Load or integrity errors are printed and exit with status 1.
 
 ```bash
 ecomgen validate --path ./output
@@ -135,10 +139,10 @@ ecomgen validate --path ./output
 | `products` | `id`, `title`, `category`, `description_short`, `price_eur`, `cost_eur`, `markets` | Base catalog and market availability |
 | `variants` | `id`, `product_id`, `sku`, option fields, `price_eur`, `inventory` | Sellable product options and remaining stock |
 | `customers` | `id`, `market`, identity and location fields, `created_at`, `acquisition_channel` | Locale-aware synthetic customers |
-| `orders` | `id`, `customer_id`, `market`, `created_at`, currency and totals, `discount_code`, `is_repeat` | Market-local transactions |
+| `orders` | `id`, `customer_id`, `market`, `created_at`, currency and gross VAT-inclusive totals, `discount_code`, `is_repeat` | Market-local transactions serialized in UTC |
 | `order_items` | `id`, `order_id`, `variant_id`, `quantity`, `unit_price` | Order line items |
 | `returns` | `id`, `order_id`, `order_item_id`, `reason`, `refund_amount`, `created_at` | Item-level returns and refunds |
-| `marketing_spend` | `date`, `market`, `channel`, `currency`, `spend`, `impressions`, `clicks`, `new_customers` | Daily channel spend (in the market currency) and the customers it acquired |
+| `marketing_spend` | `date`, `market`, `channel`, `currency`, `spend`, `impressions`, `clicks`, `new_customers` | Daily channel spend and acquisitions in the market currency; there is no `attributed_orders` field |
 
 The core relationships are:
 
@@ -146,8 +150,10 @@ The core relationships are:
 products 1──* variants 1──* order_items *──1 orders *──1 customers
                                       └──0..1 returns
 
-marketing_spend is keyed by date + market + channel. new_customers equals the number
-of customers with that created_at date, market and acquisition_channel.
+marketing_spend is keyed by date + market + channel. `new_customers` equals the
+number of customers acquired on that market-local date with that market and
+`acquisition_channel`. Orders are not copied into the marketing table and there is
+no `attributed_orders` column.
 ```
 
 Each return points to both its order and order item. The validator checks those
@@ -156,12 +162,16 @@ foreign keys and confirms that the item belongs to the referenced order.
 ## How realism is modeled
 
 - **Catalog:** each preset category produces 12 products. Prices and cost ratios come
-  from category ranges; products receive one configured option dimension and a
-  variant for each value in that dimension. Availability varies across selected
-  markets.
+  from category ranges; titles use that category's own adjective, material, and noun
+  vocabularies and are unique across the generated catalog. Products receive one
+  configured option dimension and a variant for each value in that dimension. Every
+  product is available in every selected market, so assortment does not create a
+  hidden market-performance difference.
 - **Customers:** customer counts are allocated by relative market demand. Faker uses
   each market's locale for names and cities. Generated emails use the reserved
-  `example.test` domain.
+  `example.test` domain. Customer and order hours are sampled from each market's
+  configured local-time profile, including daylight-saving transitions, then
+  serialized as UTC timestamps (`Z` in CSV).
 - **Demand:** daily order counts combine market demand weights, the preset's 12
   monthly seasonality multipliers, weekday multipliers, date-range spikes, bounded
   noise, and Poisson sampling.
@@ -187,10 +197,19 @@ foreign keys and confirms that the item belongs to the referenced order.
   demand.
 - **Market pricing:** EUR catalog prices are converted with the configured FX rate.
   Prices below 100 use `.90` endings; prices at or above 100 are rounded to whole
-  units. Shipping, currency, and VAT are market-specific.
-- **Accounting:** money uses `Decimal`. Every order satisfies
-  `subtotal - discount + shipping + tax = total`, with monetary values rounded to
-  two decimal places.
+  units. These prices and market shipping charges are gross and already include VAT;
+  currency and the included VAT amount are market-specific.
+- **Accounting:** money uses `Decimal`, all exported customer-facing prices are gross
+  (VAT-inclusive), and values are rounded to two decimal places. `tax` reports the
+  VAT already included in `total`; it is not added a second time:
+
+  ```text
+  subtotal          = Σ(unit_price × quantity)
+  gross_before_tax  = subtotal − discount + shipping
+  tax               = ROUND_HALF_UP(gross_before_tax × vat_rate / (1 + vat_rate), 0.01)
+  total             = gross_before_tax
+  net_revenue_ex_vat = total − tax
+  ```
 - **Discounts:** usage and depth follow preset ranges. Applied discounts receive a
   generated `SAVE<n>` code.
 - **Returns:** each order item is sampled using its category's return rate and
@@ -198,16 +217,18 @@ foreign keys and confirms that the item belongs to the referenced order.
   customer paid for the whole line, in the order currency, never more:
 
   ```text
-  line       = unit_price × quantity
-  net_paid   = line − discount × line / subtotal
-  line_tax   = tax × net_paid / (subtotal − discount + shipping)
-  refund     = ROUND_HALF_UP(net_paid + line_tax, 0.01)
+  line             = unit_price × quantity
+  exact_share      = discount × line / subtotal
+  allocated_share  = FLOOR_TO_CENTS(exact_share) + largest-remainder cent
+  refund           = line − allocated_share
   ```
 
-  The line carries its pro-rata share of the order discount and of the VAT actually
-  charged on the order; shipping is not refunded. The same formula
-  (`ecomgen.accounting.item_paid_value`) caps cumulative refunds per order item in
-  `ecomgen validate`.
+  `unit_price` is already VAT-inclusive, so VAT is not added again. The line carries
+  its pro-rata share of the order discount; shipping is not refunded. Remaining
+  discount cents are assigned by largest remainder with item id as the stable
+  tie-break, so line allocations reconcile exactly to the order discount. The same
+  allocation (`ecomgen.accounting.item_paid_values`) caps cumulative refunds per
+  order item in `ecomgen validate`.
 - **Marketing and acquisition:** spend comes first and buys customers; orders never
   feed back into spend. Customers are split across markets by demand weight and
   across channels by a multinomial draw on the preset `channel_mix` weights. Each
@@ -216,8 +237,8 @@ foreign keys and confirms that the item belongs to the referenced order.
   spend follows seasonality, weekday and spike multipliers with log-normal noise.
   Daily CAC rises with daily spend (`CAC × (spend / mean planned spend)^0.35`), so
   extra spend has diminishing returns. The channel's customers are then placed on
-  days by a multinomial draw in proportion to what each day's spend bought, which
-  keeps `--customers` exact. `direct` and `organic` acquire customers along the
+  market-local days by a multinomial draw in proportion to what each day's spend
+  bought, which keeps `--customers` exact. `direct` and `organic` acquire customers along the
   calendar multipliers with zero spend, impressions and clicks. Every day has one
   row per selected market and channel. `spend` is in the market's `currency`.
   Impressions come from a per-channel CPM and clicks from a CTR, with
@@ -251,6 +272,10 @@ categories:
     return_reasons:
       damaged: 0.6
       changed_mind: 0.4
+    title_words:
+      adjectives: [Modern, Handcrafted]
+      materials: [Stoneware, Porcelain]
+      nouns: [Vase, Bowl]
 
 seasonality: [0.8, 0.8, 0.9, 1.0, 1.1, 1.1, 1.0, 1.0, 1.1, 1.2, 1.5, 1.4]
 special_spikes:
@@ -274,11 +299,6 @@ discount:
   usage_rate: 0.30
   depth_range: [0.10, 0.25]
 
-title_words:
-  adjectives: [Modern, Handcrafted]
-  materials: [Stoneware, Porcelain]
-  nouns: [Vase, Bowl]
-
 # Optional; these are the defaults.
 inventory:
   reorder_point: 30
@@ -288,7 +308,8 @@ inventory:
 ```
 
 Configuration is validated strictly: unknown fields are rejected; category ranges
-must be ordered and in bounds; option and title-word lists cannot be empty;
+must be ordered and in bounds; option and category-local title-word lists cannot be
+empty, and each category must contribute 12 titles that are unique across the catalog;
 seasonality must contain exactly 12 positive values; spike dates must be real
 `MM-DD` calendar dates (`02-31` is rejected; `02-29` is allowed and simply never
 matches in non-leap years; `start` after `end` wraps across the new year);
@@ -329,6 +350,43 @@ Variant Price, Status
 The export is for product import workflows only; it does not import customers,
 orders, returns, or marketing data.
 
+### Manual Shopify dev-store import checklist
+
+Automated exporter and validator checks inspect local files only. They do **not**
+connect to Shopify or mutate a live store, so a manual import is still required to
+verify Shopify's current importer behavior.
+
+Use a new or disposable Shopify development store with no production data:
+
+1. Set the development store's base currency to EUR. The CSV contains gross
+   VAT-inclusive EUR list prices, not per-market converted prices.
+2. Generate a dedicated export with `--shopify-export`, then run
+   `ecomgen validate --path <output>`. Do not continue if validation reports an
+   error or if `manifest.json` does not list `products_shopify.csv`.
+3. Before upload, inspect the CSV: confirm the expected header, one row per variant,
+   contiguous rows for each `Handle`, unique non-empty `Variant SKU` values,
+   non-negative inventory, and product-level values only on the first row per handle.
+4. In Shopify Admin, go to **Products → Import**, upload `products_shopify.csv`, and
+   review Shopify's preview and warning count before starting the import. Abort on
+   unexpected column mappings, replacements, or validation warnings.
+5. After import, compare Shopify's product and variant counts with `manifest.json`.
+   Spot-check products from each option shape present, including a single-variant
+   product if the export contains one and at least one multi-variant product. Verify
+   title, description, product type/tags, option name and values, SKU, gross price,
+   and inventory quantity.
+6. Confirm imported products are active and published as intended, inventory is
+   tracked by Shopify, fulfillment is manual, and the inventory policy denies sales
+   after stock reaches zero.
+7. Open products in the storefront preview and confirm text, option selection, price,
+   and availability render correctly. If multiple locations exist, verify where
+   Shopify assigned the imported quantity.
+8. Record the store, import time, source manifest digest, Shopify warnings, and
+   spot-check results. Delete the synthetic products afterward or discard the
+   development store so the test cannot contaminate another workflow.
+
+Never use a production store for this checklist. A successful local validation is a
+prerequisite, not evidence that a Shopify import has occurred.
+
 ## Output directory and manifest
 
 Every export is atomic. All files are written and flushed to disk in a temporary
@@ -368,6 +426,14 @@ and arguments give an identical manifest:
     "format": "csv",
     "shopify_export": false
   },
+  "metadata": {
+    "schema_version": 1,
+    "pricing_mode": "gross_vat_inclusive",
+    "order_window_start": "2024-01-01",
+    "order_window_end": "2025-01-01",
+    "return_cutoff": "2025-01-31",
+    "return_delay_days": {"min": 3, "max": 30}
+  },
   "files": {
     "customers.csv": {"rows": 5000, "sha256": "..."},
     "...": {}
@@ -378,6 +444,15 @@ and arguments give an identical manifest:
 `rows` counts data rows: CSV rows after the header, or the length of a JSON array.
 Every file written is listed, including `products_shopify.csv`. The SHA-256 digests
 detect edited, truncated, or swapped tables.
+
+The manifest's semantic metadata is the source of truth for downstream checks and BI
+queries. The order window is half-open:
+`order_window_start <= created_at < order_window_end`. The end is exclusive, so a
+12-month run beginning `2024-01-01` contains no order at or after
+`2025-01-01T00:00:00Z`. Returns may extend beyond that order window, but never beyond
+the inclusive `return_cutoff`, which is 30 days after the exclusive order-window end.
+Consumers should read these values from the manifest rather than recomputing them
+from CLI arguments.
 
 ## Summary output
 
@@ -426,6 +501,20 @@ configuration, CLI options, and `--seed`, generation produces the same records.
 stable per-market seed for each Faker instance. A different seed changes the
 dataset. Pin dependencies if byte-for-byte reproducibility must survive dependency
 upgrades.
+
+## BI smoke queries
+
+`reports/bi_queries.sql` contains DuckDB smoke queries for revenue, VAT, returns,
+acquisition, cohorts, inventory, and manifest-boundary checks. Replace `{DATA_DIR}`
+with an export directory and run the setup block followed by each named query.
+Currency is always retained in grouping keys; do not sum local-currency revenue or
+marketing spend across markets without an explicit FX conversion. The contribution
+query returns a value only where local order/spend currency is EUR because product
+cost is exported only as `cost_eur`.
+
+`reports/bi_queries_output.md` records the checked DuckDB 1.5.5 results for the
+500-customer sample in `examples/sample_output`, generated with the fixed
+`garden-decor`, `de,at,fr`, 12-month, 2024-01-01, seed-42 arguments.
 
 ## Development
 

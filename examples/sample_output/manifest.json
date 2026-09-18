@@ -1,0 +1,91 @@
+{
+  "generator": "ecomgen",
+  "version": "0.1.0",
+  "arguments": {
+    "preset": "garden-decor",
+    "markets": [
+      "de",
+      "at",
+      "fr"
+    ],
+    "customers": 500,
+    "months": 12,
+    "start_date": "2024-01-01",
+    "seed": 42,
+    "format": "all",
+    "shopify_export": true
+  },
+  "files": {
+    "customers.csv": {
+      "rows": 500,
+      "sha256": "51e74915414eed0c4334483fe9fc87877e38a133b2bb401f0fa1d1b3bc359250"
+    },
+    "customers.json": {
+      "rows": 500,
+      "sha256": "2226d336eea3648b8eef47e028d711f59304616e39ed6de6fde8dfefa390e06a"
+    },
+    "marketing_spend.csv": {
+      "rows": 5490,
+      "sha256": "5bf48809f9e6ad9fea252bbf9fcb93f740556cbb13f6cd4e8a8c0af006cde724"
+    },
+    "marketing_spend.json": {
+      "rows": 5490,
+      "sha256": "a51181451ea805a556ce7db36b38d56063fcd709e9e71748c948192972945b9c"
+    },
+    "order_items.csv": {
+      "rows": 623,
+      "sha256": "5a39407271a5e91288679ba26c430d4b93e09cbb033c3c83ff1dc3af12e68205"
+    },
+    "order_items.json": {
+      "rows": 623,
+      "sha256": "75a56a4dcff71d1a5e2559050aa9199581652b3be601c8f6fe6b4a5e4d6c42e7"
+    },
+    "orders.csv": {
+      "rows": 373,
+      "sha256": "fe31297b49d4c0c6b6ad75ac3fe575c0e3fa3e72756d91dd9dd369b376d536b4"
+    },
+    "orders.json": {
+      "rows": 373,
+      "sha256": "2c23f35120b0804f7942fed4fe7b61a2a35846d74f2492fe50ffc13f323d9934"
+    },
+    "products.csv": {
+      "rows": 36,
+      "sha256": "6b9f9862675afb50c346e65c75b12426f2c6a2d79c67b29ea56c04827faa3d64"
+    },
+    "products.json": {
+      "rows": 36,
+      "sha256": "93a233c6b908ca000e2e57ba8e488599b02cf3e054e3ed6860b5cbc09a0bc436"
+    },
+    "products_shopify.csv": {
+      "rows": 102,
+      "sha256": "4e50dbd9c4c5c9ae15ee97e5690c27669ea2dce784b5e4b25938bd9fea7a831b"
+    },
+    "returns.csv": {
+      "rows": 40,
+      "sha256": "79b839ee8215afc2ca657d80c08edbe0f13fe06b90bcb5d0d96972813cc8dec7"
+    },
+    "returns.json": {
+      "rows": 40,
+      "sha256": "68ef92ea1545d58f299b67534116102d41e0d1e496ec815c56cf5b5b3ea61c86"
+    },
+    "variants.csv": {
+      "rows": 102,
+      "sha256": "6c50d7b88c5131e4c46eb20ef8cb679bb0a218a19f372dc7c296db1ecbff11be"
+    },
+    "variants.json": {
+      "rows": 102,
+      "sha256": "b9c5eb4dcdfc17ffaae9e11c8251dc454855b442c2d1bab19195841bc63aa127"
+    }
+  },
+  "metadata": {
+    "schema_version": 1,
+    "pricing_mode": "gross_vat_inclusive",
+    "order_window_start": "2024-01-01",
+    "order_window_end": "2025-01-01",
+    "return_cutoff": "2025-01-31",
+    "return_delay_days": {
+      "min": 3,
+      "max": 30
+    }
+  }
+}

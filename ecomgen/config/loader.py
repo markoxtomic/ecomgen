@@ -11,14 +11,68 @@ from .models import MarketConfig, PresetConfig
 _MARKETS_ADAPTER = TypeAdapter(dict[str, MarketConfig])
 
 
+class ConfigError(ValueError):
+    """A concise, user-facing configuration error."""
+
+
+class _UniqueKeySafeLoader(yaml.SafeLoader):
+    """Safe YAML loader that treats duplicate mapping keys as errors."""
+
+
+def _construct_unique_mapping(
+    loader: _UniqueKeySafeLoader,
+    node: yaml.nodes.MappingNode,
+    deep: bool = False,
+) -> dict[Any, Any]:
+    loader.flatten_mapping(node)
+    mapping: dict[Any, Any] = {}
+    for key_node, value_node in node.value:
+        key = loader.construct_object(key_node, deep=deep)
+        try:
+            duplicate = key in mapping
+        except TypeError as exc:
+            raise yaml.constructor.ConstructorError(
+                "while constructing a mapping",
+                node.start_mark,
+                f"found an unhashable key ({exc})",
+                key_node.start_mark,
+            ) from None
+        if duplicate:
+            line = key_node.start_mark.line + 1
+            column = key_node.start_mark.column + 1
+            raise ConfigError(f"duplicate mapping key {key!r} at line {line}, column {column}")
+        mapping[key] = loader.construct_object(value_node, deep=deep)
+    return mapping
+
+
+_UniqueKeySafeLoader.add_constructor(
+    yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+    _construct_unique_mapping,
+)
+
+
 def _config_root():
     return files("ecomgen.config")
 
 
 def _read_yaml(resource) -> dict[str, Any]:
-    data = yaml.safe_load(resource.read_text(encoding="utf-8"))
+    try:
+        data = yaml.load(
+            resource.read_text(encoding="utf-8"),
+            Loader=_UniqueKeySafeLoader,
+        )
+    except ConfigError as exc:
+        raise ConfigError(f"invalid YAML in {resource.name}: {exc}") from None
+    except yaml.YAMLError as exc:
+        problem = getattr(exc, "problem", None) or str(exc).splitlines()[0]
+        mark = getattr(exc, "problem_mark", None)
+        location = f" at line {mark.line + 1}, column {mark.column + 1}" if mark is not None else ""
+        raise ConfigError(f"invalid YAML in {resource.name}{location}: {problem}") from None
     if not isinstance(data, dict):
-        raise TypeError(f"{resource.name} must contain a YAML mapping")
+        kind = type(data).__name__
+        raise ConfigError(
+            f"invalid YAML in {resource.name}: top-level value must be a mapping, got {kind}"
+        )
     return data
 
 

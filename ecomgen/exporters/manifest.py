@@ -58,11 +58,17 @@ def count_rows(path: Path) -> int:
     raise ValueError(f"unsupported dataset file type: {path.name}")
 
 
-def write_manifest(directory: str | Path, arguments: Mapping[str, Any]) -> Path:
+def write_manifest(
+    directory: str | Path,
+    arguments: Mapping[str, Any],
+    *,
+    metadata: Mapping[str, Any] | None = None,
+) -> Path:
     """Describe every file in ``directory`` in a new ``manifest.json``.
 
     Call this after all dataset files have been written. ``arguments`` must be
-    JSON-serializable and should hold the run arguments.
+    JSON-serializable and should hold the run arguments. ``metadata`` is
+    optional so manifests written by older callers retain their valid shape.
     """
 
     source = Path(directory)
@@ -77,6 +83,8 @@ def write_manifest(directory: str | Path, arguments: Mapping[str, Any]) -> Path:
         "arguments": dict(arguments),
         "files": files,
     }
+    if metadata is not None:
+        manifest["metadata"] = dict(metadata)
     path = source / MANIFEST_NAME
     with path.open("w", encoding="utf-8", newline="\n") as handle:
         handle.write(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
