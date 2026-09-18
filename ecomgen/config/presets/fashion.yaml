@@ -30,7 +30,7 @@ special_spikes:
   - {name: black-friday, start: "11-24", end: "11-30", multiplier: 2.60}
   - {name: christmas, start: "12-08", end: "12-20", multiplier: 1.55}
 channel_mix:
-  meta: {weight: 0.38, cac_range: [12, 26]}
+  meta: {weight: 0.38, cac_range: [85, 115]}
   google: {weight: 0.22, cac_range: [11, 24]}
   organic: {weight: 0.15, cac_range: [0, 3]}
   email: {weight: 0.15, cac_range: [1, 4]}
@@ -41,3 +41,4 @@ title_words:
   adjectives: [Relaxed, Tailored, Essential, Soft, Studio]
   materials: [Linen, Cotton, Satin, Wool, Leather]
   nouns: [Shirt, Dress, Cardigan, Scarf, Tote]
+inventory: {reorder_point: 30, restock_quantity: 120, lead_time_days: 10, cover_days: 45}

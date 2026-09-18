@@ -18,6 +18,7 @@ from ecomgen.generators import (
     generate_products,
     generate_returns,
 )
+from ecomgen.generators.orders import check_stockouts
 from ecomgen.schemas import Dataset
 
 DEFAULT_PRESET = "garden-decor"
@@ -40,11 +41,15 @@ def _faker_seed(seed: int, market: str) -> int:
 
 
 def _base_daily_demand(customer_count: int, months: int, market_weight: Decimal) -> Decimal:
-    """Scale demand to the requested population while retaining calendar effects."""
+    """Scale demand to the requested population while retaining calendar effects.
+
+    Demand is strictly proportional to the population: a fixed floor would let a
+    handful of customers place dozens of orders a year.
+    """
 
     approximate_days = Decimal(months) * Decimal("30.4375")
     population_rate = Decimal(customer_count) / approximate_days / market_weight
-    return max(Decimal("0.50"), population_rate * Decimal("0.80"))
+    return population_rate * Decimal("0.80")
 
 
 def generate_dataset(
@@ -86,7 +91,19 @@ def generate_dataset(
         faker.seed_instance(_faker_seed(seed, code))
         fakers[code] = faker
 
+    # Order simulation dominates the runtime, so progress is one step per
+    # simulated day plus a final step for returns and marketing.
+    order_days = 0
+
+    def _order_progress(days_done: int, total_days: int) -> None:
+        nonlocal order_days
+        order_days = total_days
+        if progress is not None:
+            progress(days_done, total_days + 1)
+
     products, variants = generate_products(config, selected_markets, rng)
+    # Marketing comes first: spend buys the customers who then place orders.
+    marketing = generate_marketing(config, selected_markets, customers, start_date, months, rng)
     customer_records = generate_customers(
         config,
         selected_markets,
@@ -95,6 +112,7 @@ def generate_dataset(
         months,
         rng,
         fakers,
+        acquisitions=marketing.acquisitions,
     )
     total_weight = sum(
         (market.demand_weight for market in selected_markets.values()),
@@ -110,7 +128,9 @@ def generate_dataset(
         months,
         rng,
         base_daily_orders=_base_daily_demand(customers, months, total_weight),
+        progress=_order_progress,
     )
+    check_stockouts(order_result.intended_orders, order_result.dropped_orders)
     remaining_variants = [
         variant.model_copy(update={"inventory": order_result.inventory[variant.id]})
         for variant in variants
@@ -123,18 +143,9 @@ def generate_dataset(
         order_result.order_items,
         rng,
     )
-    marketing = generate_marketing(
-        config,
-        selected_markets,
-        customer_records,
-        order_result.orders,
-        start_date,
-        months,
-        rng,
-    )
 
     if progress is not None:
-        progress(1, 1)
+        progress(order_days + 1, order_days + 1)
     return Dataset(
         products=products,
         variants=remaining_variants,
@@ -142,5 +153,5 @@ def generate_dataset(
         orders=order_result.orders,
         order_items=order_result.order_items,
         returns=return_records,
-        marketing_spend=marketing,
+        marketing_spend=marketing.records,
     )

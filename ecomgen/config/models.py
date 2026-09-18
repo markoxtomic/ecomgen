@@ -112,6 +112,22 @@ class DiscountConfig(ConfigModel):
         return self
 
 
+class InventoryConfig(ConfigModel):
+    """Per-variant replenishment policy, reviewed at the start of every day.
+
+    A purchase order is placed when a variant's on-hand plus on-order stock
+    falls to or below ``max(reorder_point, recent daily sales x lead_time_days)``.
+    It orders ``max(restock_quantity, recent daily sales x cover_days)`` units,
+    which arrive ``lead_time_days`` later. Recent daily sales are the units sold
+    over the trailing 28 days (or fewer at the start) divided by those days.
+    """
+
+    reorder_point: int = Field(default=30, ge=0, le=1_000_000)
+    restock_quantity: int = Field(default=120, ge=1, le=1_000_000)
+    lead_time_days: int = Field(default=10, ge=1, le=3650)
+    cover_days: int = Field(default=45, ge=0, le=3650)
+
+
 class TitleWordsConfig(ConfigModel):
     adjectives: list[str] = Field(min_length=1)
     materials: list[str] = Field(min_length=1)
@@ -140,6 +156,7 @@ class PresetConfig(ConfigModel):
     repeat_purchase: RepeatPurchaseConfig
     discount: DiscountConfig
     title_words: TitleWordsConfig
+    inventory: InventoryConfig = Field(default_factory=InventoryConfig)
 
     @field_validator("special_spikes", mode="wrap")
     @classmethod

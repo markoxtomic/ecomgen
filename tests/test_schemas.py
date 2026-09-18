@@ -80,10 +80,11 @@ def test_all_record_schemas_accept_the_specified_fields() -> None:
             date=date(2026, 1, 2),
             market="de",
             channel="google",
+            currency="EUR",
             spend=Decimal(100),
             impressions=10000,
             clicks=300,
-            attributed_orders=5,
+            new_customers=5,
         ),
     ]
 

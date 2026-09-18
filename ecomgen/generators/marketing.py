@@ -1,28 +1,54 @@
-"""Deterministic daily marketing performance generation."""
+"""Deterministic daily marketing spend and the customer acquisitions it buys.
+
+Causality runs from budget to customers: daily spend per paid channel is drawn
+from a budget first, spend buys acquisitions at a CAC that rises with daily
+spend (diminishing returns), and the resulting acquisition plan decides when
+and through which channel each customer is created. Orders never feed back into
+spend, and repeat orders are never charged acquisition cost.
+"""
 
 from __future__ import annotations
 
 import calendar
-import math
-from collections import Counter
 from collections.abc import Mapping, Sequence
 from datetime import UTC, date, datetime, time, timedelta
 from decimal import ROUND_HALF_UP, Decimal
+from typing import NamedTuple
 
 import numpy as np
 
 from ecomgen.config.models import CHANNELS, MarketConfig, PresetConfig
-from ecomgen.schemas import Customer, MarketingSpend, Order
+from ecomgen.generators.customers import allocate_market_counts
+from ecomgen.generators.orders import _WEEKDAY_MULTIPLIERS, _spike_multiplier
+from ecomgen.schemas import MarketingSpend
 
 _CENT = Decimal("0.01")
-_CHANNEL_FUNNEL_RANGES = {
-    "meta": ((0.008, 0.025), (0.015, 0.060)),
-    "google": ((0.015, 0.050), (0.025, 0.100)),
-    "email": ((0.040, 0.120), (0.050, 0.180)),
-    "organic": ((0.015, 0.060), (0.030, 0.140)),
-    "direct": ((0.050, 0.180), (0.080, 0.250)),
+PAID_CHANNELS = ("email", "google", "meta")
+UNPAID_CHANNELS = ("direct", "organic")
+# Cost per 1,000 impressions (EUR) and click-through rate ranges per paid channel.
+# Email "impressions" are delivered messages.
+_PAID_FUNNEL = {
+    "email": ((0.80, 2.00), (0.015, 0.040)),
+    "google": ((18.0, 35.0), (0.030, 0.070)),
+    "meta": ((6.0, 12.0), (0.008, 0.020)),
 }
-_NO_PAID_SPEND = {"direct", "organic"}
+# Daily CAC scales with (daily spend / average planned daily spend) ** SPEND_ELASTICITY,
+# so acquisitions grow like spend ** (1 - SPEND_ELASTICITY): diminishing returns.
+SPEND_ELASTICITY = 0.35
+_SPEND_NOISE_SIGMA = 0.30
+_CAC_NOISE_SIGMA = 0.15
+_UNPAID_NOISE_SIGMA = 0.20
+
+
+class AcquisitionPlan(NamedTuple):
+    """Daily marketing rows and the customers they acquired.
+
+    ``acquisitions`` maps ``(market, date, channel)`` to the number of customers
+    to create on that date; it sums exactly to the requested customer count.
+    """
+
+    records: list[MarketingSpend]
+    acquisitions: dict[tuple[str, date, str], int]
 
 
 def _window(start_date: date | datetime, months: int) -> tuple[datetime, datetime]:
@@ -57,122 +83,152 @@ def _market_values(
     return ordered
 
 
-def _funnel(channel: str, attributed_orders: int, rng: np.random.Generator) -> tuple[int, int]:
-    if attributed_orders == 0:
-        return 0, 0
-    ctr_range, conversion_range = _CHANNEL_FUNNEL_RANGES[channel]
-    conversion_rate = float(rng.uniform(*conversion_range))
-    clicks = max(attributed_orders, math.ceil(attributed_orders / conversion_rate))
-    ctr = float(rng.uniform(*ctr_range))
-    impressions = max(clicks, math.ceil(clicks / ctr))
-    return impressions, clicks
+def _days(start: datetime, end: datetime) -> list[date]:
+    days = []
+    day = start.date()
+    while datetime.combine(day, time.min, tzinfo=start.tzinfo) < end:
+        days.append(day)
+        day += timedelta(days=1)
+    return days
 
 
-def _spend(
-    config: PresetConfig,
-    market: MarketConfig,
-    channel: str,
-    attributed_orders: int,
-    rng: np.random.Generator,
-) -> Decimal:
-    if attributed_orders == 0 or channel in _NO_PAID_SPEND:
-        return Decimal("0.00")
-    low, high = config.channel_mix[channel].cac_range
-    cac_eur = Decimal(str(float(rng.uniform(float(low), float(high)))))
-    return (cac_eur * market.fx_rate_from_eur * attributed_orders).quantize(
-        _CENT, rounding=ROUND_HALF_UP
+def _day_factors(config: PresetConfig, days: Sequence[date]) -> np.ndarray:
+    return np.array(
+        [
+            float(
+                config.seasonality[day.month - 1]
+                * _WEEKDAY_MULTIPLIERS[day.weekday()]
+                * _spike_multiplier(config, day)
+            )
+            for day in days
+        ],
+        dtype=float,
     )
+
+
+def _paid_spend_and_intensity(
+    expected_customers: float,
+    cac_range: tuple[Decimal, Decimal],
+    day_factors: np.ndarray,
+    rng: np.random.Generator,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Return daily EUR spend and the relative acquisitions it buys."""
+
+    low, high = (float(value) for value in cac_range)
+    base_cac = float(rng.uniform(low, high)) if high > low else low
+    spend_noise = rng.lognormal(0.0, _SPEND_NOISE_SIGMA, size=len(day_factors))
+    cac_noise = rng.lognormal(0.0, _CAC_NOISE_SIGMA, size=len(day_factors))
+    budget = expected_customers * base_cac
+    if budget <= 0:
+        return np.zeros(len(day_factors)), np.zeros(len(day_factors))
+    planned = budget * day_factors / day_factors.sum()
+    spend = planned * spend_noise
+    daily_cac = base_cac * (spend / planned.mean()) ** SPEND_ELASTICITY * cac_noise
+    return spend, spend / daily_cac
+
+
+def _allocate(count: int, intensity: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    if count == 0:
+        return np.zeros(len(intensity), dtype=np.int64)
+    return rng.multinomial(count, intensity / intensity.sum())
+
+
+def _funnel(
+    channel: str,
+    spend_eur: float,
+    new_customers: int,
+    rng: np.random.Generator,
+) -> tuple[int, int]:
+    cpm_range, ctr_range = _PAID_FUNNEL[channel]
+    cpm = float(rng.uniform(*cpm_range))
+    ctr = float(rng.uniform(*ctr_range))
+    impressions = round(spend_eur / cpm * 1000)
+    clicks = int(rng.binomial(impressions, ctr)) if impressions else 0
+    clicks = max(clicks, new_customers)
+    return max(impressions, clicks), clicks
 
 
 def generate_marketing(
     config: PresetConfig,
     markets: Mapping[str, MarketConfig] | Sequence[MarketConfig],
-    customers: Sequence[Customer],
-    orders: Sequence[Order],
+    customer_count: int,
     start_date: date | datetime,
     months: int,
     rng: np.random.Generator,
-) -> list[MarketingSpend]:
-    """Generate one daily record for every configured market and channel.
+) -> AcquisitionPlan:
+    """Generate daily spend first, then the customer acquisitions it buys.
 
-    Orders are attributed to their customer's acquisition channel. Meta,
-    Google, and email receive spend based on configured CAC bounds; direct and
-    organic remain unpaid. Spend is expressed in each order market's currency.
+    Customers are split across markets by demand weight (largest remainder) and
+    across channels by a multinomial draw on the preset channel weights. Each
+    paid channel gets a budget of ``expected customers x CAC``, where CAC is
+    drawn once per market and channel from ``cac_range``. The budget follows
+    the preset seasonality, weekday and spike multipliers with log-normal
+    noise; daily CAC rises with daily spend. The channel's customers are then
+    placed on days by a multinomial draw proportional to what each day's spend
+    bought. Unpaid channels (direct, organic) acquire customers in proportion
+    to the calendar multipliers with noise and have zero spend, impressions and
+    clicks. There is one row per day, selected market and channel.
     """
 
+    if customer_count < 0:
+        raise ValueError("customer_count must be non-negative")
     market_values = _market_values(markets)
-    market_codes = {market.code for market in market_values}
     start, end = _window(start_date, months)
+    days = _days(start, end)
+    day_factors = _day_factors(config, days)
+    channels = tuple(sorted(CHANNELS))
+    weights = np.array([float(config.channel_mix[channel].weight) for channel in channels])
+    shares = weights / weights.sum()
+    market_counts = allocate_market_counts(market_values, customer_count)
 
-    customer_by_id = {customer.id: customer for customer in customers}
-    if len(customer_by_id) != len(customers):
-        raise ValueError("customer ids must be unique")
-    if len({order.id for order in orders}) != len(orders):
-        raise ValueError("order ids must be unique")
-
-    unknown_customers = sorted(
-        {order.customer_id for order in orders if order.customer_id not in customer_by_id}
-    )
-    if unknown_customers:
-        raise ValueError(f"orders reference missing customers: {unknown_customers}")
-    invalid_customer_markets = sorted(
-        order.id for order in orders if customer_by_id[order.customer_id].market != order.market
-    )
-    if invalid_customer_markets:
-        raise ValueError(f"order market must match customer market: {invalid_customer_markets[:5]}")
-    invalid_channels = sorted(
-        {
-            customer.acquisition_channel
-            for customer in customers
-            if customer.acquisition_channel not in CHANNELS
-        }
-    )
-    if invalid_channels:
-        raise ValueError(f"customers use unsupported channels: {invalid_channels}")
-    incompatible = [
-        order.id
-        for order in orders
-        if order.market in market_codes
-        and (order.created_at.tzinfo is None) != (start.tzinfo is None)
-    ]
-    if incompatible:
-        raise ValueError(
-            f"order created_at timezone awareness must match start_date: {incompatible[:5]}"
-        )
-
-    attribution = Counter(
-        (
-            order.created_at.date(),
-            order.market,
-            customer_by_id[order.customer_id].acquisition_channel,
-        )
-        for order in orders
-        if order.market in market_codes and start <= order.created_at < end
-    )
+    acquisitions: dict[tuple[str, date, str], int] = {}
+    rows: dict[tuple[str, str], tuple[np.ndarray, np.ndarray]] = {}
+    for market in market_values:
+        market_customers = market_counts[market.code]
+        channel_counts = rng.multinomial(market_customers, shares)
+        for index, channel in enumerate(channels):
+            if channel in PAID_CHANNELS:
+                spend, intensity = _paid_spend_and_intensity(
+                    market_customers * float(shares[index]),
+                    config.channel_mix[channel].cac_range,
+                    day_factors,
+                    rng,
+                )
+            else:
+                spend = np.zeros(len(days))
+                intensity = day_factors * rng.lognormal(0.0, _UNPAID_NOISE_SIGMA, len(days))
+            if intensity.sum() <= 0:
+                intensity = day_factors
+            allocated = _allocate(int(channel_counts[index]), intensity, rng)
+            rows[(market.code, channel)] = (spend, allocated)
+            for day, count in zip(days, allocated.tolist(), strict=True):
+                if count:
+                    acquisitions[(market.code, day, channel)] = count
 
     records: list[MarketingSpend] = []
-    day = start.date()
-    while datetime.combine(day, time.min, tzinfo=start.tzinfo) < end:
+    for day_index, day in enumerate(days):
         for market in market_values:
-            for channel in sorted(CHANNELS):
-                attributed_orders = attribution[(day, market.code, channel)]
-                impressions, clicks = _funnel(channel, attributed_orders, rng)
+            for channel in channels:
+                spend, allocated = rows[(market.code, channel)]
+                new_customers = int(allocated[day_index])
+                spend_eur = float(spend[day_index])
+                if channel in PAID_CHANNELS:
+                    impressions, clicks = _funnel(channel, spend_eur, new_customers, rng)
+                else:
+                    impressions, clicks = 0, 0
+                local_spend = (Decimal(repr(spend_eur)) * market.fx_rate_from_eur).quantize(
+                    _CENT, rounding=ROUND_HALF_UP
+                )
                 records.append(
                     MarketingSpend(
                         date=day,
                         market=market.code,
                         channel=channel,
-                        spend=_spend(
-                            config,
-                            market,
-                            channel,
-                            attributed_orders,
-                            rng,
-                        ),
+                        currency=market.currency,
+                        spend=local_spend,
                         impressions=impressions,
                         clicks=clicks,
-                        attributed_orders=attributed_orders,
+                        new_customers=new_customers,
                     )
                 )
-        day += timedelta(days=1)
-    return records
+    return AcquisitionPlan(records, acquisitions)

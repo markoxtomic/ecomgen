@@ -5,6 +5,7 @@ from decimal import Decimal
 
 import pytest
 
+from ecomgen.accounting import item_paid_value
 from ecomgen.pipeline import generate_dataset
 from ecomgen.schemas import Dataset, Return
 from ecomgen.validation import validate_dataset
@@ -26,6 +27,7 @@ def _dataset(preset: str, seed: int) -> Dataset:
 def test_generated_refunds_never_exceed_item_value_cumulatively(preset: str, seed: int) -> None:
     dataset = _dataset(preset, seed)
     items = {item.id: item for item in dataset.order_items}
+    orders = {order.id: order for order in dataset.orders}
     refunded: defaultdict[str, Decimal] = defaultdict(Decimal)
     for returned in dataset.returns:
         refunded[returned.order_item_id] += returned.refund_amount
@@ -33,7 +35,8 @@ def test_generated_refunds_never_exceed_item_value_cumulatively(preset: str, see
     assert dataset.returns
     assert max(Counter(r.order_item_id for r in dataset.returns).values()) == 1
     for item_id, total in refunded.items():
-        assert total <= items[item_id].unit_price * items[item_id].quantity
+        item = items[item_id]
+        assert total <= item_paid_value(orders[item.order_id], item)
     assert validate_dataset(dataset).valid
 
 
@@ -42,7 +45,7 @@ def _with_split_refund(dataset: Dataset, *shares: Decimal) -> tuple[Dataset, str
 
     item = dataset.order_items[0]
     order = next(order for order in dataset.orders if order.id == item.order_id)
-    item_value = item.unit_price * item.quantity
+    item_value = item_paid_value(order, item)
     returns = [
         Return(
             id=f"ret-crafted-{number}",
