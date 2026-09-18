@@ -312,6 +312,10 @@ detect edited, truncated, or swapped tables.
 
 ## Summary output
 
+While the dataset is generated, an interactive terminal shows a progress bar with
+the percentage done and the estimated time remaining. The bar is not drawn when
+output is redirected to a file, a pipe, or `NUL`.
+
 After a successful export, `ecomgen` prints the destination, row counts, revenue by
 market, and item return and order repeat rates. The generated values depend on the
 options and seed; the output has this form:

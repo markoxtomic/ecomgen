@@ -10,7 +10,14 @@ from typing import Annotated
 
 import typer
 from rich.console import Console
-from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.progress import (
+    BarColumn,
+    Progress,
+    SpinnerColumn,
+    TaskProgressColumn,
+    TextColumn,
+    TimeRemainingColumn,
+)
 from rich.table import Table
 
 from ecomgen.config import available_presets
@@ -162,13 +169,24 @@ def _generate_and_export(
 ) -> Dataset:
     parsed_start_date = date.fromisoformat(start_date)
     check_output_dir(out)
+    # Rich switches the bar to ASCII itself on narrow encodings. Off a terminal
+    # (pipes, files, CI logs) the bar is disabled so nothing is written at all.
     with Progress(
         SpinnerColumn("line" if _ascii_only() else "dots"),
         TextColumn("{task.description}"),
+        BarColumn(),
+        TaskProgressColumn(),
+        TextColumn("ETA"),
+        TimeRemainingColumn(),
         console=console,
         transient=True,
+        disable=not console.is_terminal,
     ) as progress:
-        progress.add_task("Generating dataset", total=None)
+        task = progress.add_task("Generating dataset", total=None)
+
+        def report(done: int, total: int) -> None:
+            progress.update(task, completed=done, total=total)
+
         dataset = generate_dataset(
             preset=preset,
             markets=market_codes,
@@ -176,6 +194,7 @@ def _generate_and_export(
             months=months,
             start_date=parsed_start_date,
             seed=seed,
+            progress=report,
         )
     formats = {
         ExportFormat.csv: ("csv",),
