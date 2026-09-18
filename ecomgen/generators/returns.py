@@ -4,14 +4,13 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from datetime import timedelta
-from decimal import ROUND_HALF_UP, Decimal
+from decimal import Decimal
 
 import numpy as np
 
+from ecomgen.accounting import item_paid_value
 from ecomgen.config.models import PresetConfig
 from ecomgen.schemas import Order, OrderItem, Product, Return, Variant
-
-_CENT = Decimal("0.01")
 
 
 def _unique_by_id(records: Sequence[object], name: str) -> dict[str, object]:
@@ -38,10 +37,12 @@ def generate_returns(
 ) -> list[Return]:
     """Sample at most one return per item using its product category settings.
 
-    Refunds are the complete line-item value in the order's currency. Item ids
+    Refunds are what the customer paid for the whole line in the order's
+    currency: the line value less its share of the order discount, plus the
+    matching share of the order's tax (see ``ecomgen.accounting``). Item ids
     are required to be unique and each item is sampled once, so an order item
     never receives more than one return and cumulative refunds can never exceed
-    its value. All randomness comes from the caller-provided NumPy generator.
+    its paid value. All randomness comes from the caller-provided NumPy generator.
     """
 
     product_by_id = _unique_by_id(products, "product")
@@ -85,7 +86,7 @@ def generate_returns(
 
         order = order_by_id[item.order_id]
         delay_days = int(rng.integers(3, 31))
-        refund = (item.unit_price * item.quantity).quantize(_CENT, rounding=ROUND_HALF_UP)
+        refund = item_paid_value(order, item)
         returns.append(
             Return(
                 id=f"ret-{len(returns) + 1:09d}",

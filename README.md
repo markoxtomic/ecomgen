@@ -184,8 +184,20 @@ foreign keys and confirms that the item belongs to the referenced order.
 - **Discounts:** usage and depth follow preset ranges. Applied discounts receive a
   generated `SAVE<n>` code.
 - **Returns:** each order item is sampled using its category's return rate and
-  weighted reasons. Returns occur 3–30 days after the order and refund the line-item
-  value, never more.
+  weighted reasons. Returns occur 3–30 days after the order and refund what the
+  customer paid for the whole line, in the order currency, never more:
+
+  ```text
+  line       = unit_price × quantity
+  net_paid   = line − discount × line / subtotal
+  line_tax   = tax × net_paid / (subtotal − discount + shipping)
+  refund     = ROUND_HALF_UP(net_paid + line_tax, 0.01)
+  ```
+
+  The line carries its pro-rata share of the order discount and of the VAT actually
+  charged on the order; shipping is not refunded. The same formula
+  (`ecomgen.accounting.item_paid_value`) caps cumulative refunds per order item in
+  `ecomgen validate`.
 - **Marketing and acquisition:** spend comes first and buys customers; orders never
   feed back into spend. Customers are split across markets by demand weight and
   across channels by a multinomial draw on the preset `channel_mix` weights. Each

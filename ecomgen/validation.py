@@ -12,6 +12,7 @@ from typing import Any
 
 from pydantic import ValidationError
 
+from ecomgen.accounting import item_paid_value
 from ecomgen.schemas import (
     Customer,
     Dataset,
@@ -196,7 +197,11 @@ def validate_dataset(dataset: Dataset) -> ValidationReport:
         refunded[item.id] += returned.refund_amount
     for item_id, refund_total in refunded.items():
         item = items[item_id]
-        item_value = (item.unit_price * item.quantity).quantize(_CENT, rounding=ROUND_HALF_UP)
+        order = orders.get(item.order_id)
+        if order is not None:
+            item_value = item_paid_value(order, item)
+        else:
+            item_value = (item.unit_price * item.quantity).quantize(_CENT, rounding=ROUND_HALF_UP)
         refund_total = refund_total.quantize(_CENT, rounding=ROUND_HALF_UP)
         if refund_total > item_value:
             errors.append(
