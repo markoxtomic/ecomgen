@@ -157,7 +157,10 @@ foreign keys and confirms that the item belongs to the referenced order.
   noise, and Poisson sampling.
 - **Lifecycle:** an order cannot predate its customer. Repeat orders use the preset's
   repeat probability and recency weighting based on the configured average interval;
-  bundled presets target repeat probabilities between 20% and 29%.
+  bundled presets target repeat probabilities between 20% and 29%. Daily demand is
+  proportional to the customer count (there is no minimum), and no customer places
+  more than `ceil(2 × window days / average_days)` repeat orders, so tiny populations
+  keep plausible repeat rates.
 - **Baskets and inventory:** basket units are Poisson-distributed and biased toward
   lower-priced variants, so expensive catalogs tend toward smaller baskets. Units are
   drawn over the market's whole assortment; a unit of a sold-out variant is a lost

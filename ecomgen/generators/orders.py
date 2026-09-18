@@ -163,6 +163,18 @@ def _weighted_index(weights: Sequence[float] | np.ndarray, rng: np.random.Genera
     return int(rng.choice(len(probabilities), p=probabilities))
 
 
+def max_repeat_orders(config: PresetConfig, window_days: int) -> int:
+    """Return the most repeat orders one customer may place in the window.
+
+    The ceiling allows twice the purchase frequency implied by the preset's
+    average inter-purchase interval, ``ceil(2 x window_days / average_days)``,
+    and at least one repeat. It depends only on the window and the preset, never
+    on how many customers are generated.
+    """
+
+    return max(1, math.ceil(2 * window_days / config.repeat_purchase.average_days))
+
+
 class _CustomerPool:
     """Incremental first-order and repeat-order candidate indexes for one market.
 
@@ -176,8 +188,12 @@ class _CustomerPool:
     and only shrinks as repeat buyers order again during the day.
     """
 
-    def __init__(self, customers: Sequence[Customer], window_start: datetime) -> None:
+    def __init__(
+        self, customers: Sequence[Customer], window_start: datetime, max_repeats: int
+    ) -> None:
         self.customers = sorted(customers, key=lambda customer: customer.id)
+        self._max_repeats = max_repeats
+        self._order_counts = np.zeros(len(self.customers), dtype=np.int64)
         self._window_start = window_start
         self._by_created = sorted(
             range(len(self.customers)),
@@ -203,7 +219,9 @@ class _CustomerPool:
             self._pointer += 1
         self._day_start_us = (day_start - self._window_start) // datetime.resolution
         self._repeat_mask_positions = np.flatnonzero(
-            self._ordered & (self._last_order_us < self._day_start_us)
+            self._ordered
+            & (self._last_order_us < self._day_start_us)
+            & (self._order_counts <= self._max_repeats)
         )
         self._repeat_positions = None
         self._repeat_weights = None
@@ -247,6 +265,7 @@ class _CustomerPool:
 
     def record_order(self, position: int, created_at: datetime) -> None:
         self._ordered[position] = True
+        self._order_counts[position] += 1
         self._last_order_us[position] = (created_at - self._window_start) // datetime.resolution
 
 
@@ -454,9 +473,12 @@ def generate_orders(
             f"customer created_at timezone awareness must match start_date: {incompatible[:5]}"
         )
 
+    max_repeats = max_repeat_orders(config, (end - start).days)
     pools = {
         market.code: _CustomerPool(
-            [customer for customer in customers if customer.market == market.code], start
+            [customer for customer in customers if customer.market == market.code],
+            start,
+            max_repeats,
         )
         for market in market_values
     }

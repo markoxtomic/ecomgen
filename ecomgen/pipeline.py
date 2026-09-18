@@ -41,11 +41,15 @@ def _faker_seed(seed: int, market: str) -> int:
 
 
 def _base_daily_demand(customer_count: int, months: int, market_weight: Decimal) -> Decimal:
-    """Scale demand to the requested population while retaining calendar effects."""
+    """Scale demand to the requested population while retaining calendar effects.
+
+    Demand is strictly proportional to the population: a fixed floor would let a
+    handful of customers place dozens of orders a year.
+    """
 
     approximate_days = Decimal(months) * Decimal("30.4375")
     population_rate = Decimal(customer_count) / approximate_days / market_weight
-    return max(Decimal("0.50"), population_rate * Decimal("0.80"))
+    return population_rate * Decimal("0.80")
 
 
 def generate_dataset(
