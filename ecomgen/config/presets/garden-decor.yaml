@@ -41,3 +41,4 @@ title_words:
   adjectives: [Modern, Rustic, Sculpted, Timeless, Minimal]
   materials: [Terracotta, Acacia, Rattan, Stone, Metal]
   nouns: [Planter, Lantern, Bench, Side Table, Garden Set]
+inventory: {reorder_point: 30, restock_quantity: 120, lead_time_days: 10, cover_days: 45}

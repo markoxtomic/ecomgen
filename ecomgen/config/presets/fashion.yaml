@@ -41,3 +41,4 @@ title_words:
   adjectives: [Relaxed, Tailored, Essential, Soft, Studio]
   materials: [Linen, Cotton, Satin, Wool, Leather]
   nouns: [Shirt, Dress, Cardigan, Scarf, Tote]
+inventory: {reorder_point: 30, restock_quantity: 120, lead_time_days: 10, cover_days: 45}

@@ -5,6 +5,7 @@ from __future__ import annotations
 import bisect
 import calendar
 import math
+import warnings
 from collections import defaultdict
 from collections.abc import Callable, Mapping, Sequence
 from datetime import UTC, date, datetime, time, timedelta
@@ -13,7 +14,8 @@ from typing import NamedTuple
 
 import numpy as np
 
-from ecomgen.config.models import MarketConfig, PresetConfig
+from ecomgen.config.models import InventoryConfig, MarketConfig, PresetConfig
+from ecomgen.errors import GenerationWarning, StockoutError
 from ecomgen.schemas import Customer, Order, OrderItem, Product, Variant
 
 _CENT = Decimal("0.01")
@@ -29,12 +31,22 @@ _WEEKDAY_MULTIPLIERS = (
 )
 
 
+STOCKOUT_WARN_SHARE = 0.05
+STOCKOUT_ERROR_SHARE = 0.25
+
+
 class OrderGenerationResult(NamedTuple):
-    """Generated records and immutable-by-convention remaining stock."""
+    """Generated records, remaining stock and stock-out accounting.
+
+    ``intended_orders`` counts every order a customer tried to place;
+    ``dropped_orders`` counts those lost because every wanted unit was sold out.
+    """
 
     orders: list[Order]
     order_items: list[OrderItem]
     inventory: dict[str, int]
+    intended_orders: int = 0
+    dropped_orders: int = 0
 
 
 def _window(start_date: date | datetime, months: int) -> tuple[datetime, datetime]:
@@ -290,15 +302,21 @@ def _discount(
 
 
 class _MarketCatalog:
-    """A market's eligible variants with their local prices computed once."""
+    """A market's eligible variants with prices and pick probabilities computed once."""
 
     def __init__(self, market: MarketConfig, variants: Sequence[Variant]) -> None:
         self.variants = list(variants)
-        self.prices = {variant.id: _local_price(variant.price_eur, market) for variant in variants}
-        self.weights = {
-            variant_id: 1.0 / math.sqrt(max(float(price), 0.01))
-            for variant_id, price in self.prices.items()
-        }
+        self.prices = [_local_price(variant.price_eur, market) for variant in self.variants]
+        if self.variants:
+            weights = np.array(
+                [1.0 / math.sqrt(max(float(price), 0.01)) for price in self.prices], dtype=float
+            )
+            self.probabilities = weights / weights.sum()
+            median_price = sorted(self.prices)[len(self.prices) // 2]
+            self.mean_units = 1.0 + 2.0 / (1.0 + float(median_price) / 60.0)
+        else:
+            self.probabilities = np.empty(0, dtype=float)
+            self.mean_units = 1.0
 
 
 def _basket(
@@ -306,30 +324,94 @@ def _basket(
     remaining: dict[str, int],
     rng: np.random.Generator,
 ) -> list[tuple[Variant, int, Decimal]]:
-    in_stock = [variant for variant in catalog.variants if remaining[variant.id] > 0]
-    if not in_stock:
+    """Sample the units a customer wants; units of sold-out variants are lost.
+
+    Demand is drawn over the market's whole assortment, so a stock-out loses
+    sales instead of silently shifting them to whatever is still in stock. An
+    empty result means the whole order was lost to stock-outs.
+    """
+
+    if not catalog.variants:
         return []
-
-    prices = sorted(catalog.prices[variant.id] for variant in in_stock)
-    median_price = prices[len(prices) // 2]
-    mean_units = 1.0 + 2.0 / (1.0 + float(median_price) / 60.0)
-    target_units = min(6, 1 + int(rng.poisson(max(0.0, mean_units - 1.0))))
-    quantities: dict[str, int] = defaultdict(int)
-    variant_by_id = {variant.id: variant for variant in in_stock}
-
-    for _ in range(target_units):
-        available = [variant for variant in in_stock if remaining[variant.id] > 0]
-        if not available:
-            break
-        weights = [catalog.weights[variant.id] for variant in available]
-        selected = available[_weighted_index(weights, rng)]
-        remaining[selected.id] -= 1
-        quantities[selected.id] += 1
+    target_units = min(6, 1 + int(rng.poisson(max(0.0, catalog.mean_units - 1.0))))
+    picks = rng.choice(len(catalog.variants), size=target_units, p=catalog.probabilities)
+    quantities: dict[int, int] = defaultdict(int)
+    for index in picks.tolist():
+        variant_id = catalog.variants[index].id
+        if remaining[variant_id] > 0:
+            remaining[variant_id] -= 1
+            quantities[index] += 1
 
     return [
-        (variant_by_id[variant_id], quantity, catalog.prices[variant_id])
-        for variant_id, quantity in sorted(quantities.items())
+        (catalog.variants[index], quantity, catalog.prices[index])
+        for index, quantity in sorted(quantities.items())
     ]
+
+
+class _Replenisher:
+    """Deterministic reorder-point replenishment shared by every market."""
+
+    _VELOCITY_DAYS = 28
+
+    def __init__(self, policy: InventoryConfig, variant_ids: Sequence[str], days: int) -> None:
+        self.policy = policy
+        self.variant_ids = sorted(variant_ids)
+        self._column = {variant_id: index for index, variant_id in enumerate(self.variant_ids)}
+        self._sold = np.zeros((days + 1, len(self.variant_ids)), dtype=np.int64)
+        self._arrivals: defaultdict[int, list[tuple[str, int]]] = defaultdict(list)
+        self._on_order = dict.fromkeys(self.variant_ids, 0)
+
+    def start_day(self, day_index: int, remaining: dict[str, int]) -> None:
+        for variant_id, quantity in self._arrivals.pop(day_index, []):
+            remaining[variant_id] += quantity
+            self._on_order[variant_id] -= quantity
+        first = max(0, day_index - self._VELOCITY_DAYS)
+        recent = self._sold[first:day_index].sum(axis=0) / max(1, day_index - first)
+        policy = self.policy
+        for column, variant_id in enumerate(self.variant_ids):
+            velocity = float(recent[column])
+            reorder_at = max(policy.reorder_point, math.ceil(velocity * policy.lead_time_days))
+            if remaining[variant_id] + self._on_order[variant_id] > reorder_at:
+                continue
+            quantity = max(policy.restock_quantity, math.ceil(velocity * policy.cover_days))
+            self._on_order[variant_id] += quantity
+            self._arrivals[day_index + policy.lead_time_days].append((variant_id, quantity))
+
+    def record_sale(self, day_index: int, variant_id: str, quantity: int) -> None:
+        self._sold[day_index, self._column[variant_id]] += quantity
+
+
+def check_stockouts(intended_orders: int, dropped_orders: int) -> None:
+    """Warn or fail when stock-outs suppressed a meaningful share of demand.
+
+    More than ``STOCKOUT_WARN_SHARE`` of intended orders dropped emits a
+    ``GenerationWarning``; more than ``STOCKOUT_ERROR_SHARE`` raises
+    ``StockoutError`` because the dataset would misrepresent demand.
+    """
+
+    if intended_orders <= 0 or dropped_orders <= 0:
+        return
+    share = dropped_orders / intended_orders
+    detail = (
+        f"stock-outs dropped {dropped_orders:,} of {intended_orders:,} intended orders "
+        f"({share:.1%})"
+    )
+    advice = (
+        "raise inventory.restock_quantity, inventory.reorder_point or inventory.cover_days, "
+        "or lower inventory.lead_time_days in the preset"
+    )
+    if share > STOCKOUT_ERROR_SHARE:
+        raise StockoutError(
+            f"{detail}, above the {STOCKOUT_ERROR_SHARE:.0%} limit; the dataset would "
+            f"misrepresent demand. To fix it, {advice}."
+        )
+    if share > STOCKOUT_WARN_SHARE:
+        warnings.warn(
+            f"{detail}, above {STOCKOUT_WARN_SHARE:.0%}; demand is partly suppressed. "
+            f"To reduce it, {advice}.",
+            GenerationWarning,
+            stacklevel=2,
+        )
 
 
 def generate_orders(
@@ -400,10 +482,15 @@ def generate_orders(
     total_days = (final_day - day).days + 1
     days_done = 0
 
+    replenisher = _Replenisher(config.inventory, list(remaining), total_days)
+    intended_orders = 0
+    dropped_orders = 0
+
     while day <= final_day:
         day_start = datetime.combine(day, time.min, tzinfo=start.tzinfo)
         day_end = min(day_start + timedelta(days=1), end)
         segment_start = max(day_start, start)
+        replenisher.start_day(days_done, remaining)
         if segment_start >= day_end:
             day += timedelta(days=1)
             days_done += 1
@@ -416,16 +503,19 @@ def generate_orders(
             pool.start_day(day_start, day_end)
             catalog = catalogs[market.code]
             for _ in range(_daily_order_count(config, market, day, base_demand, rng)):
-                if not any(remaining[variant.id] > 0 for variant in catalog.variants):
-                    break
                 choice = _choose_customer(pool, config, rng)
                 if choice is None:
                     continue
                 candidate_index, position, is_repeat = choice
                 customer = pool.customers[position]
+                intended_orders += 1
                 basket = _basket(catalog, remaining, rng)
                 if not basket:
-                    break
+                    # Every wanted unit was sold out; the customer stays a candidate.
+                    dropped_orders += 1
+                    continue
+                for variant, quantity, _ in basket:
+                    replenisher.record_sale(days_done, variant.id, quantity)
                 if is_repeat:
                     pool.commit_repeat(candidate_index)
                 else:
@@ -475,4 +565,4 @@ def generate_orders(
         if progress is not None:
             progress(days_done, total_days)
 
-    return OrderGenerationResult(orders, order_items, remaining)
+    return OrderGenerationResult(orders, order_items, remaining, intended_orders, dropped_orders)

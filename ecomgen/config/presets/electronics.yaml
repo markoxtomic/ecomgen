@@ -41,3 +41,4 @@ title_words:
   adjectives: [Compact, Smart, Wireless, Pro, Essential]
   materials: [Aluminium, Silicone, Glass, Fabric, Carbon]
   nouns: [Speaker, Headphones, Hub, Charger, Sensor]
+inventory: {reorder_point: 30, restock_quantity: 120, lead_time_days: 10, cover_days: 45}

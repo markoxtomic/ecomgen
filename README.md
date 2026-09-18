@@ -159,8 +159,19 @@ foreign keys and confirms that the item belongs to the referenced order.
   repeat probability and recency weighting based on the configured average interval;
   bundled presets target repeat probabilities between 20% and 29%.
 - **Baskets and inventory:** basket units are Poisson-distributed and biased toward
-  lower-priced variants, so expensive catalogs tend toward smaller baskets. Stock is
-  decremented per unit and cannot become negative.
+  lower-priced variants, so expensive catalogs tend toward smaller baskets. Units are
+  drawn over the market's whole assortment; a unit of a sold-out variant is a lost
+  sale, and an order whose every unit is sold out is dropped. Stock is decremented per
+  unit and cannot become negative.
+- **Replenishment:** every day, each variant whose on-hand plus on-order stock is at
+  or below `max(reorder_point, recent daily sales × lead_time_days)` gets a purchase
+  order of `max(restock_quantity, recent daily sales × cover_days)` units, arriving
+  `lead_time_days` later. Recent daily sales average the trailing 28 days. The policy
+  is the preset's optional `inventory` block (defaults: `reorder_point: 30`,
+  `restock_quantity: 120`, `lead_time_days: 10`, `cover_days: 45`). If stock-outs
+  drop more than 5% of intended orders, generation emits a `GenerationWarning`; above
+  25% it fails with `StockoutError` instead of writing a dataset that misrepresents
+  demand.
 - **Market pricing:** EUR catalog prices are converted with the configured FX rate.
   Prices below 100 use `.90` endings; prices at or above 100 are rounded to whole
   units. Shipping, currency, and VAT are market-specific.
@@ -229,6 +240,13 @@ title_words:
   adjectives: [Modern, Handcrafted]
   materials: [Stoneware, Porcelain]
   nouns: [Vase, Bowl]
+
+# Optional; these are the defaults.
+inventory:
+  reorder_point: 30
+  restock_quantity: 120
+  lead_time_days: 10
+  cover_days: 45
 ```
 
 Configuration is validated strictly: unknown fields are rejected; category ranges
@@ -238,6 +256,8 @@ seasonality must contain exactly 12 positive values; spike dates must be real
 matches in non-leap years; `start` after `end` wraps across the new year);
 CAC ranges must be non-negative and ordered; and the five channel weights must sum
 to 1. Return-reason weights must be positive and are normalized when sampled.
+Inventory values are whole numbers: `restock_quantity` and `lead_time_days` at least
+1, `reorder_point` and `cover_days` at least 0.
 
 ## Shopify CSV
 

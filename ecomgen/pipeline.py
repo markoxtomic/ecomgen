@@ -18,6 +18,7 @@ from ecomgen.generators import (
     generate_products,
     generate_returns,
 )
+from ecomgen.generators.orders import check_stockouts
 from ecomgen.schemas import Dataset
 
 DEFAULT_PRESET = "garden-decor"
@@ -122,6 +123,7 @@ def generate_dataset(
         base_daily_orders=_base_daily_demand(customers, months, total_weight),
         progress=_order_progress,
     )
+    check_stockouts(order_result.intended_orders, order_result.dropped_orders)
     remaining_variants = [
         variant.model_copy(update={"inventory": order_result.inventory[variant.id]})
         for variant in variants
