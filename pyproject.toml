@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ecomgen"
+version = "0.1.0"
+description = "Generate realistic synthetic multi-market e-commerce datasets."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "ecomgen contributors"}]
+dependencies = [
+    "typer",
+    "rich",
+    "pydantic>=2",
+    "numpy",
+    "faker",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[project.scripts]
+ecomgen = "ecomgen.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["ecomgen*"]
+
+[tool.setuptools.package-data]
+"ecomgen.config" = ["*.yaml", "presets/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+

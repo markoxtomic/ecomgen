@@ -1,0 +1,43 @@
+name: garden-decor
+categories:
+  planters:
+    price_range: [18, 120]
+    cost_ratio_range: [0.28, 0.44]
+    variant_options:
+      size: [Small, Medium, Large]
+      color: [Terracotta, Sand, Charcoal]
+    return_rate: 0.06
+    return_reasons: {damaged: 0.45, not_as_expected: 0.30, too_large: 0.15, changed_mind: 0.10}
+  outdoor-lighting:
+    price_range: [25, 180]
+    cost_ratio_range: [0.32, 0.48]
+    variant_options:
+      finish: [Black, Brass, Steel]
+      power: [Solar, Wired]
+    return_rate: 0.08
+    return_reasons: {damaged: 0.30, defective: 0.35, not_as_expected: 0.25, changed_mind: 0.10}
+  garden-furniture:
+    price_range: [79, 650]
+    cost_ratio_range: [0.38, 0.55]
+    variant_options:
+      material: [Acacia, Metal, Rattan]
+      color: [Natural, Olive, Graphite]
+    return_rate: 0.05
+    return_reasons: {damaged: 0.40, too_large: 0.25, not_as_expected: 0.25, changed_mind: 0.10}
+seasonality: [0.55, 0.62, 0.90, 1.25, 1.45, 1.38, 1.22, 1.10, 0.92, 0.72, 0.68, 0.78]
+special_spikes:
+  - {name: spring-launch, start: "03-15", end: "03-31", multiplier: 1.35}
+  - {name: black-friday, start: "11-24", end: "11-30", multiplier: 2.20}
+  - {name: christmas, start: "12-10", end: "12-20", multiplier: 1.45}
+channel_mix:
+  meta: {weight: 0.30, cac_range: [16, 31]}
+  google: {weight: 0.28, cac_range: [14, 28]}
+  organic: {weight: 0.18, cac_range: [0, 3]}
+  email: {weight: 0.12, cac_range: [1, 5]}
+  direct: {weight: 0.12, cac_range: [0, 2]}
+repeat_purchase: {probability: 0.24, average_days: 105}
+discount: {usage_rate: 0.28, depth_range: [0.10, 0.25]}
+title_words:
+  adjectives: [Modern, Rustic, Sculpted, Timeless, Minimal]
+  materials: [Terracotta, Acacia, Rattan, Stone, Metal]
+  nouns: [Planter, Lantern, Bench, Side Table, Garden Set]

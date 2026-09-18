@@ -1,0 +1,138 @@
+"""End-to-end deterministic dataset generation."""
+
+from __future__ import annotations
+
+import hashlib
+from datetime import date
+from decimal import Decimal
+
+import numpy as np
+from faker import Faker
+
+from ecomgen.config import load_markets, load_preset
+from ecomgen.generators import (
+    generate_customers,
+    generate_marketing,
+    generate_orders,
+    generate_products,
+    generate_returns,
+)
+from ecomgen.schemas import Dataset
+
+DEFAULT_PRESET = "garden-decor"
+DEFAULT_MARKETS = ("de", "at", "fr")
+DEFAULT_CUSTOMERS = 5_000
+DEFAULT_MONTHS = 12
+DEFAULT_START_DATE = date(2024, 1, 1)
+DEFAULT_SEED = 42
+
+
+def _faker_seed(seed: int, market: str) -> int:
+    """Derive a stable Faker seed without touching any random state."""
+
+    digest = hashlib.blake2s(
+        f"{seed}:{market}".encode(),
+        digest_size=4,
+        person=b"ecomgen",
+    ).digest()
+    return int.from_bytes(digest, "big")
+
+
+def _base_daily_demand(customer_count: int, months: int, market_weight: Decimal) -> Decimal:
+    """Scale demand to the requested population while retaining calendar effects."""
+
+    approximate_days = Decimal(months) * Decimal("30.4375")
+    population_rate = Decimal(customer_count) / approximate_days / market_weight
+    return max(Decimal("0.50"), population_rate * Decimal("0.80"))
+
+
+def generate_dataset(
+    preset: str = DEFAULT_PRESET,
+    markets: tuple[str, ...] | list[str] = DEFAULT_MARKETS,
+    customers: int = DEFAULT_CUSTOMERS,
+    months: int = DEFAULT_MONTHS,
+    start_date: date = DEFAULT_START_DATE,
+    seed: int = DEFAULT_SEED,
+) -> Dataset:
+    """Generate all dataset tables from one NumPy random stream."""
+
+    if customers < 0:
+        raise ValueError("customers must be non-negative")
+    if months <= 0:
+        raise ValueError("months must be positive")
+
+    market_codes = tuple(dict.fromkeys(code.strip().lower() for code in markets if code.strip()))
+    if not market_codes:
+        raise ValueError("at least one market is required")
+
+    config = load_preset(preset)
+    all_markets = load_markets()
+    unknown = sorted(set(market_codes) - set(all_markets))
+    if unknown:
+        choices = ", ".join(sorted(all_markets))
+        raise ValueError(f"unknown markets {unknown}; available markets: {choices}")
+    selected_markets = {code: all_markets[code] for code in market_codes}
+
+    rng = np.random.default_rng(seed)
+    fakers: dict[str, Faker] = {}
+    for code, market in selected_markets.items():
+        faker = Faker(market.faker_locale)
+        faker.seed_instance(_faker_seed(seed, code))
+        fakers[code] = faker
+
+    products, variants = generate_products(config, selected_markets, rng)
+    customer_records = generate_customers(
+        config,
+        selected_markets,
+        customers,
+        start_date,
+        months,
+        rng,
+        fakers,
+    )
+    total_weight = sum(
+        (market.demand_weight for market in selected_markets.values()),
+        Decimal(0),
+    )
+    order_result = generate_orders(
+        config,
+        selected_markets,
+        products,
+        variants,
+        customer_records,
+        start_date,
+        months,
+        rng,
+        base_daily_orders=_base_daily_demand(customers, months, total_weight),
+    )
+    remaining_variants = [
+        variant.model_copy(update={"inventory": order_result.inventory[variant.id]})
+        for variant in variants
+    ]
+    return_records = generate_returns(
+        config,
+        products,
+        remaining_variants,
+        order_result.orders,
+        order_result.order_items,
+        rng,
+    )
+    marketing = generate_marketing(
+        config,
+        selected_markets,
+        customer_records,
+        order_result.orders,
+        start_date,
+        months,
+        rng,
+    )
+
+    return Dataset(
+        products=products,
+        variants=remaining_variants,
+        customers=customer_records,
+        orders=order_result.orders,
+        order_items=order_result.order_items,
+        returns=return_records,
+        marketing_spend=marketing,
+    )

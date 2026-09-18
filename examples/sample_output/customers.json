@@ -1,0 +1,5002 @@
+[
+  {
+    "id": "cust-at-000001",
+    "market": "at",
+    "email": "steinbergerben.cust-at-000001@example.test",
+    "first_name": "Ylvie",
+    "last_name": "Hoffmann",
+    "city": "Saalfelden am Steinernen Meer",
+    "created_at": "2024-06-04T20:56:53.688137Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000002",
+    "market": "at",
+    "email": "rpoell.cust-at-000002@example.test",
+    "first_name": "Georg",
+    "last_name": "Feichtner",
+    "city": "Mank",
+    "created_at": "2024-11-13T12:02:15.753524Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-at-000003",
+    "market": "at",
+    "email": "adecker.cust-at-000003@example.test",
+    "first_name": "Mateo",
+    "last_name": "Kolm",
+    "city": "Rattenberg",
+    "created_at": "2024-03-31T17:01:21.795473Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-at-000004",
+    "market": "at",
+    "email": "iobermayr.cust-at-000004@example.test",
+    "first_name": "Nikita",
+    "last_name": "Horak",
+    "city": "Innsbruck",
+    "created_at": "2024-09-30T00:59:21.975570Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000005",
+    "market": "at",
+    "email": "sandrokollmann.cust-at-000005@example.test",
+    "first_name": "Marius",
+    "last_name": "Sperl",
+    "city": "Liezen",
+    "created_at": "2024-02-08T12:45:45.552379Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-at-000006",
+    "market": "at",
+    "email": "handlerphilippa.cust-at-000006@example.test",
+    "first_name": "Cristiano",
+    "last_name": "Stecher",
+    "city": "Oberwart",
+    "created_at": "2024-08-05T13:30:19.088772Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-at-000007",
+    "market": "at",
+    "email": "schranzantonio.cust-at-000007@example.test",
+    "first_name": "Oscar",
+    "last_name": "Schuh",
+    "city": "Amstetten",
+    "created_at": "2024-10-28T19:51:00.896286Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-at-000008",
+    "market": "at",
+    "email": "raphaelengl.cust-at-000008@example.test",
+    "first_name": "Filip",
+    "last_name": "Walch",
+    "city": "Rohrbach in Oberösterreich",
+    "created_at": "2024-02-22T15:46:15.813186Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-at-000009",
+    "market": "at",
+    "email": "jasminagstrein.cust-at-000009@example.test",
+    "first_name": "Georg",
+    "last_name": "Kober",
+    "city": "Sankt Valentin",
+    "created_at": "2024-03-01T14:01:50.349024Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-at-000010",
+    "market": "at",
+    "email": "ricardo43.cust-at-000010@example.test",
+    "first_name": "Carlo",
+    "last_name": "Gärtner",
+    "city": "Radstadt",
+    "created_at": "2024-02-26T05:20:24.228121Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-at-000011",
+    "market": "at",
+    "email": "bbachler.cust-at-000011@example.test",
+    "first_name": "Ronya",
+    "last_name": "Polzer",
+    "city": "Bleiburg",
+    "created_at": "2024-01-08T17:45:51.031797Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-at-000012",
+    "market": "at",
+    "email": "klarakraus.cust-at-000012@example.test",
+    "first_name": "Lea",
+    "last_name": "Holzknecht",
+    "city": "Zistersdorf",
+    "created_at": "2024-03-04T22:03:02.450521Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-at-000013",
+    "market": "at",
+    "email": "reiferina.cust-at-000013@example.test",
+    "first_name": "Melissa",
+    "last_name": "Hofstetter",
+    "city": "Fischamend",
+    "created_at": "2024-08-04T08:36:26.210587Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000014",
+    "market": "at",
+    "email": "haslingeranastasia.cust-at-000014@example.test",
+    "first_name": "Florian",
+    "last_name": "Humer",
+    "city": "Mannersdorf am Leithagebirge",
+    "created_at": "2024-05-24T01:38:59.758125Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-at-000015",
+    "market": "at",
+    "email": "marcus77.cust-at-000015@example.test",
+    "first_name": "Emilian",
+    "last_name": "Rettenbacher",
+    "city": "Eggenburg",
+    "created_at": "2024-07-03T15:45:30.477611Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-at-000016",
+    "market": "at",
+    "email": "zechmeisternikita.cust-at-000016@example.test",
+    "first_name": "Martha",
+    "last_name": "Maier",
+    "city": "Laa an der Thaya",
+    "created_at": "2024-11-07T12:20:24.756022Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-at-000017",
+    "market": "at",
+    "email": "sieberalan.cust-at-000017@example.test",
+    "first_name": "Ben",
+    "last_name": "Mayer",
+    "city": "Ybbs an der Donau",
+    "created_at": "2024-03-07T10:16:55.307625Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-at-000018",
+    "market": "at",
+    "email": "oliversteinlechner.cust-at-000018@example.test",
+    "first_name": "Claudia",
+    "last_name": "Eichberger",
+    "city": "Amstetten",
+    "created_at": "2024-04-01T06:37:13.677996Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000019",
+    "market": "at",
+    "email": "ddirnberger.cust-at-000019@example.test",
+    "first_name": "Jacob",
+    "last_name": "Edlinger",
+    "city": "Radenthein",
+    "created_at": "2024-06-01T08:26:56.930556Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-at-000020",
+    "market": "at",
+    "email": "patricia40.cust-at-000020@example.test",
+    "first_name": "Leonard",
+    "last_name": "Spindler",
+    "city": "Judenburg",
+    "created_at": "2024-05-16T17:49:35.732023Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000021",
+    "market": "at",
+    "email": "bwidhalm.cust-at-000021@example.test",
+    "first_name": "Larissa",
+    "last_name": "Ulrich",
+    "city": "Dornbirn",
+    "created_at": "2024-02-07T05:05:09.582382Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-at-000022",
+    "market": "at",
+    "email": "kevin71.cust-at-000022@example.test",
+    "first_name": "Florin",
+    "last_name": "Lercher",
+    "city": "Bregenz",
+    "created_at": "2024-01-20T00:25:58.926106Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-at-000023",
+    "market": "at",
+    "email": "nadiaertl.cust-at-000023@example.test",
+    "first_name": "Beni",
+    "last_name": "Kunz",
+    "city": "Innsbruck",
+    "created_at": "2024-02-06T06:36:35.408295Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-at-000024",
+    "market": "at",
+    "email": "kopfleopold.cust-at-000024@example.test",
+    "first_name": "Andrej",
+    "last_name": "Herrmann",
+    "city": "Straßburg",
+    "created_at": "2024-11-26T08:54:18.778536Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-at-000025",
+    "market": "at",
+    "email": "luciaweiss.cust-at-000025@example.test",
+    "first_name": "Nils",
+    "last_name": "Bartl",
+    "city": "Leoben",
+    "created_at": "2024-10-20T12:59:43.196363Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000026",
+    "market": "at",
+    "email": "ekoppensteiner.cust-at-000026@example.test",
+    "first_name": "Bastian",
+    "last_name": "Köck",
+    "city": "Traismauer",
+    "created_at": "2024-08-23T03:34:23.146841Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000027",
+    "market": "at",
+    "email": "lindalist.cust-at-000027@example.test",
+    "first_name": "Oskar",
+    "last_name": "Heissenberger",
+    "city": "Bruck an der Mur",
+    "created_at": "2024-02-19T05:54:23.755323Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000028",
+    "market": "at",
+    "email": "janischdana.cust-at-000028@example.test",
+    "first_name": "Elina",
+    "last_name": "Reinprecht",
+    "city": "Poysdorf",
+    "created_at": "2024-07-07T04:56:01.290309Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-at-000029",
+    "market": "at",
+    "email": "jungwirthangelo.cust-at-000029@example.test",
+    "first_name": "Manuel",
+    "last_name": "Reiner",
+    "city": "Wieselburg",
+    "created_at": "2024-06-18T09:13:46.658544Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-at-000030",
+    "market": "at",
+    "email": "nisa75.cust-at-000030@example.test",
+    "first_name": "Elias",
+    "last_name": "Kral",
+    "city": "Eisenerz",
+    "created_at": "2024-08-22T01:55:25.588368Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-at-000031",
+    "market": "at",
+    "email": "leitnerelisabeth.cust-at-000031@example.test",
+    "first_name": "Pauline",
+    "last_name": "Wenzl",
+    "city": "Ebenfurth",
+    "created_at": "2024-02-21T03:43:32.598550Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-at-000032",
+    "market": "at",
+    "email": "sara91.cust-at-000032@example.test",
+    "first_name": "Ruben",
+    "last_name": "Herrmann",
+    "city": "Mödling",
+    "created_at": "2024-06-01T13:57:22.369454Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-at-000033",
+    "market": "at",
+    "email": "paulinaherrmann.cust-at-000033@example.test",
+    "first_name": "Laura",
+    "last_name": "Bitschnau",
+    "city": "Pöchlarn",
+    "created_at": "2024-05-14T12:13:25.464184Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-at-000034",
+    "market": "at",
+    "email": "erberliam.cust-at-000034@example.test",
+    "first_name": "Ilias",
+    "last_name": "Arnold",
+    "city": "Perg",
+    "created_at": "2024-04-29T20:43:15.736079Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-at-000035",
+    "market": "at",
+    "email": "luis04.cust-at-000035@example.test",
+    "first_name": "Barbara",
+    "last_name": "Schreiber",
+    "city": "Oberndorf bei Salzburg",
+    "created_at": "2024-09-07T23:34:10.367346Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-at-000036",
+    "market": "at",
+    "email": "claire36.cust-at-000036@example.test",
+    "first_name": "William",
+    "last_name": "Adam",
+    "city": "Bärnbach",
+    "created_at": "2024-12-13T06:46:04.901763Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-at-000037",
+    "market": "at",
+    "email": "calvingrasser.cust-at-000037@example.test",
+    "first_name": "Danilo",
+    "last_name": "Holler",
+    "city": "Bischofshofen",
+    "created_at": "2024-06-25T00:19:01.927876Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-at-000038",
+    "market": "at",
+    "email": "haidmanuela.cust-at-000038@example.test",
+    "first_name": "Valentino",
+    "last_name": "Günther",
+    "city": "Wörgl",
+    "created_at": "2024-07-14T23:15:33.097920Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-at-000039",
+    "market": "at",
+    "email": "luise00.cust-at-000039@example.test",
+    "first_name": "Timon",
+    "last_name": "Widhalm",
+    "city": "Lilienfeld",
+    "created_at": "2024-08-26T20:19:37.918127Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000040",
+    "market": "at",
+    "email": "jonathanholler.cust-at-000040@example.test",
+    "first_name": "Joshua",
+    "last_name": "Lenz",
+    "city": "Oberwart",
+    "created_at": "2024-07-13T23:25:56.902661Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000041",
+    "market": "at",
+    "email": "lindageiger.cust-at-000041@example.test",
+    "first_name": "Lucie",
+    "last_name": "Kohl",
+    "city": "Rottenmann",
+    "created_at": "2024-04-15T11:09:32.093923Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000042",
+    "market": "at",
+    "email": "erlersara.cust-at-000042@example.test",
+    "first_name": "Melisa",
+    "last_name": "Göschl",
+    "city": "Bad Leonfelden",
+    "created_at": "2024-03-15T01:55:19.005658Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-at-000043",
+    "market": "at",
+    "email": "emilia36.cust-at-000043@example.test",
+    "first_name": "Nikolina",
+    "last_name": "Burger",
+    "city": "Frauenkirchen",
+    "created_at": "2024-11-11T00:33:22.666228Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-at-000044",
+    "market": "at",
+    "email": "elisabethwiesinger.cust-at-000044@example.test",
+    "first_name": "Milo",
+    "last_name": "Maierhofer",
+    "city": "Feldkirchen",
+    "created_at": "2024-08-12T20:42:41.907312Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-at-000045",
+    "market": "at",
+    "email": "theo08.cust-at-000045@example.test",
+    "first_name": "Mark",
+    "last_name": "Martin",
+    "city": "Köflach",
+    "created_at": "2024-09-22T14:41:09.883450Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-at-000046",
+    "market": "at",
+    "email": "fridolin78.cust-at-000046@example.test",
+    "first_name": "Henri",
+    "last_name": "Grünwald",
+    "city": "Wiener Neustadt",
+    "created_at": "2024-12-08T13:17:43.449368Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-at-000047",
+    "market": "at",
+    "email": "stefan65.cust-at-000047@example.test",
+    "first_name": "Isabelle",
+    "last_name": "Richter",
+    "city": "Mannersdorf am Leithagebirge",
+    "created_at": "2024-12-16T22:48:14.688235Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000001",
+    "market": "de",
+    "email": "xstahr.cust-de-000001@example.test",
+    "first_name": "Janett",
+    "last_name": "Davids",
+    "city": "Gelnhausen",
+    "created_at": "2024-08-05T06:54:09.818036Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000002",
+    "market": "de",
+    "email": "ebiggen.cust-de-000002@example.test",
+    "first_name": "Joachim",
+    "last_name": "Zimmer",
+    "city": "Niesky",
+    "created_at": "2024-10-18T00:17:19.484258Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000003",
+    "market": "de",
+    "email": "aschweitzer.cust-de-000003@example.test",
+    "first_name": "Ladislaus",
+    "last_name": "Knappe",
+    "city": "Oranienburg",
+    "created_at": "2024-04-02T17:43:09.768444Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000004",
+    "market": "de",
+    "email": "dietlind69.cust-de-000004@example.test",
+    "first_name": "Meral",
+    "last_name": "Hornig",
+    "city": "Mellrichstadt",
+    "created_at": "2024-02-04T18:54:43.745060Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000005",
+    "market": "de",
+    "email": "afinke.cust-de-000005@example.test",
+    "first_name": "Annelie",
+    "last_name": "Martin",
+    "city": "Cottbus",
+    "created_at": "2024-03-03T16:37:22.134543Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000006",
+    "market": "de",
+    "email": "striebitzsusi.cust-de-000006@example.test",
+    "first_name": "Ingeburg",
+    "last_name": "Faust",
+    "city": "Ilmenau",
+    "created_at": "2024-07-28T12:13:46.686984Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000007",
+    "market": "de",
+    "email": "ohuhn.cust-de-000007@example.test",
+    "first_name": "Hakan",
+    "last_name": "Barkholz",
+    "city": "Holzminden",
+    "created_at": "2024-07-10T06:47:51.057986Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000008",
+    "market": "de",
+    "email": "teresaaustermuehle.cust-de-000008@example.test",
+    "first_name": "Ilhan",
+    "last_name": "Heidrich",
+    "city": "Füssen",
+    "created_at": "2024-10-19T12:33:56.123431Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000009",
+    "market": "de",
+    "email": "riza54.cust-de-000009@example.test",
+    "first_name": "Agnieszka",
+    "last_name": "Bolander",
+    "city": "Königs Wusterhausen",
+    "created_at": "2024-08-07T10:49:43.645204Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000010",
+    "market": "de",
+    "email": "caeciliamude.cust-de-000010@example.test",
+    "first_name": "Heinz-Jürgen",
+    "last_name": "Adolph",
+    "city": "Sankt Goar",
+    "created_at": "2024-02-13T19:44:23.429017Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000011",
+    "market": "de",
+    "email": "fbutte.cust-de-000011@example.test",
+    "first_name": "Carsten",
+    "last_name": "Zahn",
+    "city": "Bayreuth",
+    "created_at": "2024-02-02T02:26:09.458247Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000012",
+    "market": "de",
+    "email": "knuddoering.cust-de-000012@example.test",
+    "first_name": "Franz Josef",
+    "last_name": "Gutknecht",
+    "city": "Uelzen",
+    "created_at": "2024-06-02T05:03:19.130913Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000013",
+    "market": "de",
+    "email": "bayramzimmer.cust-de-000013@example.test",
+    "first_name": "Amanda",
+    "last_name": "Langern",
+    "city": "Füssen",
+    "created_at": "2024-09-02T16:05:48.244209Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000014",
+    "market": "de",
+    "email": "antonio23.cust-de-000014@example.test",
+    "first_name": "Friedrich",
+    "last_name": "Hendriks",
+    "city": "Mainburg",
+    "created_at": "2024-11-24T19:15:06.307285Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000015",
+    "market": "de",
+    "email": "van.der.dussenxaver.cust-de-000015@example.test",
+    "first_name": "Norman",
+    "last_name": "Weihmann",
+    "city": "Soest",
+    "created_at": "2024-04-09T00:22:44.115437Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000016",
+    "market": "de",
+    "email": "patric78.cust-de-000016@example.test",
+    "first_name": "Heinz-Dieter",
+    "last_name": "Börner",
+    "city": "Sömmerda",
+    "created_at": "2024-04-25T02:02:26.830011Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000017",
+    "market": "de",
+    "email": "alexandrosschottin.cust-de-000017@example.test",
+    "first_name": "Christoph",
+    "last_name": "Barth",
+    "city": "Roth",
+    "created_at": "2024-02-24T02:07:44.919878Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000018",
+    "market": "de",
+    "email": "kboucsein.cust-de-000018@example.test",
+    "first_name": "Judith",
+    "last_name": "Söding",
+    "city": "Geithain",
+    "created_at": "2024-06-09T06:32:56.625913Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000019",
+    "market": "de",
+    "email": "murat15.cust-de-000019@example.test",
+    "first_name": "Hilde",
+    "last_name": "Weiß",
+    "city": "Bad Freienwalde",
+    "created_at": "2024-09-24T01:33:33.354079Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000020",
+    "market": "de",
+    "email": "yhering.cust-de-000020@example.test",
+    "first_name": "Geert",
+    "last_name": "Hermighausen",
+    "city": "Schwäbisch Hall",
+    "created_at": "2024-12-08T15:03:13.119800Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000021",
+    "market": "de",
+    "email": "loefflerhans.juergen.cust-de-000021@example.test",
+    "first_name": "Karl-August",
+    "last_name": "Atzler",
+    "city": "Strausberg",
+    "created_at": "2024-06-24T10:46:56.104571Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000022",
+    "market": "de",
+    "email": "finkehubertus.cust-de-000022@example.test",
+    "first_name": "Zbigniew",
+    "last_name": "Hövel",
+    "city": "Pfaffenhofen an der Ilm",
+    "created_at": "2024-12-27T02:34:17.366214Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000023",
+    "market": "de",
+    "email": "waehnerhansjuergen.cust-de-000023@example.test",
+    "first_name": "Andree",
+    "last_name": "Kühnert",
+    "city": "Marktheidenfeld",
+    "created_at": "2024-12-14T03:17:38.016505Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000024",
+    "market": "de",
+    "email": "klaus.michael40.cust-de-000024@example.test",
+    "first_name": "Jutta",
+    "last_name": "Berger",
+    "city": "Gerolzhofen",
+    "created_at": "2024-11-07T07:05:16.216842Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000025",
+    "market": "de",
+    "email": "giovanni73.cust-de-000025@example.test",
+    "first_name": "Irmtraut",
+    "last_name": "Sölzer",
+    "city": "Ebersberg",
+    "created_at": "2024-02-14T14:57:36.080984Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000026",
+    "market": "de",
+    "email": "rognersigfried.cust-de-000026@example.test",
+    "first_name": "Inka",
+    "last_name": "Haase",
+    "city": "Grimmen",
+    "created_at": "2024-09-08T02:40:13.695910Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000027",
+    "market": "de",
+    "email": "kuschfabienne.cust-de-000027@example.test",
+    "first_name": "Therese",
+    "last_name": "Briemer",
+    "city": "Bayreuth",
+    "created_at": "2024-06-15T06:43:44.316544Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000028",
+    "market": "de",
+    "email": "knappeheinz.gerd.cust-de-000028@example.test",
+    "first_name": "Gudrun",
+    "last_name": "Schleich",
+    "city": "Pößneck",
+    "created_at": "2024-04-18T02:26:01.243040Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000029",
+    "market": "de",
+    "email": "eberthgrete.cust-de-000029@example.test",
+    "first_name": "Ingeborg",
+    "last_name": "Rosemann",
+    "city": "Angermünde",
+    "created_at": "2024-06-10T21:17:14.251791Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000030",
+    "market": "de",
+    "email": "epohl.cust-de-000030@example.test",
+    "first_name": "Danilo",
+    "last_name": "Trapp",
+    "city": "Gießen",
+    "created_at": "2024-12-02T03:35:36.996751Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000031",
+    "market": "de",
+    "email": "wenderolf.cust-de-000031@example.test",
+    "first_name": "Ramona",
+    "last_name": "Junken",
+    "city": "Staßfurt",
+    "created_at": "2024-02-10T11:24:30.967883Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000032",
+    "market": "de",
+    "email": "cbarkholz.cust-de-000032@example.test",
+    "first_name": "Svetlana",
+    "last_name": "Hertrampf",
+    "city": "Soltau",
+    "created_at": "2024-11-17T18:53:34.848669Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000033",
+    "market": "de",
+    "email": "jangiess.cust-de-000033@example.test",
+    "first_name": "Bernt",
+    "last_name": "Hauffer",
+    "city": "Jüterbog",
+    "created_at": "2024-11-02T07:17:58.400670Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000034",
+    "market": "de",
+    "email": "jaroslav38.cust-de-000034@example.test",
+    "first_name": "Harm",
+    "last_name": "Plath",
+    "city": "Kemnath",
+    "created_at": "2024-12-31T16:08:09.428948Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000035",
+    "market": "de",
+    "email": "sauerheinz.juergen.cust-de-000035@example.test",
+    "first_name": "Annemie",
+    "last_name": "Säuberlich",
+    "city": "Lichtenfels",
+    "created_at": "2024-08-25T22:41:53.292006Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000036",
+    "market": "de",
+    "email": "elsbethstolze.cust-de-000036@example.test",
+    "first_name": "Harri",
+    "last_name": "Mohaupt",
+    "city": "Cloppenburg",
+    "created_at": "2024-11-24T07:32:28.953268Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000037",
+    "market": "de",
+    "email": "calogero45.cust-de-000037@example.test",
+    "first_name": "Alwin",
+    "last_name": "Davids",
+    "city": "Melsungen",
+    "created_at": "2024-03-29T03:26:01.182600Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000038",
+    "market": "de",
+    "email": "rose.marie58.cust-de-000038@example.test",
+    "first_name": "Benno",
+    "last_name": "Hesse",
+    "city": "Warendorf",
+    "created_at": "2024-10-11T07:07:46.527745Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000039",
+    "market": "de",
+    "email": "bthanel.cust-de-000039@example.test",
+    "first_name": "Marie",
+    "last_name": "Gehringer",
+    "city": "Lüdinghausen",
+    "created_at": "2024-11-29T07:02:46.273623Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000040",
+    "market": "de",
+    "email": "gabibohlander.cust-de-000040@example.test",
+    "first_name": "Selim",
+    "last_name": "Speer",
+    "city": "Zerbst",
+    "created_at": "2024-01-14T05:39:11.696347Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000041",
+    "market": "de",
+    "email": "justina72.cust-de-000041@example.test",
+    "first_name": "Gabriele",
+    "last_name": "Henk",
+    "city": "Eberswalde",
+    "created_at": "2024-01-19T21:45:47.314996Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000042",
+    "market": "de",
+    "email": "hildegunde64.cust-de-000042@example.test",
+    "first_name": "Magrit",
+    "last_name": "Bolnbach",
+    "city": "Ludwigslust",
+    "created_at": "2024-10-20T08:12:58.415720Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000043",
+    "market": "de",
+    "email": "pia68.cust-de-000043@example.test",
+    "first_name": "Enrico",
+    "last_name": "Döhn",
+    "city": "Gera",
+    "created_at": "2024-11-06T21:12:26.194450Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000044",
+    "market": "de",
+    "email": "czahn.cust-de-000044@example.test",
+    "first_name": "Sibel",
+    "last_name": "Schmidt",
+    "city": "Oschatz",
+    "created_at": "2024-10-20T03:39:59.365398Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000045",
+    "market": "de",
+    "email": "margit55.cust-de-000045@example.test",
+    "first_name": "Branka",
+    "last_name": "Cichorius",
+    "city": "Düren",
+    "created_at": "2024-10-09T14:12:00.639838Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000046",
+    "market": "de",
+    "email": "stolzeuli.cust-de-000046@example.test",
+    "first_name": "Marius",
+    "last_name": "Trub",
+    "city": "Roding",
+    "created_at": "2024-11-02T16:49:05.666407Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000047",
+    "market": "de",
+    "email": "nick06.cust-de-000047@example.test",
+    "first_name": "Berndt",
+    "last_name": "Schuster",
+    "city": "Kemnath",
+    "created_at": "2024-03-14T20:27:14.618002Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000048",
+    "market": "de",
+    "email": "mosemannlilly.cust-de-000048@example.test",
+    "first_name": "Gunhild",
+    "last_name": "Karge",
+    "city": "Hildburghausen",
+    "created_at": "2024-07-03T15:48:00.784278Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000049",
+    "market": "de",
+    "email": "irahenck.cust-de-000049@example.test",
+    "first_name": "Emmy",
+    "last_name": "Kohl",
+    "city": "Wurzen",
+    "created_at": "2024-08-18T14:01:26.553932Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000050",
+    "market": "de",
+    "email": "ottokar46.cust-de-000050@example.test",
+    "first_name": "Erika",
+    "last_name": "Klotz",
+    "city": "Kronach",
+    "created_at": "2024-02-26T19:23:27.332169Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000051",
+    "market": "de",
+    "email": "adelewaehner.cust-de-000051@example.test",
+    "first_name": "Heidemarie",
+    "last_name": "Neuschäfer",
+    "city": "Vilsbiburg",
+    "created_at": "2024-03-11T15:40:35.240852Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000052",
+    "market": "de",
+    "email": "leszek49.cust-de-000052@example.test",
+    "first_name": "Bodo",
+    "last_name": "Fechner",
+    "city": "Bad Langensalza",
+    "created_at": "2024-09-16T19:48:10.299308Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000053",
+    "market": "de",
+    "email": "ebruder.cust-de-000053@example.test",
+    "first_name": "Alina",
+    "last_name": "Schuster",
+    "city": "Aurich",
+    "created_at": "2024-08-11T19:47:56.525649Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000054",
+    "market": "de",
+    "email": "zkramer.cust-de-000054@example.test",
+    "first_name": "Benno",
+    "last_name": "Conradi",
+    "city": "Staßfurt",
+    "created_at": "2024-08-13T13:39:28.770636Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000055",
+    "market": "de",
+    "email": "ohess.cust-de-000055@example.test",
+    "first_name": "Alfred",
+    "last_name": "Rörricht",
+    "city": "Pirmasens",
+    "created_at": "2024-11-19T14:20:09.343126Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000056",
+    "market": "de",
+    "email": "franz.xaver04.cust-de-000056@example.test",
+    "first_name": "Lidija",
+    "last_name": "Wirth",
+    "city": "Finsterwalde",
+    "created_at": "2024-03-04T08:45:18.010710Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000057",
+    "market": "de",
+    "email": "binnergloria.cust-de-000057@example.test",
+    "first_name": "Valerie",
+    "last_name": "Stiffel",
+    "city": "Dresden",
+    "created_at": "2024-03-08T04:09:21.176945Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000058",
+    "market": "de",
+    "email": "enverhaase.cust-de-000058@example.test",
+    "first_name": "Anika",
+    "last_name": "Briemer",
+    "city": "Lüdinghausen",
+    "created_at": "2024-06-16T19:59:48.060079Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000059",
+    "market": "de",
+    "email": "iwan56.cust-de-000059@example.test",
+    "first_name": "Rebecca",
+    "last_name": "Hörle",
+    "city": "Saarlouis",
+    "created_at": "2024-08-20T22:12:39.157468Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000060",
+    "market": "de",
+    "email": "gtintzmann.cust-de-000060@example.test",
+    "first_name": "Hüseyin",
+    "last_name": "Peukert",
+    "city": "Germersheim",
+    "created_at": "2024-02-23T02:49:26.965120Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000061",
+    "market": "de",
+    "email": "heiderose83.cust-de-000061@example.test",
+    "first_name": "Liliana",
+    "last_name": "Wähner",
+    "city": "Mainburg",
+    "created_at": "2024-04-20T06:59:37.262433Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000062",
+    "market": "de",
+    "email": "luiseheinrich.cust-de-000062@example.test",
+    "first_name": "Thorben",
+    "last_name": "Thies",
+    "city": "Döbeln",
+    "created_at": "2024-09-13T02:49:54.830173Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000063",
+    "market": "de",
+    "email": "gstaude.cust-de-000063@example.test",
+    "first_name": "Natalie",
+    "last_name": "Gierschner",
+    "city": "Flöha",
+    "created_at": "2024-12-10T06:10:52.661155Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000064",
+    "market": "de",
+    "email": "denise55.cust-de-000064@example.test",
+    "first_name": "Rolf",
+    "last_name": "Bachmann",
+    "city": "Weißwasser",
+    "created_at": "2024-07-05T01:22:13.636264Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000065",
+    "market": "de",
+    "email": "pkambs.cust-de-000065@example.test",
+    "first_name": "Meral",
+    "last_name": "Holzapfel",
+    "city": "Lippstadt",
+    "created_at": "2024-06-22T13:05:53.231191Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000066",
+    "market": "de",
+    "email": "haeringvittorio.cust-de-000066@example.test",
+    "first_name": "Nicolai",
+    "last_name": "Ziegert",
+    "city": "Stadtsteinach",
+    "created_at": "2024-02-19T01:53:13.391240Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000067",
+    "market": "de",
+    "email": "seifertwaltraud.cust-de-000067@example.test",
+    "first_name": "Jasmina",
+    "last_name": "Lorch",
+    "city": "Angermünde",
+    "created_at": "2024-04-21T12:31:30.861966Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000068",
+    "market": "de",
+    "email": "doerralfons.cust-de-000068@example.test",
+    "first_name": "Renato",
+    "last_name": "Peukert",
+    "city": "Neustrelitz",
+    "created_at": "2024-08-11T14:54:52.607411Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000069",
+    "market": "de",
+    "email": "jgude.cust-de-000069@example.test",
+    "first_name": "Louis",
+    "last_name": "Dörschner",
+    "city": "Düren",
+    "created_at": "2024-05-30T17:20:48.896187Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000070",
+    "market": "de",
+    "email": "schaafsteve.cust-de-000070@example.test",
+    "first_name": "Hans-Jürgen",
+    "last_name": "Hertrampf",
+    "city": "Aschaffenburg",
+    "created_at": "2024-03-20T15:38:56.322622Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000071",
+    "market": "de",
+    "email": "peter04.cust-de-000071@example.test",
+    "first_name": "Alwin",
+    "last_name": "Kostolzin",
+    "city": "Saarbrücken",
+    "created_at": "2024-04-26T00:53:14.514038Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000072",
+    "market": "de",
+    "email": "lehmanngeorgios.cust-de-000072@example.test",
+    "first_name": "Anett",
+    "last_name": "Rudolph",
+    "city": "Aachen",
+    "created_at": "2024-06-02T03:13:33.556345Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000073",
+    "market": "de",
+    "email": "djaentsch.cust-de-000073@example.test",
+    "first_name": "Kira",
+    "last_name": "Löchel",
+    "city": "Groß-Gerau",
+    "created_at": "2024-03-23T13:36:27.915500Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000074",
+    "market": "de",
+    "email": "sibylla94.cust-de-000074@example.test",
+    "first_name": "Daniel",
+    "last_name": "Häring",
+    "city": "Havelberg",
+    "created_at": "2024-07-26T01:44:25.344218Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000075",
+    "market": "de",
+    "email": "schlossertom.cust-de-000075@example.test",
+    "first_name": "Gitte",
+    "last_name": "Carsten",
+    "city": "Erbisdorf",
+    "created_at": "2024-08-25T03:34:46.083559Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000076",
+    "market": "de",
+    "email": "kunibertweiss.cust-de-000076@example.test",
+    "first_name": "Christa-Maria",
+    "last_name": "Pieper",
+    "city": "Fallingbostel",
+    "created_at": "2024-04-25T17:37:30.394640Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000077",
+    "market": "de",
+    "email": "kallertmathias.cust-de-000077@example.test",
+    "first_name": "Gundula",
+    "last_name": "Beckmann",
+    "city": "Bad Kissingen",
+    "created_at": "2024-07-19T23:41:03.355942Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000078",
+    "market": "de",
+    "email": "qroehricht.cust-de-000078@example.test",
+    "first_name": "Steffen",
+    "last_name": "Gierschner",
+    "city": "Rockenhausen",
+    "created_at": "2024-08-17T02:53:37.077310Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000079",
+    "market": "de",
+    "email": "steinbergullrich.cust-de-000079@example.test",
+    "first_name": "Gerti",
+    "last_name": "Etzold",
+    "city": "Stadtsteinach",
+    "created_at": "2024-07-06T15:54:05.488652Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000080",
+    "market": "de",
+    "email": "rosemannignaz.cust-de-000080@example.test",
+    "first_name": "Gottlieb",
+    "last_name": "Meister",
+    "city": "Weimar",
+    "created_at": "2024-11-20T10:09:46.645131Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000081",
+    "market": "de",
+    "email": "neberth.cust-de-000081@example.test",
+    "first_name": "Dorota",
+    "last_name": "Kaul",
+    "city": "Großenhain",
+    "created_at": "2024-07-03T07:54:41.813310Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000082",
+    "market": "de",
+    "email": "henny48.cust-de-000082@example.test",
+    "first_name": "Helmuth",
+    "last_name": "Höfig",
+    "city": "Schrobenhausen",
+    "created_at": "2024-10-19T18:03:42.077338Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000083",
+    "market": "de",
+    "email": "andrew10.cust-de-000083@example.test",
+    "first_name": "Mijo",
+    "last_name": "Putz",
+    "city": "Greifswald",
+    "created_at": "2024-11-02T11:34:00.015020Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000084",
+    "market": "de",
+    "email": "ekuehnert.cust-de-000084@example.test",
+    "first_name": "Aziz",
+    "last_name": "Peukert",
+    "city": "Finsterwalde",
+    "created_at": "2024-02-12T09:41:07.679619Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000085",
+    "market": "de",
+    "email": "drubayse.cust-de-000085@example.test",
+    "first_name": "Zoltan",
+    "last_name": "Bien",
+    "city": "Büsingen am Hochrhein",
+    "created_at": "2024-11-04T04:04:06.116774Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000086",
+    "market": "de",
+    "email": "lilianaruppersberger.cust-de-000086@example.test",
+    "first_name": "Sylvie",
+    "last_name": "Patberg",
+    "city": "Burglengenfeld",
+    "created_at": "2024-04-12T16:53:27.077992Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000087",
+    "market": "de",
+    "email": "evi64.cust-de-000087@example.test",
+    "first_name": "Angelika",
+    "last_name": "Wulff",
+    "city": "Guben",
+    "created_at": "2024-03-04T07:34:59.543626Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000088",
+    "market": "de",
+    "email": "joana88.cust-de-000088@example.test",
+    "first_name": "Marius",
+    "last_name": "Seip",
+    "city": "Hersbruck",
+    "created_at": "2024-09-28T19:48:41.422007Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000089",
+    "market": "de",
+    "email": "kevinpieper.cust-de-000089@example.test",
+    "first_name": "Rosalie",
+    "last_name": "Salz",
+    "city": "Leipziger Land",
+    "created_at": "2024-10-29T17:53:28.899562Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000090",
+    "market": "de",
+    "email": "tillyhoffmann.cust-de-000090@example.test",
+    "first_name": "Agata",
+    "last_name": "Trapp",
+    "city": "Nordhausen",
+    "created_at": "2024-05-16T05:56:44.372092Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000091",
+    "market": "de",
+    "email": "gretchen08.cust-de-000091@example.test",
+    "first_name": "Rouven",
+    "last_name": "Schaaf",
+    "city": "Schongau",
+    "created_at": "2024-08-07T21:46:55.716202Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000092",
+    "market": "de",
+    "email": "svenja64.cust-de-000092@example.test",
+    "first_name": "Regine",
+    "last_name": "Peukert",
+    "city": "Tübingen",
+    "created_at": "2024-05-13T13:27:06.003760Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000093",
+    "market": "de",
+    "email": "oullrich.cust-de-000093@example.test",
+    "first_name": "Jacek",
+    "last_name": "Rädel",
+    "city": "Pirmasens",
+    "created_at": "2024-12-30T08:09:35.737828Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000094",
+    "market": "de",
+    "email": "apostoloscaspar.cust-de-000094@example.test",
+    "first_name": "Margarita",
+    "last_name": "Rudolph",
+    "city": "Warendorf",
+    "created_at": "2024-04-23T19:29:09.251318Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000095",
+    "market": "de",
+    "email": "alan25.cust-de-000095@example.test",
+    "first_name": "Yasmin",
+    "last_name": "Döring",
+    "city": "Wurzen",
+    "created_at": "2024-09-15T04:17:22.251881Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000096",
+    "market": "de",
+    "email": "ferencconradi.cust-de-000096@example.test",
+    "first_name": "Magda",
+    "last_name": "Roht",
+    "city": "Kamenz",
+    "created_at": "2024-08-22T13:33:56.758337Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000097",
+    "market": "de",
+    "email": "jjunken.cust-de-000097@example.test",
+    "first_name": "Ingeborg",
+    "last_name": "Hartung",
+    "city": "Wolfenbüttel",
+    "created_at": "2024-03-17T12:21:44.903383Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000098",
+    "market": "de",
+    "email": "margaretha92.cust-de-000098@example.test",
+    "first_name": "Volkmar",
+    "last_name": "Wesack",
+    "city": "Grafenau",
+    "created_at": "2024-02-29T22:23:29.243777Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000099",
+    "market": "de",
+    "email": "heckerluise.cust-de-000099@example.test",
+    "first_name": "Alois",
+    "last_name": "Zobel",
+    "city": "Werdau",
+    "created_at": "2024-11-02T02:05:48.797495Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000100",
+    "market": "de",
+    "email": "danuta42.cust-de-000100@example.test",
+    "first_name": "Wieland",
+    "last_name": "Flantz",
+    "city": "Wunsiedel",
+    "created_at": "2024-07-22T11:38:07.640886Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000101",
+    "market": "de",
+    "email": "virginia74.cust-de-000101@example.test",
+    "first_name": "Heiner",
+    "last_name": "Spieß",
+    "city": "Dessau",
+    "created_at": "2024-12-28T10:59:07.797991Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000102",
+    "market": "de",
+    "email": "eric67.cust-de-000102@example.test",
+    "first_name": "Annerose",
+    "last_name": "Römer",
+    "city": "Parchim",
+    "created_at": "2024-06-13T01:23:22.080574Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000103",
+    "market": "de",
+    "email": "vitowernecke.cust-de-000103@example.test",
+    "first_name": "Hildburg",
+    "last_name": "Vogt",
+    "city": "Geithain",
+    "created_at": "2024-01-30T07:09:10.467173Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000104",
+    "market": "de",
+    "email": "ackermannalwin.cust-de-000104@example.test",
+    "first_name": "Vinzenz",
+    "last_name": "Ehlert",
+    "city": "Roth",
+    "created_at": "2024-06-07T18:18:53.913605Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000105",
+    "market": "de",
+    "email": "ndrubin.cust-de-000105@example.test",
+    "first_name": "Marie-Louise",
+    "last_name": "Wulf",
+    "city": "Cuxhaven",
+    "created_at": "2024-02-25T03:30:41.047111Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000106",
+    "market": "de",
+    "email": "hans.hermannhertrampf.cust-de-000106@example.test",
+    "first_name": "Danilo",
+    "last_name": "Löchel",
+    "city": "Schwäbisch Hall",
+    "created_at": "2024-11-27T23:59:53.581272Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000107",
+    "market": "de",
+    "email": "ruthzaenker.cust-de-000107@example.test",
+    "first_name": "Adrian",
+    "last_name": "Heser",
+    "city": "Dinkelsbühl",
+    "created_at": "2024-03-26T05:22:28.095403Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000108",
+    "market": "de",
+    "email": "roseaenne.cust-de-000108@example.test",
+    "first_name": "Joerg",
+    "last_name": "Wilmsen",
+    "city": "Bischofswerda",
+    "created_at": "2024-06-28T09:53:42.764839Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000109",
+    "market": "de",
+    "email": "trautetrommler.cust-de-000109@example.test",
+    "first_name": "Gudula",
+    "last_name": "Schmidt",
+    "city": "Delitzsch",
+    "created_at": "2024-06-29T13:03:32.932340Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000110",
+    "market": "de",
+    "email": "andrzejetzold.cust-de-000110@example.test",
+    "first_name": "Annie",
+    "last_name": "Textor",
+    "city": "Mühlhausen",
+    "created_at": "2024-03-30T04:22:29.699131Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000111",
+    "market": "de",
+    "email": "ilias48.cust-de-000111@example.test",
+    "first_name": "Anett",
+    "last_name": "Geisler",
+    "city": "Belzig",
+    "created_at": "2024-08-21T08:34:44.922010Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000112",
+    "market": "de",
+    "email": "branko20.cust-de-000112@example.test",
+    "first_name": "Siegbert",
+    "last_name": "Heinz",
+    "city": "Hünfeld",
+    "created_at": "2024-09-02T07:03:55.422022Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000113",
+    "market": "de",
+    "email": "hans.guenther98.cust-de-000113@example.test",
+    "first_name": "Hajo",
+    "last_name": "Gnatz",
+    "city": "Husum",
+    "created_at": "2024-01-22T06:25:29.652388Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000114",
+    "market": "de",
+    "email": "priskastoll.cust-de-000114@example.test",
+    "first_name": "Anna-Maria",
+    "last_name": "Schleich",
+    "city": "Regensburg",
+    "created_at": "2024-07-16T11:12:32.368818Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000115",
+    "market": "de",
+    "email": "loecheldorina.cust-de-000115@example.test",
+    "first_name": "Liliane",
+    "last_name": "Trüb",
+    "city": "Mettmann",
+    "created_at": "2024-11-05T01:54:08.722636Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000116",
+    "market": "de",
+    "email": "kreszentia06.cust-de-000116@example.test",
+    "first_name": "Ortwin",
+    "last_name": "Mielcarek",
+    "city": "Kusel",
+    "created_at": "2024-10-08T07:37:29.084920Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000117",
+    "market": "de",
+    "email": "nina28.cust-de-000117@example.test",
+    "first_name": "Alida",
+    "last_name": "Zirme",
+    "city": "Erbisdorf",
+    "created_at": "2024-07-03T18:05:18.188967Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000118",
+    "market": "de",
+    "email": "hanna19.cust-de-000118@example.test",
+    "first_name": "Andre",
+    "last_name": "Hornich",
+    "city": "Hildesheim",
+    "created_at": "2024-08-02T21:17:48.097236Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000119",
+    "market": "de",
+    "email": "kranzrose.cust-de-000119@example.test",
+    "first_name": "Stavros",
+    "last_name": "Linke",
+    "city": "Augsburg",
+    "created_at": "2024-05-04T15:44:58.374513Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000120",
+    "market": "de",
+    "email": "hilmataesche.cust-de-000120@example.test",
+    "first_name": "Mariola",
+    "last_name": "Kraus",
+    "city": "Schleiz",
+    "created_at": "2024-07-13T11:54:52.503063Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000121",
+    "market": "de",
+    "email": "beata97.cust-de-000121@example.test",
+    "first_name": "Kevin",
+    "last_name": "Klotz",
+    "city": "Torgau",
+    "created_at": "2024-05-25T20:53:06.787918Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000122",
+    "market": "de",
+    "email": "juncksedat.cust-de-000122@example.test",
+    "first_name": "Henriette",
+    "last_name": "Stahr",
+    "city": "Prenzlau",
+    "created_at": "2024-08-18T21:13:49.437710Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000123",
+    "market": "de",
+    "email": "drubinmarleen.cust-de-000123@example.test",
+    "first_name": "Jorge",
+    "last_name": "Kroker",
+    "city": "Reutlingen",
+    "created_at": "2024-05-04T00:30:28.451501Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000124",
+    "market": "de",
+    "email": "liselotte94.cust-de-000124@example.test",
+    "first_name": "Yvette",
+    "last_name": "Schomber",
+    "city": "Aschaffenburg",
+    "created_at": "2024-01-10T02:02:47.002987Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000125",
+    "market": "de",
+    "email": "btextor.cust-de-000125@example.test",
+    "first_name": "Flora",
+    "last_name": "Heinrich",
+    "city": "Herford",
+    "created_at": "2024-06-13T01:03:11.417070Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000126",
+    "market": "de",
+    "email": "irmtrud08.cust-de-000126@example.test",
+    "first_name": "Franz-Josef",
+    "last_name": "Schleich",
+    "city": "Kehl",
+    "created_at": "2024-08-07T01:01:25.142315Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000127",
+    "market": "de",
+    "email": "knappeedith.cust-de-000127@example.test",
+    "first_name": "Elfriede",
+    "last_name": "Jüttner",
+    "city": "Hainichen",
+    "created_at": "2024-04-11T18:08:46.263773Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000128",
+    "market": "de",
+    "email": "wulffivanka.cust-de-000128@example.test",
+    "first_name": "Lukas",
+    "last_name": "Striebitz",
+    "city": "Hofgeismar",
+    "created_at": "2024-08-19T23:02:01.271905Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000129",
+    "market": "de",
+    "email": "gruppert.cust-de-000129@example.test",
+    "first_name": "Riza",
+    "last_name": "Rohleder",
+    "city": "München",
+    "created_at": "2024-08-15T01:13:19.637890Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000130",
+    "market": "de",
+    "email": "kaete90.cust-de-000130@example.test",
+    "first_name": "Giovanna",
+    "last_name": "Löchel",
+    "city": "Euskirchen",
+    "created_at": "2024-10-05T16:25:25.086029Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000131",
+    "market": "de",
+    "email": "hoelzenbecherzdenka.cust-de-000131@example.test",
+    "first_name": "Gerti",
+    "last_name": "auch Schlauchin",
+    "city": "Prenzlau",
+    "created_at": "2024-09-20T18:35:35.505506Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000132",
+    "market": "de",
+    "email": "ruppertsilvio.cust-de-000132@example.test",
+    "first_name": "Pawel",
+    "last_name": "Schenk",
+    "city": "Kulmbach",
+    "created_at": "2024-10-13T05:08:00.311150Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000133",
+    "market": "de",
+    "email": "dan82.cust-de-000133@example.test",
+    "first_name": "Traudl",
+    "last_name": "Weiß",
+    "city": "Fürstenfeldbruck",
+    "created_at": "2024-02-11T18:17:24.580597Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000134",
+    "market": "de",
+    "email": "thoralf13.cust-de-000134@example.test",
+    "first_name": "Ian",
+    "last_name": "Fritsch",
+    "city": "Parchim",
+    "created_at": "2024-06-10T01:44:20.891934Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000135",
+    "market": "de",
+    "email": "bergertony.cust-de-000135@example.test",
+    "first_name": "Rosalia",
+    "last_name": "Schottin",
+    "city": "Neunburg vorm Wald",
+    "created_at": "2024-08-27T09:38:08.033614Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000136",
+    "market": "de",
+    "email": "herminenohlmans.cust-de-000136@example.test",
+    "first_name": "Franz-Peter",
+    "last_name": "Fliegner",
+    "city": "Wernigerode",
+    "created_at": "2024-12-26T08:32:01.922263Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000137",
+    "market": "de",
+    "email": "aloisiawulf.cust-de-000137@example.test",
+    "first_name": "Rochus",
+    "last_name": "Carsten",
+    "city": "Witzenhausen",
+    "created_at": "2024-09-25T13:17:26.597380Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000138",
+    "market": "de",
+    "email": "dzirme.cust-de-000138@example.test",
+    "first_name": "Juan",
+    "last_name": "Möchlichen",
+    "city": "Herford",
+    "created_at": "2024-05-06T19:35:35.857585Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000139",
+    "market": "de",
+    "email": "lloeffler.cust-de-000139@example.test",
+    "first_name": "Heinz-Josef",
+    "last_name": "Roht",
+    "city": "Bad Mergentheim",
+    "created_at": "2024-01-15T23:40:41.156939Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000140",
+    "market": "de",
+    "email": "carlstey.cust-de-000140@example.test",
+    "first_name": "Elfie",
+    "last_name": "Roskoth",
+    "city": "Sankt Goar",
+    "created_at": "2024-06-28T05:31:21.115630Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000141",
+    "market": "de",
+    "email": "lieschen72.cust-de-000141@example.test",
+    "first_name": "Leonhard",
+    "last_name": "Wernecke",
+    "city": "Forst",
+    "created_at": "2024-06-19T04:19:36.621138Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000142",
+    "market": "de",
+    "email": "mohamedsoelzer.cust-de-000142@example.test",
+    "first_name": "Mareike",
+    "last_name": "Scholl",
+    "city": "Aschaffenburg",
+    "created_at": "2024-05-30T15:17:00.971781Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000143",
+    "market": "de",
+    "email": "jorgepergande.cust-de-000143@example.test",
+    "first_name": "Diedrich",
+    "last_name": "Bender",
+    "city": "Weißwasser",
+    "created_at": "2024-02-01T01:03:08.956753Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000144",
+    "market": "de",
+    "email": "tinotaesche.cust-de-000144@example.test",
+    "first_name": "Mary",
+    "last_name": "Hamann",
+    "city": "Iserlohn",
+    "created_at": "2024-10-20T13:17:35.407977Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000145",
+    "market": "de",
+    "email": "hans.georg74.cust-de-000145@example.test",
+    "first_name": "Yusuf",
+    "last_name": "Steckel",
+    "city": "Bautzen",
+    "created_at": "2024-10-28T01:34:11.524740Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000146",
+    "market": "de",
+    "email": "kilianwagenknecht.cust-de-000146@example.test",
+    "first_name": "Elmar",
+    "last_name": "Klotz",
+    "city": "Wolfratshausen",
+    "created_at": "2024-05-16T09:49:02.517738Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000147",
+    "market": "de",
+    "email": "lmatthaei.cust-de-000147@example.test",
+    "first_name": "Constanze",
+    "last_name": "Heinrich",
+    "city": "Bützow",
+    "created_at": "2024-02-09T23:56:08.322540Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000148",
+    "market": "de",
+    "email": "sybilleniemeier.cust-de-000148@example.test",
+    "first_name": "Nuri",
+    "last_name": "Mühle",
+    "city": "Calw",
+    "created_at": "2024-09-18T01:15:35.987047Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000149",
+    "market": "de",
+    "email": "thorbenhahn.cust-de-000149@example.test",
+    "first_name": "Ottomar",
+    "last_name": "Mende",
+    "city": "Fürstenfeldbruck",
+    "created_at": "2024-11-12T18:10:13.145235Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000150",
+    "market": "de",
+    "email": "haroldgutknecht.cust-de-000150@example.test",
+    "first_name": "Petar",
+    "last_name": "Stolze",
+    "city": "Hansestadttralsund",
+    "created_at": "2024-10-20T02:51:21.834232Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000151",
+    "market": "de",
+    "email": "roggekarlheinz.cust-de-000151@example.test",
+    "first_name": "Amalie",
+    "last_name": "Gieß",
+    "city": "Berchtesgaden",
+    "created_at": "2024-03-26T20:09:24.341314Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000152",
+    "market": "de",
+    "email": "rheinz.cust-de-000152@example.test",
+    "first_name": "Laila",
+    "last_name": "Ritter",
+    "city": "Marktheidenfeld",
+    "created_at": "2024-11-10T01:46:21.632968Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000153",
+    "market": "de",
+    "email": "mathiasschmiedecke.cust-de-000153@example.test",
+    "first_name": "Julie",
+    "last_name": "Beier",
+    "city": "Seelow",
+    "created_at": "2024-07-07T08:30:14.908140Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000154",
+    "market": "de",
+    "email": "ybeier.cust-de-000154@example.test",
+    "first_name": "Inga",
+    "last_name": "Riehl",
+    "city": "Kaiserslautern",
+    "created_at": "2024-01-11T20:04:13.539740Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000155",
+    "market": "de",
+    "email": "diedrichputz.cust-de-000155@example.test",
+    "first_name": "Liliana",
+    "last_name": "Radisch",
+    "city": "Hannoversch Münden",
+    "created_at": "2024-11-23T19:15:24.473067Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000156",
+    "market": "de",
+    "email": "hmargraf.cust-de-000156@example.test",
+    "first_name": "Hans Josef",
+    "last_name": "Rogner",
+    "city": "Jülich",
+    "created_at": "2024-03-27T23:35:27.829534Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000157",
+    "market": "de",
+    "email": "wolf.dietrich98.cust-de-000157@example.test",
+    "first_name": "Maurice",
+    "last_name": "Ditschlerin",
+    "city": "Badalzungen",
+    "created_at": "2024-05-07T09:06:28.883625Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000158",
+    "market": "de",
+    "email": "muelichentom.cust-de-000158@example.test",
+    "first_name": "Katarzyna",
+    "last_name": "Rohleder",
+    "city": "Miltenberg",
+    "created_at": "2024-04-19T09:55:15.713142Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000159",
+    "market": "de",
+    "email": "choevel.cust-de-000159@example.test",
+    "first_name": "Victor",
+    "last_name": "Löffler",
+    "city": "Eberswalde",
+    "created_at": "2024-05-25T06:43:17.598349Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000160",
+    "market": "de",
+    "email": "heribert64.cust-de-000160@example.test",
+    "first_name": "Kai-Uwe",
+    "last_name": "Bolnbach",
+    "city": "Schwäbisch Hall",
+    "created_at": "2024-11-20T11:31:17.854023Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000161",
+    "market": "de",
+    "email": "xhofmann.cust-de-000161@example.test",
+    "first_name": "Adelgunde",
+    "last_name": "Schwital",
+    "city": "Viechtach",
+    "created_at": "2024-02-01T00:59:06.062693Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000162",
+    "market": "de",
+    "email": "sabineklemm.cust-de-000162@example.test",
+    "first_name": "Hannah",
+    "last_name": "Stahr",
+    "city": "Grevenbroich",
+    "created_at": "2024-09-19T15:44:32.182380Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000163",
+    "market": "de",
+    "email": "stiffelsofia.cust-de-000163@example.test",
+    "first_name": "Isidor",
+    "last_name": "Ritter",
+    "city": "Warendorf",
+    "created_at": "2024-12-31T12:57:42.345599Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000164",
+    "market": "de",
+    "email": "schulzjose.cust-de-000164@example.test",
+    "first_name": "Dimitrios",
+    "last_name": "Hethur",
+    "city": "Reutlingen",
+    "created_at": "2024-05-29T07:21:43.555453Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000165",
+    "market": "de",
+    "email": "bernadettegute.cust-de-000165@example.test",
+    "first_name": "Falk",
+    "last_name": "Rohleder",
+    "city": "Grevesmühlen",
+    "created_at": "2024-07-29T09:40:30.107311Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000166",
+    "market": "de",
+    "email": "nbolnbach.cust-de-000166@example.test",
+    "first_name": "Nikolaos",
+    "last_name": "Thies",
+    "city": "Celle",
+    "created_at": "2024-09-13T12:32:19.654439Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000167",
+    "market": "de",
+    "email": "sarina41.cust-de-000167@example.test",
+    "first_name": "Danielle",
+    "last_name": "Stiffel",
+    "city": "Göttingen",
+    "created_at": "2024-05-23T14:34:12.404010Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000168",
+    "market": "de",
+    "email": "tintzmannannegret.cust-de-000168@example.test",
+    "first_name": "Mario",
+    "last_name": "Koch",
+    "city": "Günzburg",
+    "created_at": "2024-06-30T20:54:55.369472Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000169",
+    "market": "de",
+    "email": "jscheuermann.cust-de-000169@example.test",
+    "first_name": "Hasso",
+    "last_name": "van der Dussen",
+    "city": "Genthin",
+    "created_at": "2024-05-13T17:29:03.914668Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000170",
+    "market": "de",
+    "email": "jacobholsten.cust-de-000170@example.test",
+    "first_name": "Alf",
+    "last_name": "Koch",
+    "city": "Zschopau",
+    "created_at": "2024-03-14T22:11:01.921409Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000171",
+    "market": "de",
+    "email": "hentschelortwin.cust-de-000171@example.test",
+    "first_name": "Türkan",
+    "last_name": "Buchholz",
+    "city": "Göttingen",
+    "created_at": "2024-06-14T21:36:38.831534Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000172",
+    "market": "de",
+    "email": "pero82.cust-de-000172@example.test",
+    "first_name": "Franz-Josef",
+    "last_name": "Radisch",
+    "city": "Biedenkopf",
+    "created_at": "2024-05-05T15:28:51.562330Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000173",
+    "market": "de",
+    "email": "michelkade.cust-de-000173@example.test",
+    "first_name": "Ernest",
+    "last_name": "Wulf",
+    "city": "Delitzsch",
+    "created_at": "2024-12-17T01:41:39.309600Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000174",
+    "market": "de",
+    "email": "zrose.cust-de-000174@example.test",
+    "first_name": "Katy",
+    "last_name": "Meister",
+    "city": "Sonneberg",
+    "created_at": "2024-07-16T22:53:04.916128Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000175",
+    "market": "de",
+    "email": "ella22.cust-de-000175@example.test",
+    "first_name": "Margrit",
+    "last_name": "Riehl",
+    "city": "Sternberg",
+    "created_at": "2024-11-24T07:13:11.569519Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000176",
+    "market": "de",
+    "email": "rdoerr.cust-de-000176@example.test",
+    "first_name": "Ada",
+    "last_name": "Reinhardt",
+    "city": "Nabburg",
+    "created_at": "2024-04-29T01:48:37.961490Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000177",
+    "market": "de",
+    "email": "tuelaykostolzin.cust-de-000177@example.test",
+    "first_name": "Karola",
+    "last_name": "Holsten",
+    "city": "Dieburg",
+    "created_at": "2024-07-12T19:29:50.689046Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000178",
+    "market": "de",
+    "email": "karl.heinzloewer.cust-de-000178@example.test",
+    "first_name": "Hellmuth",
+    "last_name": "Döring",
+    "city": "Wunsiedel",
+    "created_at": "2024-08-04T05:06:08.178964Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000179",
+    "market": "de",
+    "email": "stephen23.cust-de-000179@example.test",
+    "first_name": "Hansgeorg",
+    "last_name": "Hartmann",
+    "city": "Diepholz",
+    "created_at": "2024-04-19T13:46:58.197598Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000180",
+    "market": "de",
+    "email": "jonathan88.cust-de-000180@example.test",
+    "first_name": "Sebastian",
+    "last_name": "Seidel",
+    "city": "Hamburg",
+    "created_at": "2024-04-28T00:46:21.999106Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000181",
+    "market": "de",
+    "email": "girschnerevelyn.cust-de-000181@example.test",
+    "first_name": "Heinz-Werner",
+    "last_name": "Schulz",
+    "city": "Lüdinghausen",
+    "created_at": "2024-11-15T23:58:38.584972Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000182",
+    "market": "de",
+    "email": "bmoechlichen.cust-de-000182@example.test",
+    "first_name": "Ann",
+    "last_name": "Baum",
+    "city": "Großenhain",
+    "created_at": "2024-07-24T12:07:22.225929Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000183",
+    "market": "de",
+    "email": "bozena98.cust-de-000183@example.test",
+    "first_name": "Hülya",
+    "last_name": "Gieß",
+    "city": "Freudenstadt",
+    "created_at": "2024-10-13T21:06:39.516322Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000184",
+    "market": "de",
+    "email": "heinz.ottoschmiedecke.cust-de-000184@example.test",
+    "first_name": "Cäcilie",
+    "last_name": "Bloch",
+    "city": "Rudolstadt",
+    "created_at": "2024-06-23T07:26:39.115052Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000185",
+    "market": "de",
+    "email": "ortrudditschlerin.cust-de-000185@example.test",
+    "first_name": "Hans-Friedrich",
+    "last_name": "Drubin",
+    "city": "Neunburg vorm Wald",
+    "created_at": "2024-09-03T21:39:51.256021Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000186",
+    "market": "de",
+    "email": "burghard46.cust-de-000186@example.test",
+    "first_name": "Ayten",
+    "last_name": "Jüttner",
+    "city": "Heiligenstadt",
+    "created_at": "2024-11-26T08:02:02.636238Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000187",
+    "market": "de",
+    "email": "carmeloschleich.cust-de-000187@example.test",
+    "first_name": "Ricardo",
+    "last_name": "Barth",
+    "city": "Lüdinghausen",
+    "created_at": "2024-03-08T18:36:55.317859Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000188",
+    "market": "de",
+    "email": "betty94.cust-de-000188@example.test",
+    "first_name": "Alexander",
+    "last_name": "Plath",
+    "city": "Wiedenbrück",
+    "created_at": "2024-02-07T07:02:17.800263Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000189",
+    "market": "de",
+    "email": "gerti36.cust-de-000189@example.test",
+    "first_name": "Claire",
+    "last_name": "Noack",
+    "city": "Sankt Goar",
+    "created_at": "2024-12-15T15:47:21.757926Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000190",
+    "market": "de",
+    "email": "maxbachmann.cust-de-000190@example.test",
+    "first_name": "Auguste",
+    "last_name": "Stadelmann",
+    "city": "Anklam",
+    "created_at": "2024-06-07T11:13:49.358461Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000191",
+    "market": "de",
+    "email": "fgerlach.cust-de-000191@example.test",
+    "first_name": "Andres",
+    "last_name": "Noack",
+    "city": "Stollberg",
+    "created_at": "2024-12-17T06:39:33.854903Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000192",
+    "market": "de",
+    "email": "sigmarbiggen.cust-de-000192@example.test",
+    "first_name": "Hartmut",
+    "last_name": "Rosenow",
+    "city": "Beilngries",
+    "created_at": "2024-01-16T00:50:19.520123Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000193",
+    "market": "de",
+    "email": "judith13.cust-de-000193@example.test",
+    "first_name": "Anna-Marie",
+    "last_name": "Dippel",
+    "city": "Rockenhausen",
+    "created_at": "2024-01-24T23:37:09.593540Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000194",
+    "market": "de",
+    "email": "constance51.cust-de-000194@example.test",
+    "first_name": "Ernst",
+    "last_name": "Holt",
+    "city": "Marienberg",
+    "created_at": "2024-07-07T21:18:54.886472Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000195",
+    "market": "de",
+    "email": "dschueler.cust-de-000195@example.test",
+    "first_name": "Ingried",
+    "last_name": "Schüler",
+    "city": "Meiningen",
+    "created_at": "2024-01-19T15:38:12.764176Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000196",
+    "market": "de",
+    "email": "bonbachroberto.cust-de-000196@example.test",
+    "first_name": "Sergei",
+    "last_name": "Wagenknecht",
+    "city": "Sebnitz",
+    "created_at": "2024-05-20T17:29:11.242548Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000197",
+    "market": "de",
+    "email": "elmarberger.cust-de-000197@example.test",
+    "first_name": "Ortwin",
+    "last_name": "Junck",
+    "city": "Osterode am Harz",
+    "created_at": "2024-09-12T12:53:54.779126Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000198",
+    "market": "de",
+    "email": "jjunken.cust-de-000198@example.test",
+    "first_name": "Bekir",
+    "last_name": "Jockel",
+    "city": "Olpe",
+    "created_at": "2024-04-20T13:23:47.976703Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000199",
+    "market": "de",
+    "email": "dowergvittorio.cust-de-000199@example.test",
+    "first_name": "Jelena",
+    "last_name": "Ziegert",
+    "city": "Berchtesgaden",
+    "created_at": "2024-06-01T11:29:56.460765Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000200",
+    "market": "de",
+    "email": "abutte.cust-de-000200@example.test",
+    "first_name": "Marek",
+    "last_name": "Junken",
+    "city": "Forst",
+    "created_at": "2024-02-11T00:25:34.099869Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000201",
+    "market": "de",
+    "email": "richard97.cust-de-000201@example.test",
+    "first_name": "Miroslawa",
+    "last_name": "Seifert",
+    "city": "Dessau",
+    "created_at": "2024-01-01T10:49:52.395976Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000202",
+    "market": "de",
+    "email": "antje73.cust-de-000202@example.test",
+    "first_name": "Marina",
+    "last_name": "Seifert",
+    "city": "Vohenstrauß",
+    "created_at": "2024-06-28T03:47:08.250573Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000203",
+    "market": "de",
+    "email": "babette05.cust-de-000203@example.test",
+    "first_name": "Ben",
+    "last_name": "Herrmann",
+    "city": "Fürstenwalde",
+    "created_at": "2024-06-06T20:46:35.561879Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000204",
+    "market": "de",
+    "email": "ereising.cust-de-000204@example.test",
+    "first_name": "Paolo",
+    "last_name": "Bolnbach",
+    "city": "Steinfurt",
+    "created_at": "2024-11-03T21:08:00.079411Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000205",
+    "market": "de",
+    "email": "edwinheinz.cust-de-000205@example.test",
+    "first_name": "Sofie",
+    "last_name": "Carsten",
+    "city": "Uelzen",
+    "created_at": "2024-04-28T00:45:21.720457Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000206",
+    "market": "de",
+    "email": "stolzejanet.cust-de-000206@example.test",
+    "first_name": "Jens",
+    "last_name": "Fröhlich",
+    "city": "Säckingen",
+    "created_at": "2024-06-24T15:07:12.397586Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000207",
+    "market": "de",
+    "email": "josthecker.cust-de-000207@example.test",
+    "first_name": "Birgit",
+    "last_name": "Mies",
+    "city": "Dinslaken",
+    "created_at": "2024-03-24T12:58:23.729054Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000208",
+    "market": "de",
+    "email": "marie.louise25.cust-de-000208@example.test",
+    "first_name": "Cindy",
+    "last_name": "Köster",
+    "city": "Beilngries",
+    "created_at": "2024-12-06T12:29:54.531251Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000209",
+    "market": "de",
+    "email": "roberto21.cust-de-000209@example.test",
+    "first_name": "Alois",
+    "last_name": "Sorgatz",
+    "city": "Erfurt",
+    "created_at": "2024-06-17T15:24:00.764727Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000210",
+    "market": "de",
+    "email": "twulff.cust-de-000210@example.test",
+    "first_name": "Norma",
+    "last_name": "Stadelmann",
+    "city": "Torgau",
+    "created_at": "2024-02-25T01:35:16.935075Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000211",
+    "market": "de",
+    "email": "kabusludmila.cust-de-000211@example.test",
+    "first_name": "Dora",
+    "last_name": "Wilms",
+    "city": "Einbeck",
+    "created_at": "2024-02-20T13:59:45.544102Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000212",
+    "market": "de",
+    "email": "tomislavdobes.cust-de-000212@example.test",
+    "first_name": "Katy",
+    "last_name": "Beckmann",
+    "city": "Gotha",
+    "created_at": "2024-01-04T09:20:16.524660Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000213",
+    "market": "de",
+    "email": "carmenhiller.cust-de-000213@example.test",
+    "first_name": "Silva",
+    "last_name": "Koch",
+    "city": "Aurich",
+    "created_at": "2024-01-12T10:47:39.758380Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000214",
+    "market": "de",
+    "email": "francescakostolzin.cust-de-000214@example.test",
+    "first_name": "Eckehard",
+    "last_name": "Jungfer",
+    "city": "Lörrach",
+    "created_at": "2024-08-14T23:23:28.801474Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000215",
+    "market": "de",
+    "email": "cmentzel.cust-de-000215@example.test",
+    "first_name": "Elwira",
+    "last_name": "Riehl",
+    "city": "Gotha",
+    "created_at": "2024-07-27T07:57:31.143539Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000216",
+    "market": "de",
+    "email": "sfischer.cust-de-000216@example.test",
+    "first_name": "Olga",
+    "last_name": "Langern",
+    "city": "Diepholz",
+    "created_at": "2024-11-06T21:26:23.877098Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000217",
+    "market": "de",
+    "email": "rweitzel.cust-de-000217@example.test",
+    "first_name": "Sebastiano",
+    "last_name": "Schulz",
+    "city": "Anklam",
+    "created_at": "2024-11-08T07:59:50.391108Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000218",
+    "market": "de",
+    "email": "gorlitzkarl.august.cust-de-000218@example.test",
+    "first_name": "Athanasios",
+    "last_name": "Binner",
+    "city": "Rockenhausen",
+    "created_at": "2024-02-29T13:32:19.615005Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000219",
+    "market": "de",
+    "email": "auch.schlauchindennis.cust-de-000219@example.test",
+    "first_name": "Hans-H.",
+    "last_name": "Schwital",
+    "city": "Heiligenstadt",
+    "created_at": "2024-11-09T02:38:15.731118Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000220",
+    "market": "de",
+    "email": "jaentschortrun.cust-de-000220@example.test",
+    "first_name": "Hiltraud",
+    "last_name": "Sager",
+    "city": "Burg",
+    "created_at": "2024-12-02T06:41:01.294976Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000221",
+    "market": "de",
+    "email": "roswitha42.cust-de-000221@example.test",
+    "first_name": "Helfried",
+    "last_name": "Scholtz",
+    "city": "Schwäbisch Hall",
+    "created_at": "2024-08-08T20:28:49.464710Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000222",
+    "market": "de",
+    "email": "mgertz.cust-de-000222@example.test",
+    "first_name": "Linda",
+    "last_name": "Conradi",
+    "city": "Grimma",
+    "created_at": "2024-05-12T07:43:58.493160Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000223",
+    "market": "de",
+    "email": "aleksandra80.cust-de-000223@example.test",
+    "first_name": "Klaus Peter",
+    "last_name": "Drewes",
+    "city": "Geithain",
+    "created_at": "2024-04-26T12:49:04.263618Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000224",
+    "market": "de",
+    "email": "amandakabus.cust-de-000224@example.test",
+    "first_name": "Bernard",
+    "last_name": "Bachmann",
+    "city": "Herzberg",
+    "created_at": "2024-08-07T20:50:48.275842Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000225",
+    "market": "de",
+    "email": "mielcarekada.cust-de-000225@example.test",
+    "first_name": "Arnfried",
+    "last_name": "Römer",
+    "city": "Berlin",
+    "created_at": "2024-05-31T12:48:18.748240Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000226",
+    "market": "de",
+    "email": "orhandietz.cust-de-000226@example.test",
+    "first_name": "Igor",
+    "last_name": "Heuser",
+    "city": "Vilsbiburg",
+    "created_at": "2024-01-29T14:06:14.849344Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000227",
+    "market": "de",
+    "email": "armin14.cust-de-000227@example.test",
+    "first_name": "Adele",
+    "last_name": "Kallert",
+    "city": "Borna",
+    "created_at": "2024-05-06T19:28:06.632748Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000228",
+    "market": "de",
+    "email": "kurt26.cust-de-000228@example.test",
+    "first_name": "Denis",
+    "last_name": "Rogner",
+    "city": "Dinkelsbühl",
+    "created_at": "2024-03-01T13:38:40.065353Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000229",
+    "market": "de",
+    "email": "stiffelamalie.cust-de-000229@example.test",
+    "first_name": "Hugo",
+    "last_name": "Wilms",
+    "city": "Rochlitz",
+    "created_at": "2024-09-16T03:52:24.291280Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000230",
+    "market": "de",
+    "email": "atzlerangela.cust-de-000230@example.test",
+    "first_name": "Steffi",
+    "last_name": "Kabus",
+    "city": "Mettmann",
+    "created_at": "2024-04-26T01:52:24.438740Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000231",
+    "market": "de",
+    "email": "wenzelfischer.cust-de-000231@example.test",
+    "first_name": "Marlene",
+    "last_name": "Heß",
+    "city": "Bad Kreuznach",
+    "created_at": "2024-08-05T08:12:27.121974Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000232",
+    "market": "de",
+    "email": "janusz30.cust-de-000232@example.test",
+    "first_name": "Leonardo",
+    "last_name": "Stoll",
+    "city": "Görlitz",
+    "created_at": "2024-02-22T14:25:29.000011Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000233",
+    "market": "de",
+    "email": "johannelzbieta.cust-de-000233@example.test",
+    "first_name": "Miroslawa",
+    "last_name": "Peukert",
+    "city": "Sankt Goar",
+    "created_at": "2024-03-04T07:08:22.335745Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000234",
+    "market": "de",
+    "email": "cpreiss.cust-de-000234@example.test",
+    "first_name": "Sofia",
+    "last_name": "Bruder",
+    "city": "Kusel",
+    "created_at": "2024-12-28T23:44:49.187608Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000235",
+    "market": "de",
+    "email": "kdietz.cust-de-000235@example.test",
+    "first_name": "Torsten",
+    "last_name": "Steinberg",
+    "city": "Chemnitz",
+    "created_at": "2024-01-07T01:38:13.127525Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000236",
+    "market": "de",
+    "email": "hschuchhardt.cust-de-000236@example.test",
+    "first_name": "Fedor",
+    "last_name": "Bauer",
+    "city": "Freital",
+    "created_at": "2024-08-01T23:28:03.068524Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000237",
+    "market": "de",
+    "email": "denisroskoth.cust-de-000237@example.test",
+    "first_name": "Ria",
+    "last_name": "Kitzmann",
+    "city": "Scheinfeld",
+    "created_at": "2024-11-24T09:54:09.081503Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000238",
+    "market": "de",
+    "email": "rbaehr.cust-de-000238@example.test",
+    "first_name": "Susann",
+    "last_name": "Geisel",
+    "city": "Miltenberg",
+    "created_at": "2024-07-15T05:59:03.943573Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000239",
+    "market": "de",
+    "email": "jens.uwe42.cust-de-000239@example.test",
+    "first_name": "Milos",
+    "last_name": "Stiffel",
+    "city": "Werdau",
+    "created_at": "2024-04-09T23:40:34.644517Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000240",
+    "market": "de",
+    "email": "anna85.cust-de-000240@example.test",
+    "first_name": "Irmtraut",
+    "last_name": "Schmidt",
+    "city": "Marienberg",
+    "created_at": "2024-08-05T14:40:54.755390Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000241",
+    "market": "de",
+    "email": "galina02.cust-de-000241@example.test",
+    "first_name": "Tadeusz",
+    "last_name": "Heinrich",
+    "city": "Husum",
+    "created_at": "2024-08-30T21:14:50.185912Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000242",
+    "market": "de",
+    "email": "xflantz.cust-de-000242@example.test",
+    "first_name": "Else",
+    "last_name": "Mude",
+    "city": "Schrobenhausen",
+    "created_at": "2024-01-07T15:31:19.983877Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000243",
+    "market": "de",
+    "email": "marjan58.cust-de-000243@example.test",
+    "first_name": "Margot",
+    "last_name": "Heinz",
+    "city": "Artern",
+    "created_at": "2024-03-25T15:34:05.738193Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000244",
+    "market": "de",
+    "email": "whenk.cust-de-000244@example.test",
+    "first_name": "Elisabeth",
+    "last_name": "Fliegner",
+    "city": "Füssen",
+    "created_at": "2024-04-02T20:11:20.492300Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000245",
+    "market": "de",
+    "email": "swen94.cust-de-000245@example.test",
+    "first_name": "Valerij",
+    "last_name": "Krein",
+    "city": "Grafenau",
+    "created_at": "2024-07-21T14:18:09.861649Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000246",
+    "market": "de",
+    "email": "minnascholtz.cust-de-000246@example.test",
+    "first_name": "Sören",
+    "last_name": "Kraushaar",
+    "city": "Regensburg",
+    "created_at": "2024-09-05T00:13:14.834858Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000247",
+    "market": "de",
+    "email": "uschijacobi.jaeckel.cust-de-000247@example.test",
+    "first_name": "Bekir",
+    "last_name": "Striebitz",
+    "city": "Böblingen",
+    "created_at": "2024-07-26T11:58:53.738707Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000248",
+    "market": "de",
+    "email": "cora65.cust-de-000248@example.test",
+    "first_name": "Carolin",
+    "last_name": "Junck",
+    "city": "Demmin",
+    "created_at": "2024-12-25T22:20:08.143879Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000249",
+    "market": "de",
+    "email": "reinald73.cust-de-000249@example.test",
+    "first_name": "Anatoli",
+    "last_name": "Haase",
+    "city": "Regen",
+    "created_at": "2024-07-07T08:05:51.099945Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000250",
+    "market": "de",
+    "email": "ischoll.cust-de-000250@example.test",
+    "first_name": "Urszula",
+    "last_name": "Möchlichen",
+    "city": "Bischofswerda",
+    "created_at": "2024-10-18T08:18:53.419069Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000251",
+    "market": "de",
+    "email": "bertaklemm.cust-de-000251@example.test",
+    "first_name": "Louise",
+    "last_name": "Gute",
+    "city": "Riesa",
+    "created_at": "2024-05-29T07:31:59.535433Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-de-000252",
+    "market": "de",
+    "email": "hannsvollbrecht.cust-de-000252@example.test",
+    "first_name": "Calogero",
+    "last_name": "Krein",
+    "city": "Miltenberg",
+    "created_at": "2024-11-21T14:44:31.228788Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000253",
+    "market": "de",
+    "email": "boucseinisabel.cust-de-000253@example.test",
+    "first_name": "Andree",
+    "last_name": "Wagenknecht",
+    "city": "Mittweida",
+    "created_at": "2024-09-06T19:47:48.331211Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000254",
+    "market": "de",
+    "email": "slavica09.cust-de-000254@example.test",
+    "first_name": "Regina",
+    "last_name": "Pölitz",
+    "city": "Geithain",
+    "created_at": "2024-12-17T22:15:07.005198Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000255",
+    "market": "de",
+    "email": "georg15.cust-de-000255@example.test",
+    "first_name": "Robin",
+    "last_name": "Jacob",
+    "city": "Gunzenhausen",
+    "created_at": "2024-03-14T00:46:36.716264Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-de-000256",
+    "market": "de",
+    "email": "hkensy.cust-de-000256@example.test",
+    "first_name": "Cosima",
+    "last_name": "Girschner",
+    "city": "Passau",
+    "created_at": "2024-11-30T00:07:36.568353Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-de-000257",
+    "market": "de",
+    "email": "dietrichhauffer.cust-de-000257@example.test",
+    "first_name": "Moritz",
+    "last_name": "Roht",
+    "city": "Grevenbroich",
+    "created_at": "2024-06-20T22:43:51.606219Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-de-000258",
+    "market": "de",
+    "email": "xklemm.cust-de-000258@example.test",
+    "first_name": "Osman",
+    "last_name": "Rose",
+    "city": "Bad Liebenwerda",
+    "created_at": "2024-11-17T11:33:52.580858Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-de-000259",
+    "market": "de",
+    "email": "netteagata.cust-de-000259@example.test",
+    "first_name": "Jochem",
+    "last_name": "Herrmann",
+    "city": "Bad Kreuznach",
+    "created_at": "2024-07-08T05:29:57.020947Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000001",
+    "market": "fr",
+    "email": "josephine43.cust-fr-000001@example.test",
+    "first_name": "Denis",
+    "last_name": "Faivre",
+    "city": "Le Roux",
+    "created_at": "2024-09-24T14:17:54.308105Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000002",
+    "market": "fr",
+    "email": "marinxavier.cust-fr-000002@example.test",
+    "first_name": "Mathilde",
+    "last_name": "Didier",
+    "city": "Guillon-la-Forêt",
+    "created_at": "2024-07-27T14:17:55.186609Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000003",
+    "market": "fr",
+    "email": "lfernandes.cust-fr-000003@example.test",
+    "first_name": "Aimé",
+    "last_name": "Gilbert",
+    "city": "Sauvageboeuf",
+    "created_at": "2024-11-26T20:30:04.993461Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000004",
+    "market": "fr",
+    "email": "lefebvreamelie.cust-fr-000004@example.test",
+    "first_name": "Geneviève",
+    "last_name": "Leclercq",
+    "city": "Picard",
+    "created_at": "2024-10-19T02:29:16.354421Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000005",
+    "market": "fr",
+    "email": "corinne54.cust-fr-000005@example.test",
+    "first_name": "Hélène",
+    "last_name": "Fernandes",
+    "city": "Marie",
+    "created_at": "2024-03-15T19:25:35.300795Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000006",
+    "market": "fr",
+    "email": "bduval.cust-fr-000006@example.test",
+    "first_name": "Richard",
+    "last_name": "Hamel",
+    "city": "Brunel",
+    "created_at": "2024-01-09T11:15:45.326908Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000007",
+    "market": "fr",
+    "email": "tmartin.cust-fr-000007@example.test",
+    "first_name": "Amélie",
+    "last_name": "Delorme",
+    "city": "Saint Léon",
+    "created_at": "2024-05-18T00:50:19.940079Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000008",
+    "market": "fr",
+    "email": "bernadetteandre.cust-fr-000008@example.test",
+    "first_name": "Yves",
+    "last_name": "Hamon",
+    "city": "Allain-les-Bains",
+    "created_at": "2024-11-20T20:25:27.988604Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000009",
+    "market": "fr",
+    "email": "michel19.cust-fr-000009@example.test",
+    "first_name": "Marcel",
+    "last_name": "Jacquet",
+    "city": "Boulay",
+    "created_at": "2024-04-26T19:15:35.207494Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000010",
+    "market": "fr",
+    "email": "gerard27.cust-fr-000010@example.test",
+    "first_name": "Bernard",
+    "last_name": "Collin",
+    "city": "David",
+    "created_at": "2024-07-31T15:24:38.372410Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000011",
+    "market": "fr",
+    "email": "guycordier.cust-fr-000011@example.test",
+    "first_name": "Astrid",
+    "last_name": "David",
+    "city": "Legros",
+    "created_at": "2024-08-08T05:59:22.039951Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000012",
+    "market": "fr",
+    "email": "martinbernard.cust-fr-000012@example.test",
+    "first_name": "Suzanne",
+    "last_name": "Fleury",
+    "city": "Clément",
+    "created_at": "2024-06-20T03:45:07.251148Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000013",
+    "market": "fr",
+    "email": "dorothee11.cust-fr-000013@example.test",
+    "first_name": "Chantal",
+    "last_name": "Huet",
+    "city": "Marindan",
+    "created_at": "2024-05-18T01:22:38.473119Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000014",
+    "market": "fr",
+    "email": "veroniqueriou.cust-fr-000014@example.test",
+    "first_name": "Mathilde",
+    "last_name": "Leconte",
+    "city": "JacobBourg",
+    "created_at": "2024-02-17T23:39:31.534352Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000015",
+    "market": "fr",
+    "email": "aimetorres.cust-fr-000015@example.test",
+    "first_name": "Aimée",
+    "last_name": "Bruneau",
+    "city": "Lemaîtrenec",
+    "created_at": "2024-09-07T13:11:35.709684Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000016",
+    "market": "fr",
+    "email": "valerie81.cust-fr-000016@example.test",
+    "first_name": "Yves",
+    "last_name": "Pages",
+    "city": "Labbé",
+    "created_at": "2024-12-15T11:49:38.906621Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000017",
+    "market": "fr",
+    "email": "adijoux.cust-fr-000017@example.test",
+    "first_name": "Célina",
+    "last_name": "Petitjean",
+    "city": "Dupontdan",
+    "created_at": "2024-02-06T04:57:10.270226Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000018",
+    "market": "fr",
+    "email": "gabrielle89.cust-fr-000018@example.test",
+    "first_name": "Juliette",
+    "last_name": "Dupont",
+    "city": "Masson",
+    "created_at": "2024-11-18T11:01:14.448167Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000019",
+    "market": "fr",
+    "email": "catherine00.cust-fr-000019@example.test",
+    "first_name": "Claire",
+    "last_name": "Roussel",
+    "city": "NoëlVille",
+    "created_at": "2024-03-14T23:08:30.785473Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000020",
+    "market": "fr",
+    "email": "rpages.cust-fr-000020@example.test",
+    "first_name": "Victor",
+    "last_name": "Rivière",
+    "city": "Berger",
+    "created_at": "2024-07-10T01:21:21.798732Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000021",
+    "market": "fr",
+    "email": "gmaury.cust-fr-000021@example.test",
+    "first_name": "Franck",
+    "last_name": "Bègue",
+    "city": "Teixeiranec",
+    "created_at": "2024-04-04T22:55:10.391816Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000022",
+    "market": "fr",
+    "email": "wdupuy.cust-fr-000022@example.test",
+    "first_name": "André",
+    "last_name": "Riou",
+    "city": "Sainte Odettenec",
+    "created_at": "2024-06-25T05:25:11.760333Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000023",
+    "market": "fr",
+    "email": "slemoine.cust-fr-000023@example.test",
+    "first_name": "Jacques",
+    "last_name": "Didier",
+    "city": "Sainte Nicolasnec",
+    "created_at": "2024-08-26T19:43:43.173881Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000024",
+    "market": "fr",
+    "email": "duhamelvictoire.cust-fr-000024@example.test",
+    "first_name": "Claire",
+    "last_name": "Moulin",
+    "city": "Verdier",
+    "created_at": "2024-02-10T12:19:09.041794Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000025",
+    "market": "fr",
+    "email": "josephsuzanne.cust-fr-000025@example.test",
+    "first_name": "Adrien",
+    "last_name": "Grégoire",
+    "city": "Ramosboeuf",
+    "created_at": "2024-04-17T21:17:39.743026Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000026",
+    "market": "fr",
+    "email": "irossi.cust-fr-000026@example.test",
+    "first_name": "Bernard",
+    "last_name": "Colin",
+    "city": "De Oliveira-la-Forêt",
+    "created_at": "2024-11-16T21:01:39.515420Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000027",
+    "market": "fr",
+    "email": "jerome85.cust-fr-000027@example.test",
+    "first_name": "Alice",
+    "last_name": "Alexandre",
+    "city": "Lucas",
+    "created_at": "2024-12-26T08:27:02.357548Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000028",
+    "market": "fr",
+    "email": "fredericbonnet.cust-fr-000028@example.test",
+    "first_name": "William",
+    "last_name": "Pineau",
+    "city": "Alves",
+    "created_at": "2024-12-14T19:08:39.776042Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000029",
+    "market": "fr",
+    "email": "edith93.cust-fr-000029@example.test",
+    "first_name": "David",
+    "last_name": "Chauvet",
+    "city": "Julien",
+    "created_at": "2024-02-20T10:22:42.310523Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000030",
+    "market": "fr",
+    "email": "rogermarty.cust-fr-000030@example.test",
+    "first_name": "François",
+    "last_name": "Rossi",
+    "city": "Durand",
+    "created_at": "2024-07-21T08:39:29.749328Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000031",
+    "market": "fr",
+    "email": "gabriellaunay.cust-fr-000031@example.test",
+    "first_name": "Camille",
+    "last_name": "Mercier",
+    "city": "BigotVille",
+    "created_at": "2024-11-05T13:28:49.718402Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000032",
+    "market": "fr",
+    "email": "valentine29.cust-fr-000032@example.test",
+    "first_name": "Honoré",
+    "last_name": "Blanchet",
+    "city": "Sainte MarcVille",
+    "created_at": "2024-07-17T12:07:44.075361Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000033",
+    "market": "fr",
+    "email": "robert10.cust-fr-000033@example.test",
+    "first_name": "Maryse",
+    "last_name": "Michel",
+    "city": "Voisin-sur-Pichon",
+    "created_at": "2024-04-02T16:35:45.913672Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000034",
+    "market": "fr",
+    "email": "josette06.cust-fr-000034@example.test",
+    "first_name": "Léon",
+    "last_name": "Renaud",
+    "city": "Navarro",
+    "created_at": "2024-11-07T19:22:51.089050Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000035",
+    "market": "fr",
+    "email": "clemencebaron.cust-fr-000035@example.test",
+    "first_name": "Victoire",
+    "last_name": "Barthelemy",
+    "city": "Fontaineboeuf",
+    "created_at": "2024-09-26T01:22:36.808796Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000036",
+    "market": "fr",
+    "email": "luce61.cust-fr-000036@example.test",
+    "first_name": "Gabrielle",
+    "last_name": "Morel",
+    "city": "Léger-sur-Renard",
+    "created_at": "2024-05-15T21:04:59.391060Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000037",
+    "market": "fr",
+    "email": "toussaintjean.cust-fr-000037@example.test",
+    "first_name": "Benoît",
+    "last_name": "Rémy",
+    "city": "Guérin-sur-Tessier",
+    "created_at": "2024-10-05T03:58:17.442478Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000038",
+    "market": "fr",
+    "email": "vincentrenaud.cust-fr-000038@example.test",
+    "first_name": "Christiane",
+    "last_name": "Colin",
+    "city": "Delaunay-sur-Collet",
+    "created_at": "2024-03-16T16:39:00.092459Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000039",
+    "market": "fr",
+    "email": "guy77.cust-fr-000039@example.test",
+    "first_name": "Alphonse",
+    "last_name": "Marty",
+    "city": "Roy",
+    "created_at": "2024-02-14T03:50:11.342779Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000040",
+    "market": "fr",
+    "email": "mathieulucy.cust-fr-000040@example.test",
+    "first_name": "Michèle",
+    "last_name": "Legendre",
+    "city": "Brunetnec",
+    "created_at": "2024-02-06T17:52:31.264996Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000041",
+    "market": "fr",
+    "email": "gilles60.cust-fr-000041@example.test",
+    "first_name": "Marianne",
+    "last_name": "Louis",
+    "city": "Saint Valériedan",
+    "created_at": "2024-11-05T19:28:02.858955Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000042",
+    "market": "fr",
+    "email": "gloiseau.cust-fr-000042@example.test",
+    "first_name": "Élodie",
+    "last_name": "Gauthier",
+    "city": "Sainte Christelle",
+    "created_at": "2024-05-31T08:46:50.551056Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000043",
+    "market": "fr",
+    "email": "charlesadele.cust-fr-000043@example.test",
+    "first_name": "Renée",
+    "last_name": "Girard",
+    "city": "Guyonboeuf",
+    "created_at": "2024-03-30T18:21:17.348529Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000044",
+    "market": "fr",
+    "email": "zlanglois.cust-fr-000044@example.test",
+    "first_name": "Élodie",
+    "last_name": "Tessier",
+    "city": "Marie",
+    "created_at": "2024-11-07T14:07:24.817256Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000045",
+    "market": "fr",
+    "email": "arthurmerle.cust-fr-000045@example.test",
+    "first_name": "Gabrielle",
+    "last_name": "Guérin",
+    "city": "Jacob",
+    "created_at": "2024-05-04T04:36:20.621339Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000046",
+    "market": "fr",
+    "email": "gillespauline.cust-fr-000046@example.test",
+    "first_name": "Monique",
+    "last_name": "Faure",
+    "city": "Lacroix",
+    "created_at": "2024-03-31T22:00:06.665601Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000047",
+    "market": "fr",
+    "email": "nbonneau.cust-fr-000047@example.test",
+    "first_name": "Nicolas",
+    "last_name": "Buisson",
+    "city": "MalletBourg",
+    "created_at": "2024-02-29T00:27:20.477128Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000048",
+    "market": "fr",
+    "email": "aaubert.cust-fr-000048@example.test",
+    "first_name": "Adélaïde",
+    "last_name": "Roux",
+    "city": "Valentin",
+    "created_at": "2024-11-21T00:05:37.933697Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000049",
+    "market": "fr",
+    "email": "xblondel.cust-fr-000049@example.test",
+    "first_name": "Denise",
+    "last_name": "Cordier",
+    "city": "Parent-sur-Dupré",
+    "created_at": "2024-07-08T11:08:19.690769Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000050",
+    "market": "fr",
+    "email": "christine27.cust-fr-000050@example.test",
+    "first_name": "Pauline",
+    "last_name": "Guérin",
+    "city": "Lemaire-les-Bains",
+    "created_at": "2024-07-12T21:17:09.354289Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000051",
+    "market": "fr",
+    "email": "thibaut95.cust-fr-000051@example.test",
+    "first_name": "René",
+    "last_name": "Morvan",
+    "city": "Allard",
+    "created_at": "2024-06-08T01:12:07.689544Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000052",
+    "market": "fr",
+    "email": "coulonanais.cust-fr-000052@example.test",
+    "first_name": "Alain",
+    "last_name": "Alexandre",
+    "city": "Sainte Gabrielleboeuf",
+    "created_at": "2024-02-15T23:49:52.620949Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000053",
+    "market": "fr",
+    "email": "dominiquelanglois.cust-fr-000053@example.test",
+    "first_name": "Constance",
+    "last_name": "Benard",
+    "city": "Gosselin",
+    "created_at": "2024-06-25T10:09:29.491943Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000054",
+    "market": "fr",
+    "email": "schneideramelie.cust-fr-000054@example.test",
+    "first_name": "Victoire",
+    "last_name": "Allard",
+    "city": "Sainte Véronique",
+    "created_at": "2024-02-29T20:51:33.457700Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000055",
+    "market": "fr",
+    "email": "hmeunier.cust-fr-000055@example.test",
+    "first_name": "Marguerite",
+    "last_name": "Imbert",
+    "city": "Perez",
+    "created_at": "2024-03-17T00:35:18.072383Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000056",
+    "market": "fr",
+    "email": "raubert.cust-fr-000056@example.test",
+    "first_name": "Franck",
+    "last_name": "Ribeiro",
+    "city": "NeveuBourg",
+    "created_at": "2024-01-11T23:59:57.911417Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000057",
+    "market": "fr",
+    "email": "macelucas.cust-fr-000057@example.test",
+    "first_name": "Denis",
+    "last_name": "Guichard",
+    "city": "Sainte Pénélopeboeuf",
+    "created_at": "2024-12-01T13:35:47.085413Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000058",
+    "market": "fr",
+    "email": "cmartin.cust-fr-000058@example.test",
+    "first_name": "Denis",
+    "last_name": "Masse",
+    "city": "Grégoire",
+    "created_at": "2024-08-10T13:48:25.190847Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000059",
+    "market": "fr",
+    "email": "tmorin.cust-fr-000059@example.test",
+    "first_name": "Sophie",
+    "last_name": "Pruvost",
+    "city": "De Oliveira",
+    "created_at": "2024-05-26T13:33:49.457644Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000060",
+    "market": "fr",
+    "email": "descampsgeorges.cust-fr-000060@example.test",
+    "first_name": "Noémi",
+    "last_name": "Imbert",
+    "city": "Gillet-sur-Mer",
+    "created_at": "2024-03-09T12:42:24.802204Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000061",
+    "market": "fr",
+    "email": "gabrielgallet.cust-fr-000061@example.test",
+    "first_name": "Aimée",
+    "last_name": "Boucher",
+    "city": "Boutinnec",
+    "created_at": "2024-10-26T12:00:58.747301Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000062",
+    "market": "fr",
+    "email": "joubertnathalie.cust-fr-000062@example.test",
+    "first_name": "Emmanuelle",
+    "last_name": "Durand",
+    "city": "Navarro-la-Forêt",
+    "created_at": "2024-06-20T13:34:53.993894Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000063",
+    "market": "fr",
+    "email": "benjamin68.cust-fr-000063@example.test",
+    "first_name": "Arthur",
+    "last_name": "Boutin",
+    "city": "Sainte Théodore",
+    "created_at": "2024-12-02T23:07:44.036670Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000064",
+    "market": "fr",
+    "email": "hlemaitre.cust-fr-000064@example.test",
+    "first_name": "Isabelle",
+    "last_name": "Teixeira",
+    "city": "Étienne",
+    "created_at": "2024-01-19T08:08:13.784272Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000065",
+    "market": "fr",
+    "email": "paulcollin.cust-fr-000065@example.test",
+    "first_name": "Dominique",
+    "last_name": "Diaz",
+    "city": "Ramos",
+    "created_at": "2024-10-17T18:30:38.001153Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000066",
+    "market": "fr",
+    "email": "paulhardy.cust-fr-000066@example.test",
+    "first_name": "Guillaume",
+    "last_name": "Perrot",
+    "city": "Fourniernec",
+    "created_at": "2024-10-01T19:21:58.062235Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000067",
+    "market": "fr",
+    "email": "dhebert.cust-fr-000067@example.test",
+    "first_name": "Laurent",
+    "last_name": "Pinto",
+    "city": "LefortBourg",
+    "created_at": "2024-03-18T13:48:33.493433Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000068",
+    "market": "fr",
+    "email": "gilbert23.cust-fr-000068@example.test",
+    "first_name": "Monique",
+    "last_name": "Jean",
+    "city": "Rivière-sur-Letellier",
+    "created_at": "2024-06-09T07:18:02.419389Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000069",
+    "market": "fr",
+    "email": "jeanhamon.cust-fr-000069@example.test",
+    "first_name": "Alexandrie",
+    "last_name": "Vaillant",
+    "city": "GuyotBourg",
+    "created_at": "2024-01-01T20:16:48.930246Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000070",
+    "market": "fr",
+    "email": "thibaut11.cust-fr-000070@example.test",
+    "first_name": "Brigitte",
+    "last_name": "Hernandez",
+    "city": "Marques",
+    "created_at": "2024-04-12T19:23:37.875512Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000071",
+    "market": "fr",
+    "email": "descampsfrederique.cust-fr-000071@example.test",
+    "first_name": "Michel",
+    "last_name": "Roux",
+    "city": "Buisson-sur-Mer",
+    "created_at": "2024-06-16T17:22:25.582284Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000072",
+    "market": "fr",
+    "email": "noelpruvost.cust-fr-000072@example.test",
+    "first_name": "Céline",
+    "last_name": "Lopes",
+    "city": "MartinsVille",
+    "created_at": "2024-02-25T18:02:16.159286Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000073",
+    "market": "fr",
+    "email": "deniseleroux.cust-fr-000073@example.test",
+    "first_name": "Nicolas",
+    "last_name": "Turpin",
+    "city": "Dias",
+    "created_at": "2024-05-23T19:28:27.147190Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000074",
+    "market": "fr",
+    "email": "isaacwagner.cust-fr-000074@example.test",
+    "first_name": "Antoine",
+    "last_name": "Dijoux",
+    "city": "Saint GenevièveBourg",
+    "created_at": "2024-04-26T19:28:14.335094Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000075",
+    "market": "fr",
+    "email": "edithdevaux.cust-fr-000075@example.test",
+    "first_name": "Christiane",
+    "last_name": "Legrand",
+    "city": "Leclercq",
+    "created_at": "2024-06-17T18:17:50.620130Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000076",
+    "market": "fr",
+    "email": "meunieraurelie.cust-fr-000076@example.test",
+    "first_name": "Véronique",
+    "last_name": "Leleu",
+    "city": "Sainte HélèneBourg",
+    "created_at": "2024-08-07T11:43:26.448215Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000077",
+    "market": "fr",
+    "email": "georges06.cust-fr-000077@example.test",
+    "first_name": "Zacharie",
+    "last_name": "Daniel",
+    "city": "Prévost",
+    "created_at": "2024-12-13T17:20:11.958651Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000078",
+    "market": "fr",
+    "email": "auguste45.cust-fr-000078@example.test",
+    "first_name": "Daniel",
+    "last_name": "Langlois",
+    "city": "MoreauVille",
+    "created_at": "2024-03-05T20:50:11.914704Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000079",
+    "market": "fr",
+    "email": "tbenard.cust-fr-000079@example.test",
+    "first_name": "Louise",
+    "last_name": "Gallet",
+    "city": "Thierry",
+    "created_at": "2024-11-05T15:19:49.506703Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000080",
+    "market": "fr",
+    "email": "uhumbert.cust-fr-000080@example.test",
+    "first_name": "Denise",
+    "last_name": "Guyon",
+    "city": "Cordier",
+    "created_at": "2024-06-13T13:34:24.726377Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000081",
+    "market": "fr",
+    "email": "martinezalix.cust-fr-000081@example.test",
+    "first_name": "Dorothée",
+    "last_name": "Marion",
+    "city": "Sainte Laurence",
+    "created_at": "2024-10-01T08:38:59.815026Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000082",
+    "market": "fr",
+    "email": "lucy58.cust-fr-000082@example.test",
+    "first_name": "Gilbert",
+    "last_name": "Courtois",
+    "city": "Sainte ÉtienneVille",
+    "created_at": "2024-07-13T11:56:20.115852Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000083",
+    "market": "fr",
+    "email": "adele92.cust-fr-000083@example.test",
+    "first_name": "Alix",
+    "last_name": "Evrard",
+    "city": "Maillet-sur-Bigot",
+    "created_at": "2024-04-20T16:59:12.442256Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000084",
+    "market": "fr",
+    "email": "baronanouk.cust-fr-000084@example.test",
+    "first_name": "Marine",
+    "last_name": "Guilbert",
+    "city": "Pasquier",
+    "created_at": "2024-05-14T01:53:27.353330Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000085",
+    "market": "fr",
+    "email": "petitcaroline.cust-fr-000085@example.test",
+    "first_name": "Claire",
+    "last_name": "Bourdon",
+    "city": "Gilbert",
+    "created_at": "2024-05-27T13:11:00.790735Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000086",
+    "market": "fr",
+    "email": "gimenezadrien.cust-fr-000086@example.test",
+    "first_name": "Alex",
+    "last_name": "Bonnin",
+    "city": "Sauvage",
+    "created_at": "2024-09-20T10:34:11.235465Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000087",
+    "market": "fr",
+    "email": "merlegabrielle.cust-fr-000087@example.test",
+    "first_name": "Alfred",
+    "last_name": "Bruneau",
+    "city": "Nguyen",
+    "created_at": "2024-11-27T23:50:46.664063Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000088",
+    "market": "fr",
+    "email": "emilie59.cust-fr-000088@example.test",
+    "first_name": "Thierry",
+    "last_name": "Rodriguez",
+    "city": "Traore",
+    "created_at": "2024-08-24T19:52:43.229607Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000089",
+    "market": "fr",
+    "email": "dle.roux.cust-fr-000089@example.test",
+    "first_name": "Brigitte",
+    "last_name": "Rousseau",
+    "city": "FaureBourg",
+    "created_at": "2024-05-29T09:14:53.425468Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000090",
+    "market": "fr",
+    "email": "claude51.cust-fr-000090@example.test",
+    "first_name": "Thierry",
+    "last_name": "Marchand",
+    "city": "Sainte Audrey",
+    "created_at": "2024-02-16T01:05:19.855878Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000091",
+    "market": "fr",
+    "email": "omarion.cust-fr-000091@example.test",
+    "first_name": "Margaud",
+    "last_name": "Le Roux",
+    "city": "Sainte Noémi",
+    "created_at": "2024-09-01T07:13:53.345716Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000092",
+    "market": "fr",
+    "email": "colettelefevre.cust-fr-000092@example.test",
+    "first_name": "Julien",
+    "last_name": "Teixeira",
+    "city": "Sainte Patrick-la-Forêt",
+    "created_at": "2024-08-30T14:59:56.146637Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000093",
+    "market": "fr",
+    "email": "yhernandez.cust-fr-000093@example.test",
+    "first_name": "Amélie",
+    "last_name": "Boucher",
+    "city": "Roy",
+    "created_at": "2024-04-29T12:23:14.877704Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000094",
+    "market": "fr",
+    "email": "olivierraynaud.cust-fr-000094@example.test",
+    "first_name": "Camille",
+    "last_name": "Bertin",
+    "city": "Sainte Xaviernec",
+    "created_at": "2024-10-11T19:16:55.544255Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000095",
+    "market": "fr",
+    "email": "weisssusanne.cust-fr-000095@example.test",
+    "first_name": "Corinne",
+    "last_name": "Raymond",
+    "city": "Philippedan",
+    "created_at": "2024-03-31T06:50:25.560796Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000096",
+    "market": "fr",
+    "email": "vjourdan.cust-fr-000096@example.test",
+    "first_name": "Margaux",
+    "last_name": "Breton",
+    "city": "Briand",
+    "created_at": "2024-02-17T08:19:22.316078Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000097",
+    "market": "fr",
+    "email": "leon42.cust-fr-000097@example.test",
+    "first_name": "Laurence",
+    "last_name": "Mahe",
+    "city": "Blanchet",
+    "created_at": "2024-02-20T17:56:27.941691Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000098",
+    "market": "fr",
+    "email": "colette74.cust-fr-000098@example.test",
+    "first_name": "Sylvie",
+    "last_name": "De Sousa",
+    "city": "Lefort-la-Forêt",
+    "created_at": "2024-09-03T22:53:08.994897Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000099",
+    "market": "fr",
+    "email": "veronique30.cust-fr-000099@example.test",
+    "first_name": "Olivie",
+    "last_name": "Lefèvre",
+    "city": "Dupont-sur-Perret",
+    "created_at": "2024-03-15T02:57:24.592341Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000100",
+    "market": "fr",
+    "email": "nmallet.cust-fr-000100@example.test",
+    "first_name": "Michel",
+    "last_name": "Ribeiro",
+    "city": "Evrard",
+    "created_at": "2024-09-13T17:01:09.959960Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000101",
+    "market": "fr",
+    "email": "aurore43.cust-fr-000101@example.test",
+    "first_name": "Célina",
+    "last_name": "Fernandes",
+    "city": "WeissBourg",
+    "created_at": "2024-08-11T06:46:16.614051Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000102",
+    "market": "fr",
+    "email": "lucie71.cust-fr-000102@example.test",
+    "first_name": "Frédérique",
+    "last_name": "Nicolas",
+    "city": "Martel",
+    "created_at": "2024-08-16T22:12:00.469195Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000103",
+    "market": "fr",
+    "email": "margaux34.cust-fr-000103@example.test",
+    "first_name": "Matthieu",
+    "last_name": "Martin",
+    "city": "Morvan",
+    "created_at": "2024-12-23T06:18:42.421809Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000104",
+    "market": "fr",
+    "email": "wrossi.cust-fr-000104@example.test",
+    "first_name": "Tristan",
+    "last_name": "Toussaint",
+    "city": "Martineznec",
+    "created_at": "2024-09-07T20:47:49.556993Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000105",
+    "market": "fr",
+    "email": "michellebaudry.cust-fr-000105@example.test",
+    "first_name": "Robert",
+    "last_name": "Reynaud",
+    "city": "Saint Thérèse",
+    "created_at": "2024-05-26T10:08:23.074251Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000106",
+    "market": "fr",
+    "email": "inesmaillard.cust-fr-000106@example.test",
+    "first_name": "Michelle",
+    "last_name": "Lemaître",
+    "city": "Millet-sur-Blanchet",
+    "created_at": "2024-08-11T08:14:16.338845Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000107",
+    "market": "fr",
+    "email": "vremy.cust-fr-000107@example.test",
+    "first_name": "Alix",
+    "last_name": "Thierry",
+    "city": "Saint Anouk",
+    "created_at": "2024-12-08T13:16:29.982156Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000108",
+    "market": "fr",
+    "email": "bouchetcolette.cust-fr-000108@example.test",
+    "first_name": "Madeleine",
+    "last_name": "Clerc",
+    "city": "Sainte Sophie-les-Bains",
+    "created_at": "2024-04-27T22:20:32.923898Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000109",
+    "market": "fr",
+    "email": "morenozacharie.cust-fr-000109@example.test",
+    "first_name": "Xavier",
+    "last_name": "Leleu",
+    "city": "Delaunay",
+    "created_at": "2024-06-28T06:36:58.555858Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000110",
+    "market": "fr",
+    "email": "lucieschneider.cust-fr-000110@example.test",
+    "first_name": "Bernadette",
+    "last_name": "Rey",
+    "city": "Ledoux-sur-Guyon",
+    "created_at": "2024-05-02T06:50:00.128276Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000111",
+    "market": "fr",
+    "email": "pierreastrid.cust-fr-000111@example.test",
+    "first_name": "Luce",
+    "last_name": "Marques",
+    "city": "Bodin",
+    "created_at": "2024-11-30T00:54:33.843184Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000112",
+    "market": "fr",
+    "email": "fhuet.cust-fr-000112@example.test",
+    "first_name": "Élodie",
+    "last_name": "Costa",
+    "city": "Sainte Marianne",
+    "created_at": "2024-11-04T15:44:53.622719Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000113",
+    "market": "fr",
+    "email": "bonneaurene.cust-fr-000113@example.test",
+    "first_name": "Danielle",
+    "last_name": "Ribeiro",
+    "city": "Maréchal-sur-Mer",
+    "created_at": "2024-09-29T16:00:20.024815Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000114",
+    "market": "fr",
+    "email": "truiz.cust-fr-000114@example.test",
+    "first_name": "Nicolas",
+    "last_name": "Michel",
+    "city": "Germain",
+    "created_at": "2024-10-06T02:35:28.924079Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000115",
+    "market": "fr",
+    "email": "christelle57.cust-fr-000115@example.test",
+    "first_name": "Lucy",
+    "last_name": "Schmitt",
+    "city": "Benard",
+    "created_at": "2024-06-16T01:28:33.875808Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000116",
+    "market": "fr",
+    "email": "bgregoire.cust-fr-000116@example.test",
+    "first_name": "Laurent",
+    "last_name": "Morin",
+    "city": "Duhamel",
+    "created_at": "2024-08-24T00:05:30.491707Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000117",
+    "market": "fr",
+    "email": "jmarin.cust-fr-000117@example.test",
+    "first_name": "Thierry",
+    "last_name": "Marion",
+    "city": "Saint Margotdan",
+    "created_at": "2024-04-04T08:35:20.654971Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000118",
+    "market": "fr",
+    "email": "francoisraymond.cust-fr-000118@example.test",
+    "first_name": "Odette",
+    "last_name": "Bègue",
+    "city": "Sainte Claire-les-Bains",
+    "created_at": "2024-05-30T01:17:07.073407Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000119",
+    "market": "fr",
+    "email": "ole.goff.cust-fr-000119@example.test",
+    "first_name": "Honoré",
+    "last_name": "Blot",
+    "city": "Saint Maggie",
+    "created_at": "2024-10-25T16:14:09.784164Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000120",
+    "market": "fr",
+    "email": "guichardarthur.cust-fr-000120@example.test",
+    "first_name": "Laurence",
+    "last_name": "Garnier",
+    "city": "Grondin-sur-Mer",
+    "created_at": "2024-03-02T09:04:21.291058Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000121",
+    "market": "fr",
+    "email": "zgilles.cust-fr-000121@example.test",
+    "first_name": "Henri",
+    "last_name": "Jourdan",
+    "city": "Auger-la-Forêt",
+    "created_at": "2024-05-03T00:33:56.316823Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000122",
+    "market": "fr",
+    "email": "suzannemartins.cust-fr-000122@example.test",
+    "first_name": "Rémy",
+    "last_name": "Ruiz",
+    "city": "Voisinboeuf",
+    "created_at": "2024-11-03T03:18:11.667608Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000123",
+    "market": "fr",
+    "email": "genevievegilbert.cust-fr-000123@example.test",
+    "first_name": "Jérôme",
+    "last_name": "Legros",
+    "city": "Sainte Emmanuelle-les-Bains",
+    "created_at": "2024-10-10T09:45:59.601570Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000124",
+    "market": "fr",
+    "email": "guyonalexandria.cust-fr-000124@example.test",
+    "first_name": "Virginie",
+    "last_name": "Berthelot",
+    "city": "Guérin",
+    "created_at": "2024-05-22T18:18:35.250965Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000125",
+    "market": "fr",
+    "email": "christiane29.cust-fr-000125@example.test",
+    "first_name": "Théophile",
+    "last_name": "Leblanc",
+    "city": "Bernard-sur-Rocher",
+    "created_at": "2024-03-11T11:43:04.048537Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000126",
+    "market": "fr",
+    "email": "pdos.santos.cust-fr-000126@example.test",
+    "first_name": "Patricia",
+    "last_name": "Blanchet",
+    "city": "Saint Claire-les-Bains",
+    "created_at": "2024-06-03T17:52:41.235927Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000127",
+    "market": "fr",
+    "email": "collinmargaux.cust-fr-000127@example.test",
+    "first_name": "Philippine",
+    "last_name": "Renault",
+    "city": "Chauveau",
+    "created_at": "2024-12-07T10:36:01.701784Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000128",
+    "market": "fr",
+    "email": "peltierjosephine.cust-fr-000128@example.test",
+    "first_name": "François",
+    "last_name": "Roux",
+    "city": "Peronnec",
+    "created_at": "2024-01-26T11:43:24.066547Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000129",
+    "market": "fr",
+    "email": "maggie37.cust-fr-000129@example.test",
+    "first_name": "Aimé",
+    "last_name": "Grégoire",
+    "city": "Boulanger",
+    "created_at": "2024-10-16T09:50:32.505728Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000130",
+    "market": "fr",
+    "email": "martinmonnier.cust-fr-000130@example.test",
+    "first_name": "Jacques",
+    "last_name": "Bonnet",
+    "city": "Georges-les-Bains",
+    "created_at": "2024-11-19T20:30:50.899333Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000131",
+    "market": "fr",
+    "email": "brigittegilbert.cust-fr-000131@example.test",
+    "first_name": "Louise",
+    "last_name": "Peron",
+    "city": "Leroy",
+    "created_at": "2024-02-10T22:26:41.078802Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000132",
+    "market": "fr",
+    "email": "remysebastien.cust-fr-000132@example.test",
+    "first_name": "Gabrielle",
+    "last_name": "Charles",
+    "city": "Coulon",
+    "created_at": "2024-03-05T13:06:51.991167Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000133",
+    "market": "fr",
+    "email": "kleinlouis.cust-fr-000133@example.test",
+    "first_name": "Stéphane",
+    "last_name": "Léger",
+    "city": "Peron",
+    "created_at": "2024-07-21T02:23:32.684874Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000134",
+    "market": "fr",
+    "email": "deniseseguin.cust-fr-000134@example.test",
+    "first_name": "Lucas",
+    "last_name": "Boulanger",
+    "city": "Lemaire",
+    "created_at": "2024-09-08T03:15:18.182748Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000135",
+    "market": "fr",
+    "email": "ssamson.cust-fr-000135@example.test",
+    "first_name": "Lorraine",
+    "last_name": "Pottier",
+    "city": "Dufour",
+    "created_at": "2024-12-29T02:05:49.115610Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000136",
+    "market": "fr",
+    "email": "valentinphilippe.cust-fr-000136@example.test",
+    "first_name": "Laurent",
+    "last_name": "Colin",
+    "city": "Saint Alexandrie-les-Bains",
+    "created_at": "2024-07-08T00:34:45.813905Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000137",
+    "market": "fr",
+    "email": "huetmatthieu.cust-fr-000137@example.test",
+    "first_name": "Marianne",
+    "last_name": "Guillaume",
+    "city": "Sainte AdèleVille",
+    "created_at": "2024-09-23T09:22:31.937308Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000138",
+    "market": "fr",
+    "email": "laurent57.cust-fr-000138@example.test",
+    "first_name": "Brigitte",
+    "last_name": "Vaillant",
+    "city": "Vallet",
+    "created_at": "2024-04-26T12:10:44.360159Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000139",
+    "market": "fr",
+    "email": "cbruneau.cust-fr-000139@example.test",
+    "first_name": "Olivier",
+    "last_name": "Delorme",
+    "city": "Seguin",
+    "created_at": "2024-06-04T11:14:25.827284Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000140",
+    "market": "fr",
+    "email": "christianelanglois.cust-fr-000140@example.test",
+    "first_name": "Dominique",
+    "last_name": "Marchand",
+    "city": "Saint JacquelineBourg",
+    "created_at": "2024-09-03T01:10:14.749920Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000141",
+    "market": "fr",
+    "email": "boutinjeannine.cust-fr-000141@example.test",
+    "first_name": "Patricia",
+    "last_name": "Dufour",
+    "city": "BruneauVille",
+    "created_at": "2024-10-15T05:04:57.629147Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000142",
+    "market": "fr",
+    "email": "wlevy.cust-fr-000142@example.test",
+    "first_name": "Philippe",
+    "last_name": "Breton",
+    "city": "Alexandre",
+    "created_at": "2024-10-27T13:41:28.426111Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000143",
+    "market": "fr",
+    "email": "brunadrien.cust-fr-000143@example.test",
+    "first_name": "Michelle",
+    "last_name": "Lelièvre",
+    "city": "Leleu",
+    "created_at": "2024-04-27T16:27:26.182094Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000144",
+    "market": "fr",
+    "email": "jolyclemence.cust-fr-000144@example.test",
+    "first_name": "Margot",
+    "last_name": "Letellier",
+    "city": "Bruneau",
+    "created_at": "2024-10-20T07:24:17.232748Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000145",
+    "market": "fr",
+    "email": "valettesebastien.cust-fr-000145@example.test",
+    "first_name": "Isaac",
+    "last_name": "Blanchard",
+    "city": "Pasquier-sur-De Oliveira",
+    "created_at": "2024-11-22T20:23:04.112184Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000146",
+    "market": "fr",
+    "email": "guillaumebigot.cust-fr-000146@example.test",
+    "first_name": "Anastasie",
+    "last_name": "Gonzalez",
+    "city": "Lecoq-sur-François",
+    "created_at": "2024-11-17T17:44:24.577887Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000147",
+    "market": "fr",
+    "email": "sanchezroger.cust-fr-000147@example.test",
+    "first_name": "Anne",
+    "last_name": "Lebon",
+    "city": "Delahaye-sur-Blondel",
+    "created_at": "2024-02-26T04:34:05.468619Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000148",
+    "market": "fr",
+    "email": "hhenry.cust-fr-000148@example.test",
+    "first_name": "Marcelle",
+    "last_name": "Diaz",
+    "city": "Garcia",
+    "created_at": "2024-01-25T17:04:56.387878Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000149",
+    "market": "fr",
+    "email": "qroyer.cust-fr-000149@example.test",
+    "first_name": "Charlotte",
+    "last_name": "Da Costa",
+    "city": "Renaud-sur-Mer",
+    "created_at": "2024-01-01T04:33:23.935505Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000150",
+    "market": "fr",
+    "email": "elaroche.cust-fr-000150@example.test",
+    "first_name": "Emmanuelle",
+    "last_name": "Simon",
+    "city": "Sainte Brigitteboeuf",
+    "created_at": "2024-10-10T12:17:46.223775Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000151",
+    "market": "fr",
+    "email": "gilbert86.cust-fr-000151@example.test",
+    "first_name": "Raymond",
+    "last_name": "Lemaître",
+    "city": "Saint Corinnedan",
+    "created_at": "2024-08-26T17:25:50.934705Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000152",
+    "market": "fr",
+    "email": "antoinette84.cust-fr-000152@example.test",
+    "first_name": "Olivier",
+    "last_name": "Wagner",
+    "city": "Jacquet",
+    "created_at": "2024-03-02T11:43:10.034068Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000153",
+    "market": "fr",
+    "email": "ericrossi.cust-fr-000153@example.test",
+    "first_name": "Gérard",
+    "last_name": "Devaux",
+    "city": "Ferreira-sur-Michaud",
+    "created_at": "2024-11-11T01:16:32.708218Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000154",
+    "market": "fr",
+    "email": "fernandezhelene.cust-fr-000154@example.test",
+    "first_name": "Juliette",
+    "last_name": "Gros",
+    "city": "Lamynec",
+    "created_at": "2024-07-16T06:03:52.109512Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000155",
+    "market": "fr",
+    "email": "emilie49.cust-fr-000155@example.test",
+    "first_name": "William",
+    "last_name": "Guyot",
+    "city": "Durand",
+    "created_at": "2024-02-03T22:46:09.782748Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000156",
+    "market": "fr",
+    "email": "adeleturpin.cust-fr-000156@example.test",
+    "first_name": "Laure",
+    "last_name": "Coste",
+    "city": "DelaunayVille",
+    "created_at": "2024-09-27T00:48:49.438218Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000157",
+    "market": "fr",
+    "email": "marcbailly.cust-fr-000157@example.test",
+    "first_name": "Timothée",
+    "last_name": "Hubert",
+    "city": "Delorme",
+    "created_at": "2024-10-02T08:27:25.863783Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000158",
+    "market": "fr",
+    "email": "wolivier.cust-fr-000158@example.test",
+    "first_name": "Denis",
+    "last_name": "Vidal",
+    "city": "Duhamel",
+    "created_at": "2024-10-01T14:20:11.177294Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000159",
+    "market": "fr",
+    "email": "leclercqfrancoise.cust-fr-000159@example.test",
+    "first_name": "Élodie",
+    "last_name": "Michel",
+    "city": "Saint Nicolasnec",
+    "created_at": "2024-05-14T15:40:18.208230Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000160",
+    "market": "fr",
+    "email": "xcollet.cust-fr-000160@example.test",
+    "first_name": "Daniel",
+    "last_name": "Durand",
+    "city": "LelièvreVille",
+    "created_at": "2024-03-17T06:24:14.886594Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000161",
+    "market": "fr",
+    "email": "adrienmarques.cust-fr-000161@example.test",
+    "first_name": "Timothée",
+    "last_name": "Ramos",
+    "city": "Potier-sur-Bodin",
+    "created_at": "2024-02-13T12:30:30.589669Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000162",
+    "market": "fr",
+    "email": "picardelisabeth.cust-fr-000162@example.test",
+    "first_name": "Alice",
+    "last_name": "Dupont",
+    "city": "Traore",
+    "created_at": "2024-03-05T12:32:36.061275Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000163",
+    "market": "fr",
+    "email": "bernadettelaporte.cust-fr-000163@example.test",
+    "first_name": "Chantal",
+    "last_name": "Leblanc",
+    "city": "Martins-sur-Mer",
+    "created_at": "2024-10-28T06:10:38.491448Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000164",
+    "market": "fr",
+    "email": "perriersuzanne.cust-fr-000164@example.test",
+    "first_name": "Gilles",
+    "last_name": "Delmas",
+    "city": "Saint Bertranddan",
+    "created_at": "2024-12-28T11:34:19.954036Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000165",
+    "market": "fr",
+    "email": "marcelle99.cust-fr-000165@example.test",
+    "first_name": "René",
+    "last_name": "Gautier",
+    "city": "Le Goffnec",
+    "created_at": "2024-08-27T04:41:37.784014Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000166",
+    "market": "fr",
+    "email": "elisabeth92.cust-fr-000166@example.test",
+    "first_name": "Lucas",
+    "last_name": "Collin",
+    "city": "Traore-sur-Mer",
+    "created_at": "2024-05-23T19:23:35.750785Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000167",
+    "market": "fr",
+    "email": "abenard.cust-fr-000167@example.test",
+    "first_name": "Alix",
+    "last_name": "Chevalier",
+    "city": "Guilbert",
+    "created_at": "2024-12-23T01:37:55.750643Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000168",
+    "market": "fr",
+    "email": "didiermaurice.cust-fr-000168@example.test",
+    "first_name": "Antoinette",
+    "last_name": "Lamy",
+    "city": "Dijoux",
+    "created_at": "2024-03-11T09:10:08.992720Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000169",
+    "market": "fr",
+    "email": "tgirard.cust-fr-000169@example.test",
+    "first_name": "Margot",
+    "last_name": "Gilles",
+    "city": "Saint Mathilde",
+    "created_at": "2024-08-28T02:57:10.634295Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000170",
+    "market": "fr",
+    "email": "vbaudry.cust-fr-000170@example.test",
+    "first_name": "Hélène",
+    "last_name": "Rousseau",
+    "city": "Saint William",
+    "created_at": "2024-09-25T21:49:31.975595Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000171",
+    "market": "fr",
+    "email": "matthieuleblanc.cust-fr-000171@example.test",
+    "first_name": "Denis",
+    "last_name": "Morin",
+    "city": "Besnard-sur-Aubert",
+    "created_at": "2024-07-20T15:10:57.440710Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000172",
+    "market": "fr",
+    "email": "npruvost.cust-fr-000172@example.test",
+    "first_name": "Josette",
+    "last_name": "Léger",
+    "city": "Laine-les-Bains",
+    "created_at": "2024-09-17T01:19:11.521155Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000173",
+    "market": "fr",
+    "email": "catherineriou.cust-fr-000173@example.test",
+    "first_name": "Alice",
+    "last_name": "Mendès",
+    "city": "Saint Agathe-sur-Mer",
+    "created_at": "2024-01-19T02:26:56.618486Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000174",
+    "market": "fr",
+    "email": "vrobin.cust-fr-000174@example.test",
+    "first_name": "Martin",
+    "last_name": "Neveu",
+    "city": "Thibault",
+    "created_at": "2024-06-26T22:42:40.292157Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000175",
+    "market": "fr",
+    "email": "zoe51.cust-fr-000175@example.test",
+    "first_name": "Claire",
+    "last_name": "Denis",
+    "city": "Marty-la-Forêt",
+    "created_at": "2024-06-02T05:28:30.255503Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000176",
+    "market": "fr",
+    "email": "joubertvincent.cust-fr-000176@example.test",
+    "first_name": "Océane",
+    "last_name": "Gallet",
+    "city": "RamosBourg",
+    "created_at": "2024-10-29T12:57:19.012446Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000177",
+    "market": "fr",
+    "email": "celinabonnin.cust-fr-000177@example.test",
+    "first_name": "Joséphine",
+    "last_name": "Lemaire",
+    "city": "Lopez-les-Bains",
+    "created_at": "2024-05-21T01:05:07.871455Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000178",
+    "market": "fr",
+    "email": "gillesschmitt.cust-fr-000178@example.test",
+    "first_name": "Sabine",
+    "last_name": "Carpentier",
+    "city": "Saint Laetitia",
+    "created_at": "2024-07-10T00:31:54.650053Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000179",
+    "market": "fr",
+    "email": "maryse74.cust-fr-000179@example.test",
+    "first_name": "Véronique",
+    "last_name": "Giraud",
+    "city": "Saint Danielnec",
+    "created_at": "2024-07-25T11:00:42.061762Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000180",
+    "market": "fr",
+    "email": "tbigot.cust-fr-000180@example.test",
+    "first_name": "Édouard",
+    "last_name": "Dupont",
+    "city": "Navarro",
+    "created_at": "2024-01-25T04:26:23.239377Z",
+    "acquisition_channel": "direct"
+  },
+  {
+    "id": "cust-fr-000181",
+    "market": "fr",
+    "email": "constancetexier.cust-fr-000181@example.test",
+    "first_name": "Sophie",
+    "last_name": "Ferreira",
+    "city": "Sainte Léon",
+    "created_at": "2024-03-18T16:38:32.595277Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000182",
+    "market": "fr",
+    "email": "gillesjoly.cust-fr-000182@example.test",
+    "first_name": "Lucy",
+    "last_name": "Guillaume",
+    "city": "Saint Nicole-sur-Mer",
+    "created_at": "2024-08-24T13:01:05.031118Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000183",
+    "market": "fr",
+    "email": "lcarpentier.cust-fr-000183@example.test",
+    "first_name": "Anne",
+    "last_name": "Denis",
+    "city": "GiraudBourg",
+    "created_at": "2024-11-21T20:04:43.106371Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000184",
+    "market": "fr",
+    "email": "charlesaurore.cust-fr-000184@example.test",
+    "first_name": "Gilles",
+    "last_name": "Marchal",
+    "city": "Leclerc",
+    "created_at": "2024-06-23T05:59:23.966395Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000185",
+    "market": "fr",
+    "email": "lucieferrand.cust-fr-000185@example.test",
+    "first_name": "Alex",
+    "last_name": "Aubry",
+    "city": "JacquotBourg",
+    "created_at": "2024-01-22T18:31:51.974898Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000186",
+    "market": "fr",
+    "email": "raynaudjacqueline.cust-fr-000186@example.test",
+    "first_name": "Thibault",
+    "last_name": "Chevallier",
+    "city": "Turpin",
+    "created_at": "2024-08-02T09:24:55.152572Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000187",
+    "market": "fr",
+    "email": "duvalsusan.cust-fr-000187@example.test",
+    "first_name": "Claude",
+    "last_name": "Seguin",
+    "city": "Blotnec",
+    "created_at": "2024-09-05T16:57:54.896009Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000188",
+    "market": "fr",
+    "email": "srobin.cust-fr-000188@example.test",
+    "first_name": "Stéphanie",
+    "last_name": "Fleury",
+    "city": "Carre",
+    "created_at": "2024-02-06T06:59:41.387063Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000189",
+    "market": "fr",
+    "email": "nathrousset.cust-fr-000189@example.test",
+    "first_name": "Maryse",
+    "last_name": "Leleu",
+    "city": "Diazboeuf",
+    "created_at": "2024-06-03T17:17:44.725364Z",
+    "acquisition_channel": "email"
+  },
+  {
+    "id": "cust-fr-000190",
+    "market": "fr",
+    "email": "marcel50.cust-fr-000190@example.test",
+    "first_name": "Alix",
+    "last_name": "Boulay",
+    "city": "Lecoq-sur-Georges",
+    "created_at": "2024-02-19T07:08:05.088936Z",
+    "acquisition_channel": "organic"
+  },
+  {
+    "id": "cust-fr-000191",
+    "market": "fr",
+    "email": "marieguillaume.cust-fr-000191@example.test",
+    "first_name": "Jérôme",
+    "last_name": "Bonnet",
+    "city": "Gautier",
+    "created_at": "2024-04-27T06:22:08.531035Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000192",
+    "market": "fr",
+    "email": "fernandescorinne.cust-fr-000192@example.test",
+    "first_name": "Christelle",
+    "last_name": "Gimenez",
+    "city": "Delahayedan",
+    "created_at": "2024-01-21T05:29:42.997411Z",
+    "acquisition_channel": "google"
+  },
+  {
+    "id": "cust-fr-000193",
+    "market": "fr",
+    "email": "alexandria97.cust-fr-000193@example.test",
+    "first_name": "Manon",
+    "last_name": "Rodriguez",
+    "city": "Saint ChristelleVille",
+    "created_at": "2024-04-06T22:03:58.484133Z",
+    "acquisition_channel": "meta"
+  },
+  {
+    "id": "cust-fr-000194",
+    "market": "fr",
+    "email": "kmenard.cust-fr-000194@example.test",
+    "first_name": "Antoinette",
+    "last_name": "Vallet",
+    "city": "Buisson",
+    "created_at": "2024-03-16T04:08:54.149115Z",
+    "acquisition_channel": "organic"
+  }
+]

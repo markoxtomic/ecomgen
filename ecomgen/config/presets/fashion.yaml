@@ -1,0 +1,43 @@
+name: fashion
+categories:
+  tops:
+    price_range: [24, 110]
+    cost_ratio_range: [0.22, 0.38]
+    variant_options:
+      size: [XS, S, M, L, XL]
+      color: [Black, White, Navy, Sage]
+    return_rate: 0.22
+    return_reasons: {wrong_size: 0.50, not_as_expected: 0.22, changed_mind: 0.18, damaged: 0.10}
+  dresses:
+    price_range: [55, 240]
+    cost_ratio_range: [0.25, 0.42]
+    variant_options:
+      size: [XS, S, M, L, XL]
+      color: [Black, Berry, Floral, Sand]
+    return_rate: 0.28
+    return_reasons: {wrong_size: 0.55, not_as_expected: 0.25, changed_mind: 0.15, damaged: 0.05}
+  accessories:
+    price_range: [15, 160]
+    cost_ratio_range: [0.20, 0.36]
+    variant_options:
+      color: [Black, Tan, Gold, Silver]
+      style: [Classic, Modern]
+    return_rate: 0.10
+    return_reasons: {not_as_expected: 0.35, changed_mind: 0.35, wrong_size: 0.20, damaged: 0.10}
+seasonality: [0.82, 0.80, 1.02, 1.08, 1.10, 1.00, 0.92, 0.98, 1.18, 1.12, 1.45, 1.28]
+special_spikes:
+  - {name: summer-sale, start: "07-01", end: "07-14", multiplier: 1.40}
+  - {name: black-friday, start: "11-24", end: "11-30", multiplier: 2.60}
+  - {name: christmas, start: "12-08", end: "12-20", multiplier: 1.55}
+channel_mix:
+  meta: {weight: 0.38, cac_range: [12, 26]}
+  google: {weight: 0.22, cac_range: [11, 24]}
+  organic: {weight: 0.15, cac_range: [0, 3]}
+  email: {weight: 0.15, cac_range: [1, 4]}
+  direct: {weight: 0.10, cac_range: [0, 2]}
+repeat_purchase: {probability: 0.29, average_days: 72}
+discount: {usage_rate: 0.42, depth_range: [0.10, 0.35]}
+title_words:
+  adjectives: [Relaxed, Tailored, Essential, Soft, Studio]
+  materials: [Linen, Cotton, Satin, Wool, Leather]
+  nouns: [Shirt, Dress, Cardigan, Scarf, Tote]

@@ -1,0 +1,3 @@
+"""Synthetic e-commerce dataset generation."""
+
+__version__ = "0.1.0"

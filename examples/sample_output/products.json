@@ -1,0 +1,444 @@
+[
+  {
+    "id": "prod-garden-decor-garden-furniture-001",
+    "title": "Modern Stone Side Table",
+    "category": "garden-furniture",
+    "description_short": "A modern stone side table designed for reliable everyday use.",
+    "price_eur": "329.60",
+    "cost_eur": "154.75",
+    "markets": [
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-garden-furniture-002",
+    "title": "Timeless Stone Bench",
+    "category": "garden-furniture",
+    "description_short": "A timeless stone bench designed for reliable everyday use.",
+    "price_eur": "152.15",
+    "cost_eur": "78.03",
+    "markets": [
+      "at",
+      "de"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-garden-furniture-003",
+    "title": "Sculpted Rattan Bench",
+    "category": "garden-furniture",
+    "description_short": "A sculpted rattan bench designed for reliable everyday use.",
+    "price_eur": "208.75",
+    "cost_eur": "89.15",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-garden-furniture-004",
+    "title": "Timeless Acacia Planter",
+    "category": "garden-furniture",
+    "description_short": "A timeless acacia planter designed for reliable everyday use.",
+    "price_eur": "633.27",
+    "cost_eur": "279.82",
+    "markets": [
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-garden-furniture-005",
+    "title": "Sculpted Terracotta Side Table",
+    "category": "garden-furniture",
+    "description_short": "A sculpted terracotta side table designed for reliable everyday use.",
+    "price_eur": "469.02",
+    "cost_eur": "250.43",
+    "markets": [
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-garden-furniture-006",
+    "title": "Timeless Terracotta Bench",
+    "category": "garden-furniture",
+    "description_short": "A timeless terracotta bench designed for reliable everyday use.",
+    "price_eur": "153.18",
+    "cost_eur": "82.69",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-garden-furniture-007",
+    "title": "Timeless Stone Planter",
+    "category": "garden-furniture",
+    "description_short": "A timeless stone planter designed for reliable everyday use.",
+    "price_eur": "257.36",
+    "cost_eur": "137.09",
+    "markets": [
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-garden-furniture-008",
+    "title": "Timeless Terracotta Garden Set",
+    "category": "garden-furniture",
+    "description_short": "A timeless terracotta garden set designed for reliable everyday use.",
+    "price_eur": "193.14",
+    "cost_eur": "88.88",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-garden-furniture-009",
+    "title": "Sculpted Rattan Bench",
+    "category": "garden-furniture",
+    "description_short": "A sculpted rattan bench designed for reliable everyday use.",
+    "price_eur": "403.75",
+    "cost_eur": "198.34",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-garden-furniture-010",
+    "title": "Modern Stone Bench",
+    "category": "garden-furniture",
+    "description_short": "A modern stone bench designed for reliable everyday use.",
+    "price_eur": "441.43",
+    "cost_eur": "212.98",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-garden-furniture-011",
+    "title": "Minimal Acacia Lantern",
+    "category": "garden-furniture",
+    "description_short": "A minimal acacia lantern designed for reliable everyday use.",
+    "price_eur": "312.27",
+    "cost_eur": "164.08",
+    "markets": [
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-garden-furniture-012",
+    "title": "Sculpted Stone Planter",
+    "category": "garden-furniture",
+    "description_short": "A sculpted stone planter designed for reliable everyday use.",
+    "price_eur": "397.07",
+    "cost_eur": "179.10",
+    "markets": [
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-001",
+    "title": "Rustic Terracotta Planter",
+    "category": "outdoor-lighting",
+    "description_short": "A rustic terracotta planter designed for reliable everyday use.",
+    "price_eur": "38.95",
+    "cost_eur": "18.08",
+    "markets": [
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-002",
+    "title": "Sculpted Stone Bench",
+    "category": "outdoor-lighting",
+    "description_short": "A sculpted stone bench designed for reliable everyday use.",
+    "price_eur": "94.15",
+    "cost_eur": "39.28",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-003",
+    "title": "Modern Acacia Planter",
+    "category": "outdoor-lighting",
+    "description_short": "A modern acacia planter designed for reliable everyday use.",
+    "price_eur": "77.53",
+    "cost_eur": "36.74",
+    "markets": [
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-004",
+    "title": "Timeless Acacia Side Table",
+    "category": "outdoor-lighting",
+    "description_short": "A timeless acacia side table designed for reliable everyday use.",
+    "price_eur": "147.30",
+    "cost_eur": "57.73",
+    "markets": [
+      "at",
+      "de"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-005",
+    "title": "Timeless Acacia Side Table",
+    "category": "outdoor-lighting",
+    "description_short": "A timeless acacia side table designed for reliable everyday use.",
+    "price_eur": "72.42",
+    "cost_eur": "23.40",
+    "markets": [
+      "at",
+      "de"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-006",
+    "title": "Timeless Rattan Lantern",
+    "category": "outdoor-lighting",
+    "description_short": "A timeless rattan lantern designed for reliable everyday use.",
+    "price_eur": "122.23",
+    "cost_eur": "53.93",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-007",
+    "title": "Modern Terracotta Bench",
+    "category": "outdoor-lighting",
+    "description_short": "A modern terracotta bench designed for reliable everyday use.",
+    "price_eur": "54.17",
+    "cost_eur": "20.19",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-008",
+    "title": "Minimal Metal Bench",
+    "category": "outdoor-lighting",
+    "description_short": "A minimal metal bench designed for reliable everyday use.",
+    "price_eur": "94.29",
+    "cost_eur": "35.41",
+    "markets": [
+      "at",
+      "de"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-009",
+    "title": "Sculpted Stone Planter",
+    "category": "outdoor-lighting",
+    "description_short": "A sculpted stone planter designed for reliable everyday use.",
+    "price_eur": "37.82",
+    "cost_eur": "13.08",
+    "markets": [
+      "at",
+      "de"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-010",
+    "title": "Minimal Acacia Garden Set",
+    "category": "outdoor-lighting",
+    "description_short": "A minimal acacia garden set designed for reliable everyday use.",
+    "price_eur": "76.39",
+    "cost_eur": "28.89",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-011",
+    "title": "Minimal Rattan Planter",
+    "category": "outdoor-lighting",
+    "description_short": "A minimal rattan planter designed for reliable everyday use.",
+    "price_eur": "71.84",
+    "cost_eur": "29.36",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-outdoor-lighting-012",
+    "title": "Timeless Metal Side Table",
+    "category": "outdoor-lighting",
+    "description_short": "A timeless metal side table designed for reliable everyday use.",
+    "price_eur": "74.70",
+    "cost_eur": "25.19",
+    "markets": [
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-001",
+    "title": "Sculpted Acacia Lantern",
+    "category": "planters",
+    "description_short": "A sculpted acacia lantern designed for reliable everyday use.",
+    "price_eur": "102.64",
+    "cost_eur": "39.17",
+    "markets": [
+      "de"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-002",
+    "title": "Minimal Acacia Garden Set",
+    "category": "planters",
+    "description_short": "A minimal acacia garden set designed for reliable everyday use.",
+    "price_eur": "113.48",
+    "cost_eur": "49.38",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-003",
+    "title": "Modern Stone Garden Set",
+    "category": "planters",
+    "description_short": "A modern stone garden set designed for reliable everyday use.",
+    "price_eur": "108.86",
+    "cost_eur": "30.87",
+    "markets": [
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-004",
+    "title": "Sculpted Acacia Garden Set",
+    "category": "planters",
+    "description_short": "A sculpted acacia garden set designed for reliable everyday use.",
+    "price_eur": "27.63",
+    "cost_eur": "11.92",
+    "markets": [
+      "de"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-005",
+    "title": "Modern Metal Garden Set",
+    "category": "planters",
+    "description_short": "A modern metal garden set designed for reliable everyday use.",
+    "price_eur": "33.63",
+    "cost_eur": "9.66",
+    "markets": [
+      "at",
+      "de"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-006",
+    "title": "Minimal Stone Lantern",
+    "category": "planters",
+    "description_short": "A minimal stone lantern designed for reliable everyday use.",
+    "price_eur": "117.13",
+    "cost_eur": "36.06",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-007",
+    "title": "Modern Stone Garden Set",
+    "category": "planters",
+    "description_short": "A modern stone garden set designed for reliable everyday use.",
+    "price_eur": "30.42",
+    "cost_eur": "10.55",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-008",
+    "title": "Modern Stone Planter",
+    "category": "planters",
+    "description_short": "A modern stone planter designed for reliable everyday use.",
+    "price_eur": "93.38",
+    "cost_eur": "27.35",
+    "markets": [
+      "at",
+      "de"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-009",
+    "title": "Modern Rattan Bench",
+    "category": "planters",
+    "description_short": "A modern rattan bench designed for reliable everyday use.",
+    "price_eur": "85.61",
+    "cost_eur": "30.81",
+    "markets": [
+      "de"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-010",
+    "title": "Modern Stone Garden Set",
+    "category": "planters",
+    "description_short": "A modern stone garden set designed for reliable everyday use.",
+    "price_eur": "28.80",
+    "cost_eur": "8.83",
+    "markets": [
+      "at",
+      "de"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-011",
+    "title": "Timeless Metal Bench",
+    "category": "planters",
+    "description_short": "A timeless metal bench designed for reliable everyday use.",
+    "price_eur": "65.67",
+    "cost_eur": "21.41",
+    "markets": [
+      "de",
+      "fr"
+    ]
+  },
+  {
+    "id": "prod-garden-decor-planters-012",
+    "title": "Sculpted Acacia Lantern",
+    "category": "planters",
+    "description_short": "A sculpted acacia lantern designed for reliable everyday use.",
+    "price_eur": "72.14",
+    "cost_eur": "23.54",
+    "markets": [
+      "at",
+      "de",
+      "fr"
+    ]
+  }
+]

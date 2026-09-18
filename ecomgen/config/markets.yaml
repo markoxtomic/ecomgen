@@ -1,0 +1,72 @@
+de:
+  code: de
+  currency: EUR
+  faker_locale: de_DE
+  vat_rate: 0.19
+  fx_rate_from_eur: 1.00
+  shipping_cost: 4.90
+  demand_weight: 1.00
+at:
+  code: at
+  currency: EUR
+  faker_locale: de_AT
+  vat_rate: 0.20
+  fx_rate_from_eur: 1.00
+  shipping_cost: 5.90
+  demand_weight: 0.18
+ch:
+  code: ch
+  currency: CHF
+  faker_locale: de_CH
+  vat_rate: 0.081
+  fx_rate_from_eur: 0.95
+  shipping_cost: 9.90
+  demand_weight: 0.16
+fr:
+  code: fr
+  currency: EUR
+  faker_locale: fr_FR
+  vat_rate: 0.20
+  fx_rate_from_eur: 1.00
+  shipping_cost: 5.90
+  demand_weight: 0.75
+be:
+  code: be
+  currency: EUR
+  faker_locale: fr_BE
+  vat_rate: 0.21
+  fx_rate_from_eur: 1.00
+  shipping_cost: 5.90
+  demand_weight: 0.14
+es:
+  code: es
+  currency: EUR
+  faker_locale: es_ES
+  vat_rate: 0.21
+  fx_rate_from_eur: 1.00
+  shipping_cost: 6.90
+  demand_weight: 0.42
+it:
+  code: it
+  currency: EUR
+  faker_locale: it_IT
+  vat_rate: 0.22
+  fx_rate_from_eur: 1.00
+  shipping_cost: 6.90
+  demand_weight: 0.48
+nl:
+  code: nl
+  currency: EUR
+  faker_locale: nl_NL
+  vat_rate: 0.21
+  fx_rate_from_eur: 1.00
+  shipping_cost: 5.90
+  demand_weight: 0.24
+uk:
+  code: uk
+  currency: GBP
+  faker_locale: en_GB
+  vat_rate: 0.20
+  fx_rate_from_eur: 0.86
+  shipping_cost: 5.99
+  demand_weight: 0.68
