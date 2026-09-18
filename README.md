@@ -1,21 +1,16 @@
 # ecomgen
 
+![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)
+![License: MIT](https://img.shields.io/badge/license-MIT-green)
+
+**Synthetic data · E-commerce · Shopify · BI testing · Python CLI**
+
 Generate a coherent, realistic synthetic dataset for a multi-market direct-to-consumer store.
 
 `ecomgen` exists so BI pipelines, data agents, demos, and Shopify workflows can be
 developed and tested without exposing real customer data. A single command creates a
 connected catalog, customers, orders, returns, and daily marketing performance using
 market-aware currencies, tax, demand, and locale data.
-
-## Requirements and installation
-
-- Python 3.11 or newer
-
-Install the project in editable mode:
-
-```bash
-python -m pip install -e .
-```
 
 ## Quickstart
 
@@ -37,6 +32,18 @@ marketing_spend.csv
 
 Use `--format json` for records-oriented JSON files or `--format all` for both CSV
 and JSON.
+
+Requires Python 3.11+; see [installation](#requirements-and-installation) below.
+
+## Requirements and installation
+
+- Python 3.11 or newer
+
+Install the project in editable mode:
+
+```bash
+python -m pip install -e .
+```
 
 ## CLI reference
 
