@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+from collections.abc import Callable
 from datetime import date
 from decimal import Decimal
 
@@ -53,8 +54,13 @@ def generate_dataset(
     months: int = DEFAULT_MONTHS,
     start_date: date = DEFAULT_START_DATE,
     seed: int = DEFAULT_SEED,
+    progress: Callable[[int, int], None] | None = None,
 ) -> Dataset:
-    """Generate all dataset tables from one NumPy random stream."""
+    """Generate all dataset tables from one NumPy random stream.
+
+    ``progress``, if given, is called as ``progress(completed, total)`` while the
+    dataset is generated; ``completed`` reaches ``total`` when generation ends.
+    """
 
     if customers < 0:
         raise ValueError("customers must be non-negative")
@@ -127,6 +133,8 @@ def generate_dataset(
         rng,
     )
 
+    if progress is not None:
+        progress(1, 1)
     return Dataset(
         products=products,
         variants=remaining_variants,
