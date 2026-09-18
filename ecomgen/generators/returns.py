@@ -38,8 +38,10 @@ def generate_returns(
 ) -> list[Return]:
     """Sample at most one return per item using its product category settings.
 
-    Refunds are the complete line-item value in the order's currency. All
-    randomness comes from the caller-provided NumPy generator.
+    Refunds are the complete line-item value in the order's currency. Item ids
+    are required to be unique and each item is sampled once, so an order item
+    never receives more than one return and cumulative refunds can never exceed
+    its value. All randomness comes from the caller-provided NumPy generator.
     """
 
     product_by_id = _unique_by_id(products, "product")

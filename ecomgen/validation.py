@@ -6,7 +6,7 @@ import csv
 import json
 from collections import defaultdict
 from dataclasses import dataclass
-from decimal import Decimal
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 from typing import Any
 
@@ -33,6 +33,8 @@ TABLE_MODELS: dict[str, type[Record]] = {
     "returns": Return,
     "marketing_spend": MarketingSpend,
 }
+
+_CENT = Decimal("0.01")
 
 
 class DatasetLoadError(ValueError):
@@ -178,6 +180,7 @@ def validate_dataset(dataset: Dataset) -> ValidationReport:
             errors.append(f"order item {item.id}: orphan order_id {item.order_id}")
         if item.variant_id not in variants:
             errors.append(f"order item {item.id}: orphan variant_id {item.variant_id}")
+    refunded: defaultdict[str, Decimal] = defaultdict(Decimal)
     for returned in dataset.returns:
         order = orders.get(returned.order_id)
         item = items.get(returned.order_item_id)
@@ -190,10 +193,14 @@ def validate_dataset(dataset: Dataset) -> ValidationReport:
             errors.append(f"return {returned.id}: order does not match its order item")
         if order is not None and returned.created_at < order.created_at:
             errors.append(f"return {returned.id}: return date precedes order date")
-        item_value = item.unit_price * item.quantity
-        if returned.refund_amount > item_value:
+        refunded[item.id] += returned.refund_amount
+    for item_id, refund_total in refunded.items():
+        item = items[item_id]
+        item_value = (item.unit_price * item.quantity).quantize(_CENT, rounding=ROUND_HALF_UP)
+        refund_total = refund_total.quantize(_CENT, rounding=ROUND_HALF_UP)
+        if refund_total > item_value:
             errors.append(
-                f"return {returned.id}: refund {returned.refund_amount} exceeds "
+                f"order item {item_id}: cumulative refunds {refund_total} exceed "
                 f"item value {item_value}"
             )
     return ValidationReport(errors=errors, row_counts=rows)
