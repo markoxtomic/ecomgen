@@ -23,6 +23,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest",
+    "pytest-cov",
     "ruff",
 ]
 
@@ -41,4 +42,6 @@ testpaths = ["tests"]
 [tool.ruff]
 target-version = "py311"
 line-length = 100
+# Reports embed illustrative code blocks that are not part of the package.
+extend-exclude = ["reports"]
 
