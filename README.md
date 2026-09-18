@@ -57,10 +57,10 @@ ecomgen generate [OPTIONS]
 
 --preset TEXT           Bundled preset name. Default: garden-decor
 --markets TEXT          Comma-separated market codes. Default: de,at,fr
---customers INTEGER     Number of customers; may be zero. Default: 5000
---months INTEGER        Number of months; must be at least 1. Default: 12
+--customers INTEGER     Number of customers, 0 to 1,000,000. Default: 5000
+--months INTEGER        Number of months, 1 to 120. Default: 12
 --start-date DATE       Start of the generation window. Default: 2024-01-01
---seed INTEGER          Random seed. Default: 42
+--seed INTEGER          Random seed; a non-negative integer. Default: 42
 --out PATH              Output directory: new, empty, or an earlier ecomgen
                         export, which is replaced. Default: dataset
 --format [csv|json|all] Dataset export format. Default: csv
@@ -70,6 +70,11 @@ ecomgen generate [OPTIONS]
 
 The fixed `2024-01-01` default is intentional: omitting `--start-date` does not make
 the generated period depend on the day the command is run.
+
+`--customers`, `--months`, or `--seed` outside its range exits with status 2 and
+names the option. The window, plus 30 days for returns, must end by 9999-12-31;
+otherwise generation exits with status 1 and an error naming `--start-date` and
+`--months`.
 
 Examples:
 

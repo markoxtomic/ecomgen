@@ -2,6 +2,7 @@
 
 import sys
 import warnings
+from calendar import monthrange
 from collections import defaultdict
 from datetime import date
 from decimal import Decimal
@@ -60,6 +61,12 @@ def _use_utf8_output() -> None:
 
 
 _use_utf8_output()
+
+MAX_CUSTOMERS = 1_000_000
+MAX_MONTHS = 120
+# Returns are dated up to 30 days after their order, so dates up to this many
+# days past the generation window must still be representable.
+RETURN_WINDOW_DAYS = 30
 
 app = typer.Typer(
     help="Generate realistic synthetic e-commerce datasets.",
@@ -124,10 +131,28 @@ def _summary(dataset: Dataset) -> None:
 def generate(
     preset: Annotated[str, typer.Option("--preset")] = DEFAULT_PRESET,
     markets: Annotated[str, typer.Option("--markets")] = ",".join(DEFAULT_MARKETS),
-    customers: Annotated[int, typer.Option("--customers", min=0)] = DEFAULT_CUSTOMERS,
-    months: Annotated[int, typer.Option("--months", min=1)] = DEFAULT_MONTHS,
+    customers: Annotated[
+        int,
+        typer.Option(
+            "--customers",
+            min=0,
+            max=MAX_CUSTOMERS,
+            help=f"Number of customers, 0 to {MAX_CUSTOMERS:,}.",
+        ),
+    ] = DEFAULT_CUSTOMERS,
+    months: Annotated[
+        int,
+        typer.Option(
+            "--months",
+            min=1,
+            max=MAX_MONTHS,
+            help=f"Length of the generation window in months, 1 to {MAX_MONTHS}.",
+        ),
+    ] = DEFAULT_MONTHS,
     start_date: Annotated[str, typer.Option("--start-date")] = DEFAULT_START_DATE.isoformat(),
-    seed: Annotated[int, typer.Option("--seed")] = DEFAULT_SEED,
+    seed: Annotated[
+        int, typer.Option("--seed", min=0, help="Random seed; a non-negative integer.")
+    ] = DEFAULT_SEED,
     out: Annotated[Path, typer.Option("--out")] = Path("dataset"),
     format: Annotated[ExportFormat, typer.Option("--format")] = ExportFormat.csv,
     shopify_export: Annotated[bool, typer.Option("--shopify-export")] = False,
@@ -161,6 +186,24 @@ def generate(
         console.print(f"[bold yellow]Warning:[/bold yellow] {escape(message)}", highlight=False)
 
 
+def _check_window(start: date, months: int) -> None:
+    """Reject windows whose dates (including later returns) pass 9999-12-31."""
+
+    month_index = start.month - 1 + months
+    end_year = start.year + month_index // 12
+    end = None
+    if end_year <= date.max.year:
+        end_month = month_index % 12 + 1
+        end = date(end_year, end_month, min(start.day, monthrange(end_year, end_month)[1]))
+    if end is None or (date.max - end).days < RETURN_WINDOW_DAYS:
+        raise ValueError(
+            f"--start-date {start.isoformat()} with --months {months} runs past "
+            f"{date.max.isoformat()}, the latest supported date (the window plus "
+            f"{RETURN_WINDOW_DAYS} days for returns); use an earlier --start-date or "
+            "fewer --months"
+        )
+
+
 def _generate_and_export(
     *,
     preset: str,
@@ -176,6 +219,7 @@ def _generate_and_export(
     """Generate and export; return the dataset and any generation warnings."""
 
     parsed_start_date = date.fromisoformat(start_date)
+    _check_window(parsed_start_date, months)
     check_output_dir(out)
     # Rich switches the bar to ASCII itself on narrow encodings. Off a terminal
     # (pipes, files, CI logs) the bar is disabled so nothing is written at all.
