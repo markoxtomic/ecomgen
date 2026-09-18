@@ -247,18 +247,31 @@ to 1. Return-reason weights must be positive and are normalized when sampled.
 ## Shopify CSV
 
 Pass `--shopify-export` to add `products_shopify.csv` independently of
-`--format`. It contains one row per variant with these columns:
+`--format`. It follows Shopify's product CSV import format, with one row per
+variant and these columns:
 
 ```text
 Handle, Title, Body (HTML), Vendor, Type, Tags, Published,
-Option1 Name, Option1 Value, Variant SKU, Variant Price,
-Variant Inventory Qty
+Option1 Name, Option1 Value, Variant SKU, Variant Inventory Tracker,
+Variant Inventory Qty, Variant Inventory Policy, Variant Fulfillment Service,
+Variant Price, Status
 ```
 
+- Rows of the same product are contiguous. The product-level fields `Title`,
+  `Body (HTML)`, `Vendor`, `Type`, `Tags`, `Published`, and `Status` are filled only
+  on the first row of each `Handle` and left blank on its other variant rows.
+- `Status` is `active` and `Published` is `TRUE`.
+- Option names are title-cased, for example `Color` or `Size`.
+- `Variant Inventory Tracker` is `shopify`, so Shopify tracks the imported
+  quantity. `Variant Inventory Policy` is `deny` (no overselling), and
+  `Variant Fulfillment Service` is `manual`.
+- `Variant Inventory Qty` is the remaining stock at the end of the generated
+  period, after all simulated orders; sold-out variants import with 0.
+- `Variant Price` is the variant's gross, VAT-inclusive EUR list price
+  (`variants.price_eur`), not a market-converted price.
+
 The export is for product import workflows only; it does not import customers,
-orders, returns, or marketing data. Variant prices are the neutral EUR catalog
-prices, not market-converted prices, and inventory is the remaining generated
-inventory.
+orders, returns, or marketing data.
 
 ## Output directory and manifest
 
