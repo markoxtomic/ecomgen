@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+import bisect
 import calendar
 import math
 from collections import defaultdict
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from datetime import UTC, date, datetime, time, timedelta
 from decimal import ROUND_CEILING, ROUND_FLOOR, ROUND_HALF_UP, Decimal
 from typing import NamedTuple
@@ -144,35 +145,115 @@ def _local_price(price_eur: Decimal, market: MarketConfig) -> Decimal:
     return converted.quantize(_WHOLE, rounding=ROUND_HALF_UP).quantize(_CENT)
 
 
-def _weighted_index(weights: Sequence[float], rng: np.random.Generator) -> int:
-    probabilities = np.asarray(weights, dtype=float)
+def _weighted_index(weights: Sequence[float] | np.ndarray, rng: np.random.Generator) -> int:
+    probabilities = np.array(weights, dtype=float)
     probabilities /= probabilities.sum()
     return int(rng.choice(len(probabilities), p=probabilities))
 
 
+class _CustomerPool:
+    """Incremental first-order and repeat-order candidate indexes for one market.
+
+    Customers are addressed by their position in id order, which is the order
+    the candidate lists had when they were rebuilt by scanning every customer.
+    First-order candidates are customers created before the end of the current
+    day who have not ordered yet; they are admitted through a pointer into the
+    customers sorted by ``created_at`` and kept in a sorted list. Repeat
+    candidates are customers whose last order precedes the current day; that set
+    is fixed at the start of each day, so it is rebuilt once per day with NumPy
+    and only shrinks as repeat buyers order again during the day.
+    """
+
+    def __init__(self, customers: Sequence[Customer], window_start: datetime) -> None:
+        self.customers = sorted(customers, key=lambda customer: customer.id)
+        self._window_start = window_start
+        self._by_created = sorted(
+            range(len(self.customers)),
+            key=lambda position: (self.customers[position].created_at, position),
+        )
+        self._pointer = 0
+        self._ordered = np.zeros(len(self.customers), dtype=bool)
+        self.first_pool: list[int] = []
+        # Microseconds since the window start of each customer's last order.
+        self._last_order_us = np.zeros(len(self.customers), dtype=np.int64)
+        self._day_start_us = 0
+        self._repeat_positions: np.ndarray | None = None
+        self._repeat_weights: np.ndarray | None = None
+        self._repeat_mask_positions = np.empty(0, dtype=np.int64)
+
+    def start_day(self, day_start: datetime, day_end: datetime) -> None:
+        while self._pointer < len(self._by_created):
+            position = self._by_created[self._pointer]
+            if self.customers[position].created_at >= day_end:
+                break
+            if not self._ordered[position]:
+                bisect.insort(self.first_pool, position)
+            self._pointer += 1
+        self._day_start_us = (day_start - self._window_start) // datetime.resolution
+        self._repeat_mask_positions = np.flatnonzero(
+            self._ordered & (self._last_order_us < self._day_start_us)
+        )
+        self._repeat_positions = None
+        self._repeat_weights = None
+
+    def has_repeat_candidates(self) -> bool:
+        if self._repeat_positions is not None:
+            return bool(len(self._repeat_positions))
+        return bool(len(self._repeat_mask_positions))
+
+    def _repeat_candidates(self, average_days: int) -> tuple[np.ndarray, np.ndarray]:
+        if self._repeat_positions is None or self._repeat_weights is None:
+            positions = self._repeat_mask_positions
+            elapsed_us = self._day_start_us - self._last_order_us[positions]
+            days = elapsed_us.astype(np.float64) / 1e6 / 86400
+            self._repeat_positions = positions
+            self._repeat_weights = np.exp(-np.maximum(1.0, days) / average_days)
+        return self._repeat_positions, self._repeat_weights
+
+    def choose_repeat(self, average_days: int, rng: np.random.Generator) -> int:
+        """Return a repeat candidate's index; ``commit_repeat`` removes it."""
+
+        _, weights = self._repeat_candidates(average_days)
+        return _weighted_index(weights, rng)
+
+    def repeat_position(self, index: int) -> int:
+        assert self._repeat_positions is not None
+        return int(self._repeat_positions[index])
+
+    def commit_repeat(self, index: int) -> None:
+        assert self._repeat_positions is not None and self._repeat_weights is not None
+        self._repeat_positions = np.delete(self._repeat_positions, index)
+        self._repeat_weights = np.delete(self._repeat_weights, index)
+
+    def choose_first(self, rng: np.random.Generator) -> int:
+        """Return a first-order candidate's index; ``commit_first`` removes it."""
+
+        return int(rng.integers(len(self.first_pool)))
+
+    def commit_first(self, index: int) -> None:
+        del self.first_pool[index]
+
+    def record_order(self, position: int, created_at: datetime) -> None:
+        self._ordered[position] = True
+        self._last_order_us[position] = (created_at - self._window_start) // datetime.resolution
+
+
 def _choose_customer(
-    first_candidates: Sequence[Customer],
-    repeat_candidates: Sequence[Customer],
-    last_order_at: Mapping[str, datetime],
+    pool: _CustomerPool,
     config: PresetConfig,
-    day_start: datetime,
     rng: np.random.Generator,
-) -> tuple[Customer, bool] | None:
+) -> tuple[int, int, bool] | None:
+    """Return ``(candidate index, customer position, is_repeat)`` or ``None``."""
+
     choose_repeat = bool(
-        repeat_candidates and rng.random() < float(config.repeat_purchase.probability)
+        pool.has_repeat_candidates() and rng.random() < float(config.repeat_purchase.probability)
     )
     if choose_repeat:
-        average_days = config.repeat_purchase.average_days
-        weights = [
-            math.exp(
-                -max(1.0, (day_start - last_order_at[customer.id]).total_seconds() / 86400)
-                / average_days
-            )
-            for customer in repeat_candidates
-        ]
-        return repeat_candidates[_weighted_index(weights, rng)], True
-    if first_candidates:
-        return first_candidates[int(rng.integers(len(first_candidates)))], False
+        index = pool.choose_repeat(config.repeat_purchase.average_days, rng)
+        return index, pool.repeat_position(index), True
+    if pool.first_pool:
+        index = pool.choose_first(rng)
+        return index, pool.first_pool[index], False
     # Do not force repeats merely to fill demand: doing so would destroy the
     # configured repeat-order rate when the supplied customer pool is exhausted.
     return None
@@ -208,17 +289,28 @@ def _discount(
     return amount, f"SAVE{percent}"
 
 
+class _MarketCatalog:
+    """A market's eligible variants with their local prices computed once."""
+
+    def __init__(self, market: MarketConfig, variants: Sequence[Variant]) -> None:
+        self.variants = list(variants)
+        self.prices = {variant.id: _local_price(variant.price_eur, market) for variant in variants}
+        self.weights = {
+            variant_id: 1.0 / math.sqrt(max(float(price), 0.01))
+            for variant_id, price in self.prices.items()
+        }
+
+
 def _basket(
-    market: MarketConfig,
-    eligible_variants: Sequence[Variant],
+    catalog: _MarketCatalog,
     remaining: dict[str, int],
     rng: np.random.Generator,
 ) -> list[tuple[Variant, int, Decimal]]:
-    in_stock = [variant for variant in eligible_variants if remaining[variant.id] > 0]
+    in_stock = [variant for variant in catalog.variants if remaining[variant.id] > 0]
     if not in_stock:
         return []
 
-    prices = sorted(_local_price(variant.price_eur, market) for variant in in_stock)
+    prices = sorted(catalog.prices[variant.id] for variant in in_stock)
     median_price = prices[len(prices) // 2]
     mean_units = 1.0 + 2.0 / (1.0 + float(median_price) / 60.0)
     target_units = min(6, 1 + int(rng.poisson(max(0.0, mean_units - 1.0))))
@@ -229,20 +321,13 @@ def _basket(
         available = [variant for variant in in_stock if remaining[variant.id] > 0]
         if not available:
             break
-        weights = [
-            1.0 / math.sqrt(max(float(_local_price(variant.price_eur, market)), 0.01))
-            for variant in available
-        ]
+        weights = [catalog.weights[variant.id] for variant in available]
         selected = available[_weighted_index(weights, rng)]
         remaining[selected.id] -= 1
         quantities[selected.id] += 1
 
     return [
-        (
-            variant_by_id[variant_id],
-            quantity,
-            _local_price(variant_by_id[variant_id].price_eur, market),
-        )
+        (variant_by_id[variant_id], quantity, catalog.prices[variant_id])
         for variant_id, quantity in sorted(quantities.items())
     ]
 
@@ -259,13 +344,15 @@ def generate_orders(
     *,
     base_daily_orders: Decimal | float = Decimal(2),
     inventory: Mapping[str, int] | None = None,
+    progress: Callable[[int, int], None] | None = None,
 ) -> OrderGenerationResult:
     """Generate orders using the supplied catalog, customers, stock, and RNG.
 
     ``base_daily_orders`` is demand for a market with weight 1.0 before
     calendar multipliers. Passing a subset of markets selects only those
     markets. ``inventory`` can continue generation from a previous result.
-    Input variants are never mutated.
+    Input variants are never mutated. ``progress``, if given, is called as
+    ``progress(days_done, total_days)`` after every simulated day.
     """
 
     base_demand = Decimal(str(base_daily_orders))
@@ -285,30 +372,33 @@ def generate_orders(
             f"customer created_at timezone awareness must match start_date: {incompatible[:5]}"
         )
 
-    customers_by_market = {
-        market.code: sorted(
-            (customer for customer in customers if customer.market == market.code),
-            key=lambda customer: customer.id,
+    pools = {
+        market.code: _CustomerPool(
+            [customer for customer in customers if customer.market == market.code], start
         )
         for market in market_values
     }
-    variants_by_market = {
-        market.code: sorted(
-            (
-                variant
-                for variant in variants
-                if market.code in product_by_id[variant.product_id].markets
+    catalogs = {
+        market.code: _MarketCatalog(
+            market,
+            sorted(
+                (
+                    variant
+                    for variant in variants
+                    if market.code in product_by_id[variant.product_id].markets
+                ),
+                key=lambda variant: variant.id,
             ),
-            key=lambda variant: variant.id,
         )
         for market in market_values
     }
 
     orders: list[Order] = []
     order_items: list[OrderItem] = []
-    last_order_at: dict[str, datetime] = {}
     day = start.date()
     final_day = end.date()
+    total_days = (final_day - day).days + 1
+    days_done = 0
 
     while day <= final_day:
         day_start = datetime.combine(day, time.min, tzinfo=start.tzinfo)
@@ -316,39 +406,30 @@ def generate_orders(
         segment_start = max(day_start, start)
         if segment_start >= day_end:
             day += timedelta(days=1)
+            days_done += 1
+            if progress is not None:
+                progress(days_done, total_days)
             continue
 
         for market in market_values:
+            pool = pools[market.code]
+            pool.start_day(day_start, day_end)
+            catalog = catalogs[market.code]
             for _ in range(_daily_order_count(config, market, day, base_demand, rng)):
-                if not any(
-                    remaining[variant.id] > 0 for variant in variants_by_market[market.code]
-                ):
+                if not any(remaining[variant.id] > 0 for variant in catalog.variants):
                     break
-                market_customers = customers_by_market[market.code]
-                first_candidates = [
-                    customer
-                    for customer in market_customers
-                    if customer.id not in last_order_at and customer.created_at < day_end
-                ]
-                repeat_candidates = [
-                    customer
-                    for customer in market_customers
-                    if customer.id in last_order_at and last_order_at[customer.id] < day_start
-                ]
-                choice = _choose_customer(
-                    first_candidates,
-                    repeat_candidates,
-                    last_order_at,
-                    config,
-                    day_start,
-                    rng,
-                )
+                choice = _choose_customer(pool, config, rng)
                 if choice is None:
                     continue
-                customer, is_repeat = choice
-                basket = _basket(market, variants_by_market[market.code], remaining, rng)
+                candidate_index, position, is_repeat = choice
+                customer = pool.customers[position]
+                basket = _basket(catalog, remaining, rng)
                 if not basket:
                     break
+                if is_repeat:
+                    pool.commit_repeat(candidate_index)
+                else:
+                    pool.commit_first(candidate_index)
 
                 order_number = len(orders) + 1
                 order_id = f"ord-{order_number:09d}"
@@ -388,7 +469,10 @@ def generate_orders(
                             unit_price=unit_price,
                         )
                     )
-                last_order_at[customer.id] = created_at
+                pool.record_order(position, created_at)
         day += timedelta(days=1)
+        days_done += 1
+        if progress is not None:
+            progress(days_done, total_days)
 
     return OrderGenerationResult(orders, order_items, remaining)

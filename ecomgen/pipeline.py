@@ -86,6 +86,16 @@ def generate_dataset(
         faker.seed_instance(_faker_seed(seed, code))
         fakers[code] = faker
 
+    # Order simulation dominates the runtime, so progress is one step per
+    # simulated day plus a final step for returns and marketing.
+    order_days = 0
+
+    def _order_progress(days_done: int, total_days: int) -> None:
+        nonlocal order_days
+        order_days = total_days
+        if progress is not None:
+            progress(days_done, total_days + 1)
+
     products, variants = generate_products(config, selected_markets, rng)
     customer_records = generate_customers(
         config,
@@ -110,6 +120,7 @@ def generate_dataset(
         months,
         rng,
         base_daily_orders=_base_daily_demand(customers, months, total_weight),
+        progress=_order_progress,
     )
     remaining_variants = [
         variant.model_copy(update={"inventory": order_result.inventory[variant.id]})
@@ -134,7 +145,7 @@ def generate_dataset(
     )
 
     if progress is not None:
-        progress(1, 1)
+        progress(order_days + 1, order_days + 1)
     return Dataset(
         products=products,
         variants=remaining_variants,
