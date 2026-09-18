@@ -18,7 +18,7 @@ market-aware currencies, tax, demand, and locale data.
 ecomgen generate --preset garden-decor --markets de,at,fr --customers 5000 --months 12 --seed 42 --out ./output
 ```
 
-This writes seven CSV files to `./output`:
+This writes seven CSV files and a `manifest.json` to `./output`:
 
 ```text
 products.csv
@@ -28,6 +28,7 @@ orders.csv
 order_items.csv
 returns.csv
 marketing_spend.csv
+manifest.json
 ```
 
 Use `--format json` for records-oriented JSON files or `--format all` for both CSV
@@ -56,11 +57,12 @@ ecomgen generate [OPTIONS]
 
 --preset TEXT           Bundled preset name. Default: garden-decor
 --markets TEXT          Comma-separated market codes. Default: de,at,fr
---customers INTEGER     Number of customers; may be zero. Default: 5000
---months INTEGER        Number of months; must be at least 1. Default: 12
+--customers INTEGER     Number of customers, 0 to 1,000,000. Default: 5000
+--months INTEGER        Number of months, 1 to 120. Default: 12
 --start-date DATE       Start of the generation window. Default: 2024-01-01
---seed INTEGER          Random seed. Default: 42
---out PATH              Output directory. Default: dataset
+--seed INTEGER          Random seed; a non-negative integer. Default: 42
+--out PATH              Output directory: new, empty, or an earlier ecomgen
+                        export, which is replaced. Default: dataset
 --format [csv|json|all] Dataset export format. Default: csv
 --shopify-export        Also write products_shopify.csv. Default: disabled
 --help                  Show command help.
@@ -68,6 +70,11 @@ ecomgen generate [OPTIONS]
 
 The fixed `2024-01-01` default is intentional: omitting `--start-date` does not make
 the generated period depend on the day the command is run.
+
+`--customers`, `--months`, or `--seed` outside its range exits with status 2 and
+names the option. The window, plus 30 days for returns, must end by 9999-12-31;
+otherwise generation exits with status 1 and an error naming `--start-date` and
+`--months`.
 
 Examples:
 
@@ -84,7 +91,10 @@ ecomgen generate --markets uk,ch --months 6 --start-date 2025-01-01 --out ./outp
 
 Bundled market codes are `de`, `at`, `ch`, `fr`, `be`, `es`, `it`, `nl`, and `uk`.
 Repeated market codes are de-duplicated. An unknown market, an empty market list, or
-an unknown preset causes generation to exit with status 1.
+an unknown preset causes generation to exit with status 1. So does an `--out`
+directory that is not empty and is not an earlier ecomgen export; see
+[Output directory and manifest](#output-directory-and-manifest). Pressing Ctrl+C
+prints `Aborted`, leaves the destination untouched, and exits with status 130.
 
 ### `ecomgen presets`
 
@@ -242,20 +252,87 @@ to 1. Return-reason weights must be positive and are normalized when sampled.
 ## Shopify CSV
 
 Pass `--shopify-export` to add `products_shopify.csv` independently of
-`--format`. It contains one row per variant with these columns:
+`--format`. It follows Shopify's product CSV import format, with one row per
+variant and these columns:
 
 ```text
 Handle, Title, Body (HTML), Vendor, Type, Tags, Published,
-Option1 Name, Option1 Value, Variant SKU, Variant Price,
-Variant Inventory Qty
+Option1 Name, Option1 Value, Variant SKU, Variant Inventory Tracker,
+Variant Inventory Qty, Variant Inventory Policy, Variant Fulfillment Service,
+Variant Price, Status
 ```
 
+- Rows of the same product are contiguous. The product-level fields `Title`,
+  `Body (HTML)`, `Vendor`, `Type`, `Tags`, `Published`, and `Status` are filled only
+  on the first row of each `Handle` and left blank on its other variant rows.
+- `Status` is `active` and `Published` is `TRUE`.
+- Option names are title-cased, for example `Color` or `Size`.
+- `Variant Inventory Tracker` is `shopify`, so Shopify tracks the imported
+  quantity. `Variant Inventory Policy` is `deny` (no overselling), and
+  `Variant Fulfillment Service` is `manual`.
+- `Variant Inventory Qty` is the remaining stock at the end of the generated
+  period, after all simulated orders; sold-out variants import with 0.
+- `Variant Price` is the variant's gross, VAT-inclusive EUR list price
+  (`variants.price_eur`), not a market-converted price.
+
 The export is for product import workflows only; it does not import customers,
-orders, returns, or marketing data. Variant prices are the neutral EUR catalog
-prices, not market-converted prices, and inventory is the remaining generated
-inventory.
+orders, returns, or marketing data.
+
+## Output directory and manifest
+
+Every export is atomic. All files are written and flushed to disk in a temporary
+directory next to `--out`, which then replaces `--out` as a whole. An interrupted or
+failed run never leaves a half-written or mixed dataset behind.
+
+- A new or empty `--out` directory is always accepted.
+- An earlier ecomgen export (a directory with an ecomgen `manifest.json` and only
+  the files it lists) is replaced completely. Tables from the earlier run that the
+  new run does not write, such as JSON files after switching to `--format csv`,
+  are removed.
+- Any other non-empty directory is refused with exit status 1, so ecomgen never
+  deletes files it did not write.
+
+Windows cannot atomically replace a non-empty directory, so an existing export is
+swapped with two renames: the old directory moves to a hidden `.<name>.old-*`
+sibling, the new one moves into place, and the old one is deleted. If the process
+is killed in the instant between the two renames, `--out` is missing and the
+previous export survives in that `.old-*` directory. A hard kill during writing can
+leave a `.<name>.tmp-*` sibling, which is safe to delete; `--out` itself is never
+partially written.
+
+`manifest.json` describes the export. It contains no timestamps, so a fixed seed
+and arguments give an identical manifest:
+
+```json
+{
+  "generator": "ecomgen",
+  "version": "0.1.0",
+  "arguments": {
+    "preset": "garden-decor",
+    "markets": ["de", "at", "fr"],
+    "customers": 5000,
+    "months": 12,
+    "start_date": "2024-01-01",
+    "seed": 42,
+    "format": "csv",
+    "shopify_export": false
+  },
+  "files": {
+    "customers.csv": {"rows": 5000, "sha256": "..."},
+    "...": {}
+  }
+}
+```
+
+`rows` counts data rows: CSV rows after the header, or the length of a JSON array.
+Every file written is listed, including `products_shopify.csv`. The SHA-256 digests
+detect edited, truncated, or swapped tables.
 
 ## Summary output
+
+While the dataset is generated, an interactive terminal shows a progress bar with
+the percentage done and the estimated time remaining. The bar is not drawn when
+output is redirected to a file, a pipe, or `NUL`.
 
 After a successful export, `ecomgen` prints the destination, row counts, revenue by
 market, and item return and order repeat rates. The generated values depend on the
@@ -278,6 +355,12 @@ Exported to output
 Revenue: AT ..., DE ..., FR ...
 Return rate: ...%  Repeat rate: ...%
 ```
+
+If generation had to deviate from the requested behaviour, for example because
+stock-outs suppressed orders, each problem is printed after the summary on its own
+line starting with `Warning:`. When stock-outs suppress so much demand that the
+dataset would be misleading, `ecomgen` prints `Error: ...` instead, writes nothing,
+and exits with status 1.
 
 The fixed counts shown are for the quickstart's three-category `garden-decor`
 preset, 5,000 customers, and 12-month window beginning in leap year 2024. The

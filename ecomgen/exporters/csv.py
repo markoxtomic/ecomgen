@@ -9,6 +9,8 @@ from typing import Any
 
 from ecomgen.schemas import Dataset, Record
 
+from ._io import record_values, sync_file
+
 
 def _csv_value(value: Any) -> Any:
     if isinstance(value, (list, dict)):
@@ -31,8 +33,9 @@ def export_csv(dataset: Dataset, output_dir: str | Path) -> list[Path]:
             writer = csv.DictWriter(handle, fieldnames=headers)
             writer.writeheader()
             for record in records:
-                row = record.model_dump(mode="json")
+                row = record_values(record)
                 writer.writerow({key: _csv_value(value) for key, value in row.items()})
+            sync_file(handle)
         paths.append(path)
     return paths
 
