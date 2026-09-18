@@ -226,7 +226,9 @@ title_words:
 
 Configuration is validated strictly: unknown fields are rejected; category ranges
 must be ordered and in bounds; option and title-word lists cannot be empty;
-seasonality must contain exactly 12 positive values; spike dates use `MM-DD`;
+seasonality must contain exactly 12 positive values; spike dates must be real
+`MM-DD` calendar dates (`02-31` is rejected; `02-29` is allowed and simply never
+matches in non-leap years; `start` after `end` wraps across the new year);
 CAC ranges must be non-negative and ordered; and the five channel weights must sum
 to 1. Return-reason weights must be positive and are normalized when sampled.
 

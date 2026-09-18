@@ -1,9 +1,20 @@
 """Pydantic models for market and preset configuration."""
 
+import re
+from datetime import date
 from decimal import Decimal
-from typing import Self
+from typing import Any, Self
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    ValidationError,
+    ValidationInfo,
+    ValidatorFunctionWrapHandler,
+    field_validator,
+    model_validator,
+)
 
 CHANNELS = {"meta", "google", "organic", "email", "direct"}
 
@@ -44,10 +55,33 @@ class CategoryConfig(ConfigModel):
 
 
 class SpecialSpikeConfig(ConfigModel):
+    """A recurring demand spike between two `MM-DD` dates, inclusive.
+
+    `02-29` is accepted; in non-leap years that day simply does not occur, so a
+    spike covering only `02-29` is skipped rather than rejected. `start` may be
+    later than `end` for spikes that wrap across the new year (e.g. `12-20` to
+    `01-05`).
+    """
+
     name: str
-    start: str = Field(pattern=r"^(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$")
-    end: str = Field(pattern=r"^(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$")
+    start: str
+    end: str
     multiplier: Decimal = Field(gt=0)
+
+    @field_validator("start", "end")
+    @classmethod
+    def validate_calendar_date(cls, value: str, info: ValidationInfo) -> str:
+        spike = info.data.get("name", "<unnamed>")
+        if not re.fullmatch(r"\d{2}-\d{2}", value):
+            raise ValueError(f"spike {spike!r} {info.field_name} {value!r} must use MM-DD format")
+        try:
+            # 2000 is a leap year, so 02-29 parses; see the class docstring.
+            date.fromisoformat(f"2000-{value}")
+        except ValueError:
+            raise ValueError(
+                f"spike {spike!r} {info.field_name} {value!r} is not a valid calendar date"
+            ) from None
+        return value
 
 
 class ChannelConfig(ConfigModel):
@@ -106,6 +140,22 @@ class PresetConfig(ConfigModel):
     repeat_purchase: RepeatPurchaseConfig
     discount: DiscountConfig
     title_words: TitleWordsConfig
+
+    @field_validator("special_spikes", mode="wrap")
+    @classmethod
+    def name_preset_in_spike_errors(
+        cls, value: Any, handler: ValidatorFunctionWrapHandler, info: ValidationInfo
+    ) -> list[SpecialSpikeConfig]:
+        try:
+            return handler(value)
+        except ValidationError as exc:
+            preset = info.data.get("name", "<unnamed>")
+            details = "; ".join(
+                f"special_spikes.{'.'.join(map(str, error['loc']))}: "
+                f"{error['msg'].removeprefix('Value error, ')}"
+                for error in exc.errors(include_url=False)
+            )
+            raise ValueError(f"preset {preset!r}: {details}") from None
 
     @model_validator(mode="after")
     def validate_mix_and_seasonality(self) -> Self:
