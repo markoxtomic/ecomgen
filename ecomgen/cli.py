@@ -1,6 +1,7 @@
 """Command-line interface for generation, export, and validation."""
 
 import sys
+import warnings
 from collections import defaultdict
 from datetime import date
 from decimal import Decimal
@@ -10,6 +11,7 @@ from typing import Annotated
 
 import typer
 from rich.console import Console
+from rich.markup import escape
 from rich.progress import (
     BarColumn,
     Progress,
@@ -21,6 +23,7 @@ from rich.progress import (
 from rich.table import Table
 
 from ecomgen.config import available_presets
+from ecomgen.errors import GenerationWarning
 from ecomgen.exporters import check_output_dir, export_dataset
 from ecomgen.pipeline import (
     DEFAULT_CUSTOMERS,
@@ -133,7 +136,7 @@ def generate(
 
     market_codes = tuple(code.strip().lower() for code in markets.split(",") if code.strip())
     try:
-        dataset = _generate_and_export(
+        dataset, generation_warnings = _generate_and_export(
             preset=preset,
             market_codes=market_codes,
             customers=customers,
@@ -148,11 +151,14 @@ def generate(
         console.print("[red]Aborted[/red]: no output was written to the destination.")
         raise typer.Exit(code=130) from None
     except (OSError, ValueError) as exc:
+        # StockoutError is a ValueError: it ends here with a clean one-line error.
         console.print(f"[red]Error:[/red] {exc}", highlight=False)
         raise typer.Exit(code=1) from None
 
     console.print(f"Exported to {out}")
     _summary(dataset)
+    for message in generation_warnings:
+        console.print(f"[bold yellow]Warning:[/bold yellow] {escape(message)}", highlight=False)
 
 
 def _generate_and_export(
@@ -166,7 +172,9 @@ def _generate_and_export(
     out: Path,
     format: ExportFormat,
     shopify_export: bool,
-) -> Dataset:
+) -> tuple[Dataset, list[str]]:
+    """Generate and export; return the dataset and any generation warnings."""
+
     parsed_start_date = date.fromisoformat(start_date)
     check_output_dir(out)
     # Rich switches the bar to ASCII itself on narrow encodings. Off a terminal
@@ -187,15 +195,29 @@ def _generate_and_export(
         def report(done: int, total: int) -> None:
             progress.update(task, completed=done, total=total)
 
-        dataset = generate_dataset(
-            preset=preset,
-            markets=market_codes,
-            customers=customers,
-            months=months,
-            start_date=parsed_start_date,
-            seed=seed,
-            progress=report,
-        )
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always", GenerationWarning)
+            dataset = generate_dataset(
+                preset=preset,
+                markets=market_codes,
+                customers=customers,
+                months=months,
+                start_date=parsed_start_date,
+                seed=seed,
+                progress=report,
+            )
+    generation_warnings: list[str] = []
+    for caught_warning in caught:
+        if issubclass(caught_warning.category, GenerationWarning):
+            generation_warnings.append(str(caught_warning.message))
+        else:
+            warnings.warn_explicit(
+                caught_warning.message,
+                caught_warning.category,
+                caught_warning.filename,
+                caught_warning.lineno,
+                source=caught_warning.source,
+            )
     formats = {
         ExportFormat.csv: ("csv",),
         ExportFormat.json: ("json",),
@@ -217,7 +239,7 @@ def _generate_and_export(
             "shopify_export": shopify_export,
         },
     )
-    return dataset
+    return dataset, generation_warnings
 
 
 @app.command("presets")

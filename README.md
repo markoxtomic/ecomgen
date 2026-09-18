@@ -338,6 +338,12 @@ Revenue: AT ..., DE ..., FR ...
 Return rate: ...%  Repeat rate: ...%
 ```
 
+If generation had to deviate from the requested behaviour, for example because
+stock-outs suppressed orders, each problem is printed after the summary on its own
+line starting with `Warning:`. When stock-outs suppress so much demand that the
+dataset would be misleading, `ecomgen` prints `Error: ...` instead, writes nothing,
+and exits with status 1.
+
 The fixed counts shown are for the quickstart's three-category `garden-decor`
 preset, 5,000 customers, and 12-month window beginning in leap year 2024. The
 ellipsis values are stochastic outputs and are printed as concrete values when the
