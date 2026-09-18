@@ -78,13 +78,20 @@ class Return(Record):
 
 
 class MarketingSpend(Record):
+    """Daily channel performance; ``spend`` is in the market ``currency``.
+
+    ``new_customers`` counts the customers this channel acquired in this market on
+    this date, i.e. customers with that ``created_at`` date and ``acquisition_channel``.
+    """
+
     date: date
     market: str
     channel: str
+    currency: str
     spend: Decimal = Field(ge=0)
     impressions: int = Field(ge=0)
     clicks: int = Field(ge=0)
-    attributed_orders: int = Field(ge=0)
+    new_customers: int = Field(ge=0)
 
 
 @dataclass(frozen=True, slots=True)

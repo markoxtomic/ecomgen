@@ -30,7 +30,7 @@ special_spikes:
   - {name: black-friday, start: "11-24", end: "11-30", multiplier: 2.20}
   - {name: christmas, start: "12-10", end: "12-20", multiplier: 1.45}
 channel_mix:
-  meta: {weight: 0.30, cac_range: [16, 31]}
+  meta: {weight: 0.30, cac_range: [110, 150]}
   google: {weight: 0.28, cac_range: [14, 28]}
   organic: {weight: 0.18, cac_range: [0, 3]}
   email: {weight: 0.12, cac_range: [1, 5]}

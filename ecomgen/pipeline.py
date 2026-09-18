@@ -102,6 +102,8 @@ def generate_dataset(
             progress(days_done, total_days + 1)
 
     products, variants = generate_products(config, selected_markets, rng)
+    # Marketing comes first: spend buys the customers who then place orders.
+    marketing = generate_marketing(config, selected_markets, customers, start_date, months, rng)
     customer_records = generate_customers(
         config,
         selected_markets,
@@ -110,6 +112,7 @@ def generate_dataset(
         months,
         rng,
         fakers,
+        acquisitions=marketing.acquisitions,
     )
     total_weight = sum(
         (market.demand_weight for market in selected_markets.values()),
@@ -140,15 +143,6 @@ def generate_dataset(
         order_result.order_items,
         rng,
     )
-    marketing = generate_marketing(
-        config,
-        selected_markets,
-        customer_records,
-        order_result.orders,
-        start_date,
-        months,
-        rng,
-    )
 
     if progress is not None:
         progress(order_days + 1, order_days + 1)
@@ -159,5 +153,5 @@ def generate_dataset(
         orders=order_result.orders,
         order_items=order_result.order_items,
         returns=return_records,
-        marketing_spend=marketing,
+        marketing_spend=marketing.records,
     )

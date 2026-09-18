@@ -128,7 +128,7 @@ ecomgen validate --path ./output
 | `orders` | `id`, `customer_id`, `market`, `created_at`, currency and totals, `discount_code`, `is_repeat` | Market-local transactions |
 | `order_items` | `id`, `order_id`, `variant_id`, `quantity`, `unit_price` | Order line items |
 | `returns` | `id`, `order_id`, `order_item_id`, `reason`, `refund_amount`, `created_at` | Item-level returns and refunds |
-| `marketing_spend` | `date`, `market`, `channel`, `spend`, `impressions`, `clicks`, `attributed_orders` | Daily channel performance by market |
+| `marketing_spend` | `date`, `market`, `channel`, `currency`, `spend`, `impressions`, `clicks`, `new_customers` | Daily channel spend (in the market currency) and the customers it acquired |
 
 The core relationships are:
 
@@ -136,8 +136,8 @@ The core relationships are:
 products 1──* variants 1──* order_items *──1 orders *──1 customers
                                       └──0..1 returns
 
-marketing_spend is keyed by date + market + channel and attributes orders through
-the ordering customer's acquisition channel.
+marketing_spend is keyed by date + market + channel. new_customers equals the number
+of customers with that created_at date, market and acquisition_channel.
 ```
 
 Each return points to both its order and order item. The validator checks those
@@ -186,11 +186,24 @@ foreign keys and confirms that the item belongs to the referenced order.
 - **Returns:** each order item is sampled using its category's return rate and
   weighted reasons. Returns occur 3–30 days after the order and refund the line-item
   value, never more.
-- **Marketing:** every day has one row per selected market and each of `direct`,
-  `email`, `google`, `meta`, and `organic`. Orders are attributed to the customer's
-  acquisition channel. Paid-channel spend is sampled from configured CAC ranges;
-  direct and organic spend remain zero. Funnel counts satisfy
-  `impressions >= clicks >= attributed_orders`.
+- **Marketing and acquisition:** spend comes first and buys customers; orders never
+  feed back into spend. Customers are split across markets by demand weight and
+  across channels by a multinomial draw on the preset `channel_mix` weights. Each
+  paid channel (`email`, `google`, `meta`) in each market gets a budget of
+  `expected customers × CAC`, with the CAC drawn once from `cac_range` (EUR). Daily
+  spend follows seasonality, weekday and spike multipliers with log-normal noise.
+  Daily CAC rises with daily spend (`CAC × (spend / mean planned spend)^0.35`), so
+  extra spend has diminishing returns. The channel's customers are then placed on
+  days by a multinomial draw in proportion to what each day's spend bought, which
+  keeps `--customers` exact. `direct` and `organic` acquire customers along the
+  calendar multipliers with zero spend, impressions and clicks. Every day has one
+  row per selected market and channel. `spend` is in the market's `currency`.
+  Impressions come from a per-channel CPM and clicks from a CTR, with
+  `impressions >= clicks >= new_customers` for paid channels. Acquisition cost is
+  therefore paid once per customer; repeat orders cost nothing. Channel efficiency
+  is configurable: each bundled preset gives `meta` a CAC above what its customers
+  earn back, so it has a negative contribution margin (revenue minus COGS, refunds
+  and spend) while `google` and `email` stay profitable.
 
 ## Add a preset
 
@@ -225,7 +238,7 @@ special_spikes:
     multiplier: 2.2
 
 channel_mix:
-  meta:    {weight: 0.30, cac_range: [12, 28]}
+  meta:    {weight: 0.30, cac_range: [70, 110]}
   google:  {weight: 0.30, cac_range: [10, 25]}
   organic: {weight: 0.15, cac_range: [0, 3]}
   email:   {weight: 0.15, cac_range: [1, 5]}
@@ -258,7 +271,10 @@ seasonality must contain exactly 12 positive values; spike dates must be real
 `MM-DD` calendar dates (`02-31` is rejected; `02-29` is allowed and simply never
 matches in non-leap years; `start` after `end` wraps across the new year);
 CAC ranges must be non-negative and ordered; and the five channel weights must sum
-to 1. Return-reason weights must be positive and are normalized when sampled.
+to 1. `weight` is the channel's share of new customers; `cac_range` (EUR) sets what
+a paid channel spends per acquired customer and is ignored for `direct` and
+`organic`. Set a paid channel's CAC above the contribution its customers earn to
+make it unprofitable. Return-reason weights must be positive and are normalized when sampled.
 Inventory values are whole numbers: `restock_quantity` and `lead_time_days` at least
 1, `reorder_point` and `cover_days` at least 0.
 

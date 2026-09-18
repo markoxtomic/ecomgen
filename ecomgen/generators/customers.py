@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import calendar
 import re
-from collections.abc import Mapping
-from datetime import UTC, date, datetime
+from collections.abc import Mapping, Sequence
+from datetime import UTC, date, datetime, timedelta
 from decimal import ROUND_FLOOR, Decimal
 from typing import TypeAlias
 
@@ -39,19 +39,12 @@ def _validated_inputs(
     return tuple((code, markets[code], fakers[code]) for code in sorted(markets))
 
 
-def _allocate_counts(
-    market_values: tuple[tuple[str, MarketConfig, Faker], ...],
-    count: int,
-) -> dict[str, int]:
+def allocate_market_counts(markets: Sequence[MarketConfig], count: int) -> dict[str, int]:
     """Allocate by largest remainder, with market code as the stable tie-breaker."""
 
-    total_weight = sum(
-        (market.demand_weight for _, market, _ in market_values),
-        Decimal(0),
-    )
+    total_weight = sum((market.demand_weight for market in markets), Decimal(0))
     quotas = {
-        code: Decimal(count) * market.demand_weight / total_weight
-        for code, market, _ in market_values
+        market.code: Decimal(count) * market.demand_weight / total_weight for market in markets
     }
     allocations = {
         code: int(quota.to_integral_value(rounding=ROUND_FLOOR)) for code, quota in quotas.items()
@@ -98,6 +91,51 @@ def _channel(config: PresetConfig, rng: np.random.Generator) -> str:
     return channels[int(rng.choice(len(channels), p=weights / weights.sum()))]
 
 
+def _acquired_customers(
+    market_values: tuple[tuple[str, MarketConfig, Faker], ...],
+    count: int,
+    start_date: date | datetime,
+    months: int,
+    rng: np.random.Generator,
+    acquisitions: Mapping[tuple[str, date, str], int],
+) -> list[Customer]:
+    if sum(acquisitions.values()) != count:
+        raise ValueError("acquisitions must sum to the customer count")
+    codes = {code for code, _, _ in market_values}
+    unknown = sorted({market for market, _, _ in acquisitions} - codes)
+    if unknown:
+        raise ValueError(f"acquisitions reference unknown markets: {unknown}")
+    start, end = _window(start_date, months)
+    customers: list[Customer] = []
+    for market_code, _, faker in market_values:
+        planned: list[tuple[datetime, str]] = []
+        for (market, day, channel), quantity in sorted(acquisitions.items()):
+            if market != market_code or quantity <= 0:
+                continue
+            day_start = datetime.combine(day, datetime.min.time(), tzinfo=start.tzinfo)
+            lower = max(day_start, start)
+            upper = min(day_start + timedelta(days=1), end)
+            if lower >= upper:
+                raise ValueError(f"acquisition date {day} is outside the generation window")
+            planned.extend((_created_at(lower, upper, rng), channel) for _ in range(quantity))
+        planned.sort()
+        for market_number, (created_at, channel) in enumerate(planned, start=1):
+            customer_id = f"cust-{market_code}-{market_number:06d}"
+            customers.append(
+                Customer(
+                    id=customer_id,
+                    market=market_code,
+                    email=_email(faker, customer_id),
+                    first_name=faker.first_name(),
+                    last_name=faker.last_name(),
+                    city=faker.city(),
+                    created_at=created_at,
+                    acquisition_channel=channel,
+                )
+            )
+    return customers
+
+
 def _email(faker: Faker, customer_id: str) -> str:
     local_part = faker.user_name().encode("ascii", "ignore").decode().casefold()
     local_part = _NON_EMAIL_COMPONENT.sub(".", local_part).strip(".") or "customer"
@@ -112,19 +150,30 @@ def generate_customers(
     months: int,
     rng: np.random.Generator,
     fakers: FakerMapping,
+    *,
+    acquisitions: Mapping[tuple[str, date, str], int] | None = None,
 ) -> list[Customer]:
     """Generate customers without using global random state.
 
     ``markets`` and ``fakers`` must be mappings keyed by the same lowercase
     market codes. Each Faker should be configured for that market's
     ``faker_locale`` and seeded by the caller.
+
+    ``acquisitions``, typically from ``generate_marketing``, maps
+    ``(market, date, channel)`` to the number of customers acquired that day;
+    it must sum to ``count``. Each such customer is created at a uniform time
+    on that date (within the window) with that acquisition channel. Without it,
+    creation times are uniform over the window and channels follow the
+    preset's channel weights.
     """
 
     if count < 0:
         raise ValueError("count must be non-negative")
 
     market_values = _validated_inputs(markets, fakers)
-    allocations = _allocate_counts(market_values, count)
+    if acquisitions is not None:
+        return _acquired_customers(market_values, count, start_date, months, rng, acquisitions)
+    allocations = allocate_market_counts([market for _, market, _ in market_values], count)
     start, end = _window(start_date, months)
     customers: list[Customer] = []
 
