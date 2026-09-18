@@ -1,5 +1,6 @@
 """Command-line interface for generation, export, and validation."""
 
+import sys
 from collections import defaultdict
 from datetime import date
 from decimal import Decimal
@@ -26,12 +27,49 @@ from ecomgen.pipeline import (
 from ecomgen.schemas import Dataset
 from ecomgen.validation import validate_path
 
+
+def _use_utf8_output() -> None:
+    """Switch the process's stdout and stderr to UTF-8 where possible.
+
+    Redirected Windows streams (a file, a pipe, or ``NUL``) default to the ANSI
+    code page, which cannot encode Rich's spinner and box glyphs. ``errors=
+    "replace"`` guarantees that console output can never crash the program.
+    Streams replaced by a caller (e.g. a test runner) are left alone.
+    """
+
+    for stream, original in ((sys.stdout, sys.__stdout__), (sys.stderr, sys.__stderr__)):
+        if stream is None or stream is not original:
+            continue
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is None:
+            continue
+        try:
+            reconfigure(encoding="utf-8", errors="replace")
+        except (OSError, ValueError):
+            pass
+
+
+_use_utf8_output()
+
 app = typer.Typer(
     help="Generate realistic synthetic e-commerce datasets.",
     no_args_is_help=True,
     pretty_exceptions_show_locals=False,
 )
-console = Console()
+# The legacy Windows renderer drives the console through the Win32 API and
+# mis-detects NUL as a legacy console; plain ANSI output works on every
+# supported Windows version.
+console = Console(legacy_windows=False)
+
+
+def _ascii_only() -> bool:
+    """Whether the console's encoding cannot represent Unicode symbols.
+
+    Rich already falls back to ASCII boxes and bars in that case; spinners must
+    be chosen accordingly.
+    """
+
+    return not console.encoding.lower().startswith("utf")
 
 
 class ExportFormat(str, Enum):
@@ -125,7 +163,7 @@ def _generate_and_export(
     parsed_start_date = date.fromisoformat(start_date)
     check_output_dir(out)
     with Progress(
-        SpinnerColumn(),
+        SpinnerColumn("line" if _ascii_only() else "dots"),
         TextColumn("{task.description}"),
         console=console,
         transient=True,
