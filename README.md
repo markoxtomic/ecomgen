@@ -162,7 +162,11 @@ foreign keys and confirms that the item belongs to the referenced order.
 ## How realism is modeled
 
 - **Catalog:** each preset category produces 12 products. Prices and cost ratios come
-  from category ranges; titles use that category's own adjective, material, and noun
+  from category ranges. `price_eur` is a gross, VAT-inclusive list price, while
+  `cost_ratio_range` is a share of *net* revenue, so `cost_eur` is drawn from that
+  ratio of the net catalog price (gross ÷ 1.19, the reference VAT rate of the largest
+  bundled market). Realised gross margin therefore moves slightly with each market's
+  own VAT rate. Titles use that category's own adjective, material, and noun
   vocabularies and are unique across the generated catalog. Products receive one
   configured option dimension and a variant for each value in that dimension. Every
   product is available in every selected market, so assortment does not create a

@@ -12,6 +12,10 @@ from ecomgen.config.models import CategoryConfig, MarketConfig, PresetConfig
 from ecomgen.schemas import Product, Variant
 
 PRODUCTS_PER_CATEGORY = 12
+# Catalog prices are gross. Costs are a share of net revenue, so the catalog price is
+# converted with this reference rate (the largest bundled market, DE) before the
+# category cost ratio is applied. Margins therefore vary slightly with local VAT.
+CATALOG_VAT_RATE = Decimal("0.19")
 _CENT = Decimal("0.01")
 _NON_ALNUM = re.compile(r"[^a-z0-9]+")
 
@@ -61,12 +65,20 @@ def _cost_for_price(
     category: CategoryConfig,
     rng: np.random.Generator,
 ) -> Decimal:
+    """Draw a unit cost from the category's cost ratio of the NET catalog price.
+
+    ``price`` is a gross, VAT-inclusive list price, while ``cost_ratio_range``
+    describes cost as a share of net revenue (the usual gross-margin basis), so
+    the ratio is applied after removing the reference VAT.
+    """
+
     low_ratio, high_ratio = category.cost_ratio_range
-    low_cents = int((price * low_ratio / _CENT).to_integral_value(rounding=ROUND_CEILING))
-    high_cents = int((price * high_ratio / _CENT).to_integral_value(rounding=ROUND_FLOOR))
+    net_price = price / (1 + CATALOG_VAT_RATE)
+    low_cents = int((net_price * low_ratio / _CENT).to_integral_value(rounding=ROUND_CEILING))
+    high_cents = int((net_price * high_ratio / _CENT).to_integral_value(rounding=ROUND_FLOOR))
     if low_cents > high_cents:
         # This is only possible for unusually tiny configured prices.
-        return (price * low_ratio).quantize(_CENT)
+        return (net_price * low_ratio).quantize(_CENT)
     return Decimal(int(rng.integers(low_cents, high_cents + 1))) * _CENT
 
 

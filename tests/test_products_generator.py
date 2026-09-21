@@ -4,6 +4,7 @@ import numpy as np
 
 from ecomgen.config import load_markets, load_preset
 from ecomgen.generators import generate_products
+from ecomgen.generators.products import CATALOG_VAT_RATE
 
 
 def _generated(seed: int = 42):
@@ -31,8 +32,10 @@ def test_prices_costs_options_and_markets_follow_configuration() -> None:
     for product in products:
         category = preset.categories[product.category]
         assert category.price_range[0] <= product.price_eur <= category.price_range[1]
-        assert product.price_eur * category.cost_ratio_range[0] <= product.cost_eur
-        assert product.cost_eur <= product.price_eur * category.cost_ratio_range[1]
+        # Cost ratios apply to the net catalog price; price_eur is gross (report N1).
+        net_price = product.price_eur / (1 + CATALOG_VAT_RATE)
+        assert net_price * category.cost_ratio_range[0] <= product.cost_eur
+        assert product.cost_eur <= net_price * category.cost_ratio_range[1]
         assert set(product.markets) == market_codes
         assert len(product.markets) == len(set(product.markets))
 
