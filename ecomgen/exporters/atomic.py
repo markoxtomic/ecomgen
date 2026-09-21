@@ -108,7 +108,13 @@ def _install(staging: Path, destination: Path) -> None:
         _retry(lambda: os.rename(backup, destination))
         raise
     _sync_directory(destination.parent)
-    shutil.rmtree(backup, ignore_errors=True)
+    # The export is already in place, so a failure here costs nothing but a stray
+    # directory; retry through the same sharing-violation backoff as the renames and
+    # only then give up quietly.
+    try:
+        _retry(lambda: shutil.rmtree(backup))
+    except OSError:
+        shutil.rmtree(backup, ignore_errors=True)
 
 
 def export_dataset(
