@@ -58,6 +58,9 @@ def test_marketing_schema_has_currency_and_new_customers_only() -> None:
         "market",
         "channel",
         "currency",
+        # The rate that converts this row's spend to EUR, so consumers never need
+        # the package's YAML to compare markets (report m7).
+        "fx_rate_from_eur",
         "spend",
         "impressions",
         "clicks",

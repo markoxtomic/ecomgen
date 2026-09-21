@@ -144,10 +144,10 @@ ecomgen validate --path ./output
 | `products` | `id`, `title`, `category`, `description_short`, `price_eur`, `cost_eur`, `markets` | Base catalog and market availability |
 | `variants` | `id`, `product_id`, `sku`, option fields, `price_eur`, `inventory` | Sellable product options and remaining stock |
 | `customers` | `id`, `market`, identity and location fields, `created_at`, `acquisition_channel` | Locale-aware synthetic customers |
-| `orders` | `id`, `customer_id`, `market`, `created_at`, currency and gross VAT-inclusive totals, `discount_code`, `is_repeat` | Market-local transactions serialized in UTC |
+| `orders` | `id`, `customer_id`, `market`, `created_at`, `currency`, `fx_rate_from_eur`, gross VAT-inclusive totals, `discount_code`, `is_repeat` | Market-local transactions serialized in UTC |
 | `order_items` | `id`, `order_id`, `variant_id`, `quantity`, `unit_price` | Order line items |
 | `returns` | `id`, `order_id`, `order_item_id`, `reason`, `refund_amount`, `created_at` | Item-level returns and refunds |
-| `marketing_spend` | `date`, `market`, `channel`, `currency`, `spend`, `impressions`, `clicks`, `new_customers` | Daily channel spend and acquisitions in the market currency; there is no `attributed_orders` field |
+| `marketing_spend` | `date`, `market`, `channel`, `currency`, `fx_rate_from_eur`, `spend`, `impressions`, `clicks`, `new_customers` | Daily channel spend and acquisitions in the market currency; there is no `attributed_orders` field |
 
 The core relationships are:
 
@@ -160,6 +160,11 @@ number of customers acquired on that market-local date with that market and
 `acquisition_channel`. Orders are not copied into the marketing table and there is
 no `attributed_orders` column.
 ```
+
+Money is denominated in each market's `currency`. Orders and marketing rows also
+carry `fx_rate_from_eur`, the rate used to price them, so `amount / fx_rate_from_eur`
+converts any figure to EUR and compares it with the EUR-denominated `cost_eur`
+without reading the bundled market configuration.
 
 Each return points to both its order and order item. The validator checks those
 foreign keys and confirms that the item belongs to the referenced order.

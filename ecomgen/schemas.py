@@ -51,6 +51,7 @@ class Order(Record):
     market: str
     created_at: datetime
     currency: str
+    fx_rate_from_eur: Decimal = Field(gt=0)
     subtotal: Decimal = Field(ge=0)
     discount: Decimal = Field(ge=0)
     shipping: Decimal = Field(ge=0)
@@ -88,6 +89,7 @@ class MarketingSpend(Record):
     market: str
     channel: str
     currency: str
+    fx_rate_from_eur: Decimal = Field(gt=0)
     spend: Decimal = Field(ge=0)
     impressions: int = Field(ge=0)
     clicks: int = Field(ge=0)

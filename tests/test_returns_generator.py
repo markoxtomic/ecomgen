@@ -36,6 +36,7 @@ def _inputs(item_count: int = 4_000):
         market="de",
         created_at=datetime(2025, 1, 1, 12, tzinfo=UTC),
         currency="EUR",
+        fx_rate_from_eur=Decimal("1.00"),
         subtotal=subtotal,
         discount=Decimal("0.00"),
         shipping=Decimal("0.00"),

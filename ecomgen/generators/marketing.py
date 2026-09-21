@@ -225,6 +225,7 @@ def generate_marketing(
                         market=market.code,
                         channel=channel,
                         currency=market.currency,
+                        fx_rate_from_eur=market.fx_rate_from_eur,
                         spend=local_spend,
                         impressions=impressions,
                         clicks=clicks,

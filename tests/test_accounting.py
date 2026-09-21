@@ -14,6 +14,7 @@ def _order(discount: Decimal) -> Order:
         market="de",
         created_at=datetime(2025, 1, 1, tzinfo=UTC),
         currency="EUR",
+        fx_rate_from_eur=Decimal("1.00"),
         subtotal=Decimal("0.03"),
         discount=discount,
         shipping=Decimal("0.00"),

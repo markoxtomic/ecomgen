@@ -365,6 +365,11 @@ def validate_dataset(
                     f"order {order.id}: currency {order.currency} does not match "
                     f"market {order.market} currency {market.currency}"
                 )
+            if order.fx_rate_from_eur != market.fx_rate_from_eur:
+                errors.append(
+                    f"order {order.id}: fx_rate_from_eur {order.fx_rate_from_eur} does not "
+                    f"match market {order.market} rate {market.fx_rate_from_eur}"
+                )
             expected_shipping = market.shipping_cost.quantize(_CENT, rounding=ROUND_HALF_UP)
             if order.shipping != expected_shipping:
                 errors.append(
@@ -510,6 +515,11 @@ def validate_dataset(
         market = market_configs.get(row.market)
         if market is None:
             errors.append(f"marketing {key}: unknown market {row.market}")
+        elif row.fx_rate_from_eur != market.fx_rate_from_eur:
+            errors.append(
+                f"marketing {key}: fx_rate_from_eur {row.fx_rate_from_eur} does not match "
+                f"market {row.market} rate {market.fx_rate_from_eur}"
+            )
         elif row.currency != market.currency:
             errors.append(
                 f"marketing {key}: currency {row.currency} does not match "

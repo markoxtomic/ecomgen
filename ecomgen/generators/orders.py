@@ -573,6 +573,7 @@ def generate_orders(
                         market=market.code,
                         created_at=created_at,
                         currency=market.currency,
+                        fx_rate_from_eur=market.fx_rate_from_eur,
                         subtotal=subtotal,
                         discount=discount,
                         shipping=shipping,
