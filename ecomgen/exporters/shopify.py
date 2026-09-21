@@ -20,6 +20,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
+from ecomgen.pricing import round_list_price
 from ecomgen.schemas import Dataset, Variant
 
 from ._io import sync_file
@@ -63,8 +64,9 @@ def _option_name(name: str) -> str:
 def export_shopify(dataset: Dataset, output_dir: str | Path) -> Path:
     """Write one Shopify import row per variant, grouped by product handle.
 
-    ``Variant Price`` is the variant's EUR list price and ``Variant Inventory
-    Qty`` its remaining stock at the end of the generated period.
+    ``Variant Price`` is the variant's gross EUR shelf price, rounded exactly as
+    the generated orders price it, and ``Variant Inventory Qty`` its remaining
+    stock at the end of the generated period.
     """
 
     destination = Path(output_dir)
@@ -90,7 +92,7 @@ def export_shopify(dataset: Dataset, output_dir: str | Path) -> Path:
                     "Variant Inventory Qty": variant.inventory,
                     "Variant Inventory Policy": INVENTORY_POLICY,
                     "Variant Fulfillment Service": FULFILLMENT_SERVICE,
-                    "Variant Price": format(variant.price_eur, ".2f"),
+                    "Variant Price": format(round_list_price(variant.price_eur), ".2f"),
                 }
                 if position == 0:
                     row |= {

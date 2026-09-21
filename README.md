@@ -353,8 +353,10 @@ Variant Price, Status
   `Variant Fulfillment Service` is `manual`.
 - `Variant Inventory Qty` is the remaining stock at the end of the generated
   period, after all simulated orders; sold-out variants import with 0.
-- `Variant Price` is the variant's gross, VAT-inclusive EUR list price
-  (`variants.price_eur`), not a market-converted price.
+- `Variant Price` is the variant's gross, VAT-inclusive EUR **shelf** price: the
+  catalog price rounded the way the generated orders price it (`.90` below 100,
+  whole units above). A store imported from this file therefore charges what the
+  order history shows in the EUR markets. It is not converted to other currencies.
 
 The export is for product import workflows only; it does not import customers,
 orders, returns, or marketing data.

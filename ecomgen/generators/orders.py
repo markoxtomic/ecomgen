@@ -17,6 +17,7 @@ import numpy as np
 from ecomgen.config.models import InventoryConfig, MarketConfig, PresetConfig
 from ecomgen.errors import GenerationWarning, StockoutError
 from ecomgen.generators.local_time import LocalDaySampler, as_utc
+from ecomgen.pricing import local_list_price
 from ecomgen.schemas import Customer, Order, OrderItem, Product, Variant
 
 _CENT = Decimal("0.01")
@@ -154,16 +155,6 @@ def _daily_order_count(
     )
     noise = Decimal(str(float(np.clip(rng.normal(1.0, 0.10), 0.75, 1.25))))
     return int(rng.poisson(float(expected * noise)))
-
-
-def _local_price(price_eur: Decimal, market: MarketConfig) -> Decimal:
-    converted = price_eur * market.fx_rate_from_eur
-    if converted < Decimal(100):
-        rounded = (converted + Decimal("0.10")).quantize(_WHOLE, rounding=ROUND_HALF_UP) - Decimal(
-            "0.10"
-        )
-        return max(Decimal("0.90"), rounded).quantize(_CENT)
-    return converted.quantize(_WHOLE, rounding=ROUND_HALF_UP).quantize(_CENT)
 
 
 def _weighted_index(weights: Sequence[float] | np.ndarray, rng: np.random.Generator) -> int:
@@ -338,7 +329,7 @@ class _MarketCatalog:
 
     def __init__(self, market: MarketConfig, variants: Sequence[Variant]) -> None:
         self.variants = list(variants)
-        self.prices = [_local_price(variant.price_eur, market) for variant in self.variants]
+        self.prices = [local_list_price(variant.price_eur, market) for variant in self.variants]
         if self.variants:
             weights = np.array(
                 [1.0 / math.sqrt(max(float(price), 0.01)) for price in self.prices], dtype=float

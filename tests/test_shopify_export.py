@@ -20,6 +20,7 @@ from ecomgen.exporters import (
     validate_shopify_export,
 )
 from ecomgen.pipeline import generate_dataset
+from ecomgen.pricing import round_list_price
 
 EXPECTED_HEADERS = (
     "Handle",
@@ -135,7 +136,8 @@ def test_every_variant_row_tracks_inventory_with_valid_values(rows, dataset) -> 
         assert re.fullmatch(r"0|[1-9]\d*", row["Variant Inventory Qty"])
         assert price.is_finite() and price >= 0
         assert int(row["Variant Inventory Qty"]) == variant.inventory
-        assert price == variant.price_eur
+        # The shelf price customers are charged, not the raw catalog price (m4).
+        assert price == round_list_price(variant.price_eur)
 
 
 def test_product_fields_only_on_first_row_of_each_handle(rows) -> None:
@@ -160,7 +162,7 @@ def test_option_names_are_title_case_and_values_match_variants(rows, dataset) ->
         assert row["Option1 Name"] == variant.option_name.replace("_", " ").title()
         assert row["Option1 Name"][0].isupper()
         assert row["Option1 Value"] == variant.option_value
-        assert row["Variant Price"] == format(variant.price_eur, ".2f")
+        assert row["Variant Price"] == format(round_list_price(variant.price_eur), ".2f")
         assert int(row["Variant Inventory Qty"]) == variant.inventory
 
 
