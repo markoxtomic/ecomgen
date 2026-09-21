@@ -28,7 +28,9 @@ def serialize_value(value: Any) -> JsonValue:
     if isinstance(value, Decimal):
         return format(value, "f")
     if isinstance(value, datetime):
-        text = value.isoformat()
+        # Always emit microseconds: isoformat() drops them on a whole second, which
+        # would give one column two formats and defeat consumers that infer one.
+        text = value.isoformat(timespec="microseconds")
         return text[:-6] + "Z" if text.endswith("+00:00") else text
     if isinstance(value, date):
         return value.isoformat()
