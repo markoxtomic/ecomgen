@@ -37,11 +37,11 @@ def calls(monkeypatch) -> list[dict]:
 
 
 def test_bounds_are_the_documented_values() -> None:
-    assert cli.MAX_CUSTOMERS == 1_000_000
+    assert cli.MAX_CUSTOMERS == 500_000
     assert cli.MAX_MONTHS == 120
 
 
-@pytest.mark.parametrize(("option", "value"), [("--customers", "1000001"), ("--months", "121")])
+@pytest.mark.parametrize(("option", "value"), [("--customers", "500001"), ("--months", "121")])
 def test_values_above_the_upper_bound_are_rejected(tmp_path, calls, option, value) -> None:
     result = _invoke(tmp_path, option, value)
 
@@ -53,10 +53,10 @@ def test_values_above_the_upper_bound_are_rejected(tmp_path, calls, option, valu
 
 
 def test_values_at_the_upper_bound_are_accepted(tmp_path, calls) -> None:
-    result = _invoke(tmp_path, "--customers", "1000000", "--months", "120")
+    result = _invoke(tmp_path, "--customers", "500000", "--months", "120")
 
     assert result.exit_code == 0, result.output
-    assert calls[0]["customers"] == 1_000_000
+    assert calls[0]["customers"] == 500_000
     assert calls[0]["months"] == 120
 
 
@@ -72,7 +72,7 @@ def test_help_states_the_bounds() -> None:
     result = CliRunner().invoke(app, ["generate", "--help"], env={"COLUMNS": "200"})
 
     text = _text(result.output)
-    assert "1000000" in text or "1,000,000" in text
+    assert "500000" in text or "500,000" in text
     assert "120" in text
 
 

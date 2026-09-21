@@ -63,8 +63,14 @@ def _use_utf8_output() -> None:
 
 _use_utf8_output()
 
-MAX_CUSTOMERS = 1_000_000
+# Generation holds the whole dataset in memory: roughly 1 GB per 200k customers
+# over a 12-month window, and about 45 s per 200k on a normal laptop. The bound
+# is the largest run that finishes comfortably; split larger corpora across seeds.
+MAX_CUSTOMERS = 500_000
 MAX_MONTHS = 120
+# Local-time sampling converts each day through its market time zone, which is only
+# meaningful for modern dates; earlier years also overflow the conversion.
+MIN_START_DATE = date(1970, 1, 1)
 # Returns are dated up to 30 days after their order, so dates up to this many
 # days past the generation window must still be representable.
 RETURN_WINDOW_DAYS = 30
@@ -188,8 +194,14 @@ def generate(
 
 
 def _check_window(start: date, months: int) -> None:
-    """Reject windows whose dates (including later returns) pass 9999-12-31."""
+    """Reject windows whose dates (including later returns) leave the supported range."""
 
+    if start < MIN_START_DATE:
+        raise ValueError(
+            f"--start-date {start.isoformat()} is before {MIN_START_DATE.isoformat()}, the "
+            "earliest supported date (time-zone rules and UTC conversion are not defined "
+            "before it); use a later --start-date"
+        )
     month_index = start.month - 1 + months
     end_year = start.year + month_index // 12
     end = None

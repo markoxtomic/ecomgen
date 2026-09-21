@@ -57,7 +57,7 @@ ecomgen generate [OPTIONS]
 
 --preset TEXT           Bundled preset name. Default: garden-decor
 --markets TEXT          Comma-separated market codes. Default: de,at,fr
---customers INTEGER     Number of customers, 0 to 1,000,000. Default: 5000
+--customers INTEGER     Number of customers, 0 to 500,000. Default: 5000
 --months INTEGER        Number of months, 1 to 120. Default: 12
 --start-date DATE       Start of the generation window. Default: 2024-01-01
 --seed INTEGER          Random seed; a non-negative integer. Default: 42
@@ -67,6 +67,11 @@ ecomgen generate [OPTIONS]
 --shopify-export        Also write products_shopify.csv. Default: disabled
 --help                  Show command help.
 ```
+
+Generation holds the whole dataset in memory. Expect roughly 45 s and 1 GB per
+200,000 customers over a 12-month window (about 2 s and 100 MB for the 5,000-customer
+default), scaling linearly; `--customers` is capped at 500,000 so a run finishes on a
+normal laptop. `--start-date` must be 1970-01-01 or later.
 
 The fixed `2024-01-01` default is intentional: omitting `--start-date` does not make
 the generated period depend on the day the command is run.
