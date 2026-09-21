@@ -111,11 +111,16 @@ def _paid_spend_and_intensity(
     cac_range: tuple[Decimal, Decimal],
     day_factors: np.ndarray,
     rng: np.random.Generator,
+    cac_multiplier: float = 1.0,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Return daily EUR spend and the relative acquisitions it buys."""
+    """Return daily EUR spend and the relative acquisitions it buys.
+
+    ``cac_multiplier`` is the market's acquisition-cost level, so the same channel
+    is cheaper in some markets than in others.
+    """
 
     low, high = (float(value) for value in cac_range)
-    base_cac = float(rng.uniform(low, high)) if high > low else low
+    base_cac = (float(rng.uniform(low, high)) if high > low else low) * cac_multiplier
     spend_noise = rng.lognormal(0.0, _SPEND_NOISE_SIGMA, size=len(day_factors))
     cac_noise = rng.lognormal(0.0, _CAC_NOISE_SIGMA, size=len(day_factors))
     budget = expected_customers * base_cac
@@ -193,6 +198,7 @@ def generate_marketing(
                     config.channel_mix[channel].cac_range,
                     day_factors,
                     rng,
+                    float(market.cac_multiplier),
                 )
             else:
                 spend = np.zeros(len(days))

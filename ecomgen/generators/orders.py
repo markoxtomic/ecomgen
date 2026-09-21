@@ -534,7 +534,12 @@ def generate_orders(
             pool.start_day(sampler.lower, sampler.upper)
             catalog = catalogs[market.code]
             for _ in range(_daily_order_count(config, market, day, base_demand, rng)):
-                choice = _choose_customer(pool, config, repeat_attempt_probability, rng)
+                choice = _choose_customer(
+                    pool,
+                    config,
+                    min(1.0, repeat_attempt_probability * float(market.repeat_multiplier)),
+                    rng,
+                )
                 if choice is None:
                     continue
                 candidate_index, position, is_repeat = choice

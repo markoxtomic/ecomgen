@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from datetime import datetime, timedelta
 from decimal import Decimal
 
 import numpy as np
 
 from ecomgen.accounting import item_paid_values
-from ecomgen.config.models import PresetConfig
+from ecomgen.config.models import MarketConfig, PresetConfig
 from ecomgen.schemas import Order, OrderItem, Product, Return, Variant
 
 RETURN_DELAY_MIN_DAYS = 3
@@ -40,6 +40,7 @@ def generate_returns(
     rng: np.random.Generator,
     *,
     return_cutoff: datetime | None = None,
+    markets: Mapping[str, MarketConfig] | None = None,
 ) -> list[Return]:
     """Sample at most one return per item using its product category settings.
 
@@ -96,10 +97,12 @@ def generate_returns(
         variant = variant_by_id[item.variant_id]
         product = product_by_id[variant.product_id]
         category = config.categories[product.category]
-        if rng.random() >= float(category.return_rate):
+        order = order_by_id[item.order_id]
+        market = markets.get(order.market) if markets else None
+        multiplier = float(market.return_rate_multiplier) if market else 1.0
+        if rng.random() >= min(1.0, float(category.return_rate) * multiplier):
             continue
 
-        order = order_by_id[item.order_id]
         max_delay_days = RETURN_DELAY_MAX_DAYS
         if return_cutoff is not None:
             try:

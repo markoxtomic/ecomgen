@@ -166,6 +166,7 @@ def generate_dataset(
         order_result.order_items,
         rng,
         return_cutoff=return_cutoff,
+        markets=selected_markets,
     )
 
     if progress is not None:

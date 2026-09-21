@@ -40,6 +40,11 @@ class MarketConfig(ConfigModel):
     demand_weight: Decimal = Field(gt=0)
     timezone: str
     order_hour_weights: tuple[Decimal, ...] = Field(min_length=24, max_length=24)
+    # Behaviour differences between markets. 1 means "same as the reference market";
+    # without them every market behaved identically apart from its size.
+    cac_multiplier: Decimal = Field(default=Decimal(1), gt=0, le=5)
+    return_rate_multiplier: Decimal = Field(default=Decimal(1), gt=0, le=5)
+    repeat_multiplier: Decimal = Field(default=Decimal(1), gt=0, le=5)
 
     @field_validator("timezone")
     @classmethod

@@ -186,6 +186,10 @@ foreign keys and confirms that the item belongs to the referenced order.
   `example.test` domain. Customer and order hours are sampled from each market's
   configured local-time profile, including daylight-saving transitions, then
   serialized as UTC timestamps (`Z` in CSV).
+- **Market differences:** besides size (`demand_weight`), each market carries a
+  `cac_multiplier`, a `return_rate_multiplier` and a `repeat_multiplier`, so
+  acquisition cost, return behaviour and loyalty genuinely differ between markets
+  instead of varying only by noise. `de` is the reference at 1.0.
 - **Demand:** daily order counts combine market demand weights, the preset's 12
   monthly seasonality multipliers, weekday multipliers, date-range spikes, bounded
   noise, and Poisson sampling.
