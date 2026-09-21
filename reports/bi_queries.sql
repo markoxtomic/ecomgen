@@ -171,15 +171,15 @@ GROUP BY ALL
 ORDER BY item_return_rate DESC;
 
 -- name: q8_contribution_margin_by_market
--- Product cost is exported only as EUR. Contribution is therefore NULL for CHF/GBP
--- markets rather than silently mixing cost_eur with local-currency revenue and spend.
+-- Everything is converted to EUR through the exported fx_rate_from_eur, so CHF and
+-- GBP markets get a real contribution figure instead of NULL (report m7).
 WITH sales AS (
     SELECT
         market,
         currency,
         sum(total) AS gross_sales,
         sum(tax) AS included_vat,
-        sum(total - tax) AS net_sales_ex_vat
+        sum((total - tax) / fx_rate_from_eur) AS net_sales_eur
     FROM orders
     GROUP BY ALL
 ),
@@ -191,43 +191,39 @@ costs AS (
     JOIN products p ON p.id = v.product_id
     GROUP BY ALL
 ),
-refunds_net AS (
+refunds AS (
     SELECT
         o.market,
-        sum(r.refund_amount) AS gross_refunds,
-        sum(r.refund_amount * (1 - o.tax / nullif(o.total, 0))) AS refunds_ex_vat
+        sum(r.refund_amount * (1 - o.tax / nullif(o.total, 0)) / o.fx_rate_from_eur)
+            AS refunds_eur
     FROM returns r
     JOIN orders o ON o.id = r.order_id
     GROUP BY ALL
 ),
 marketing AS (
-    SELECT market, currency, sum(spend) AS spend
+    SELECT market, sum(spend / fx_rate_from_eur) AS spend_eur
     FROM marketing_spend
     GROUP BY ALL
 )
 SELECT
     s.market,
     s.currency,
-    round(s.gross_sales, 2) AS gross_sales_vat_inclusive,
-    round(s.included_vat, 2) AS included_vat,
-    round(s.net_sales_ex_vat, 2) AS net_sales_ex_vat,
-    round(coalesce(r.refunds_ex_vat, 0), 2) AS refunds_ex_vat,
+    round(s.gross_sales, 2) AS gross_sales_local_vat_inclusive,
+    round(s.net_sales_eur, 2) AS net_sales_eur,
+    round(coalesce(r.refunds_eur, 0), 2) AS refunds_eur,
     round(c.cogs_eur, 2) AS cogs_eur,
-    round(m.spend, 2) AS marketing_spend_local,
-    CASE WHEN s.currency = 'EUR' THEN round(
-        s.net_sales_ex_vat - coalesce(r.refunds_ex_vat, 0) - c.cogs_eur - m.spend,
-        2
-    ) END AS contribution_eur,
-    CASE WHEN s.currency = 'EUR' THEN round(
-        (
-            s.net_sales_ex_vat - coalesce(r.refunds_ex_vat, 0) - c.cogs_eur - m.spend
-        ) / nullif(s.net_sales_ex_vat, 0),
+    round(m.spend_eur, 2) AS marketing_spend_eur,
+    round(s.net_sales_eur - coalesce(r.refunds_eur, 0) - c.cogs_eur - m.spend_eur, 2)
+        AS contribution_eur,
+    round(
+        (s.net_sales_eur - coalesce(r.refunds_eur, 0) - c.cogs_eur - m.spend_eur)
+        / nullif(s.net_sales_eur, 0),
         3
-    ) END AS contribution_pct
+    ) AS contribution_pct
 FROM sales s
 JOIN costs c USING (market)
-JOIN marketing m USING (market, currency)
-LEFT JOIN refunds_net r USING (market)
+JOIN marketing m USING (market)
+LEFT JOIN refunds r USING (market)
 ORDER BY s.market;
 
 -- name: q9_roas_cac_by_channel

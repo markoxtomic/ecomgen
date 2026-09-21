@@ -1,322 +1,298 @@
 [
   {
     "id": "ret-000000001",
-    "order_id": "ord-000000005",
-    "order_item_id": "item-000000005-01",
-    "reason": "changed_mind",
-    "refund_amount": "26.90",
-    "created_at": "2024-01-24T20:52:15.282261Z"
+    "order_id": "ord-000000008",
+    "order_item_id": "item-000000008-01",
+    "reason": "damaged",
+    "refund_amount": "133.00",
+    "created_at": "2024-02-11T17:46:40.455240Z"
   },
   {
     "id": "ret-000000002",
-    "order_id": "ord-000000006",
-    "order_item_id": "item-000000006-01",
-    "reason": "defective",
-    "refund_amount": "179.00",
-    "created_at": "2024-01-31T16:46:40.455240Z"
+    "order_id": "ord-000000019",
+    "order_item_id": "item-000000019-02",
+    "reason": "not_as_expected",
+    "refund_amount": "64.33",
+    "created_at": "2024-02-19T16:20:08.607536Z"
   },
   {
     "id": "ret-000000003",
-    "order_id": "ord-000000010",
-    "order_item_id": "item-000000010-01",
-    "reason": "changed_mind",
-    "refund_amount": "28.90",
-    "created_at": "2024-02-09T16:27:31.483154Z"
+    "order_id": "ord-000000052",
+    "order_item_id": "item-000000052-01",
+    "reason": "not_as_expected",
+    "refund_amount": "73.90",
+    "created_at": "2024-03-28T11:00:38.813919Z"
   },
   {
     "id": "ret-000000004",
-    "order_id": "ord-000000015",
-    "order_item_id": "item-000000015-01",
-    "reason": "damaged",
-    "refund_amount": "119.00",
-    "created_at": "2024-03-04T11:54:20.532404Z"
+    "order_id": "ord-000000060",
+    "order_item_id": "item-000000060-02",
+    "reason": "not_as_expected",
+    "refund_amount": "19.90",
+    "created_at": "2024-04-01T18:58:31.181027Z"
   },
   {
     "id": "ret-000000005",
-    "order_id": "ord-000000024",
-    "order_item_id": "item-000000024-02",
-    "reason": "damaged",
-    "refund_amount": "65.90",
-    "created_at": "2024-03-04T17:56:26.884463Z"
+    "order_id": "ord-000000084",
+    "order_item_id": "item-000000084-01",
+    "reason": "not_as_expected",
+    "refund_amount": "209.00",
+    "created_at": "2024-04-20T13:59:31.996250Z"
   },
   {
     "id": "ret-000000006",
-    "order_id": "ord-000000037",
-    "order_item_id": "item-000000037-01",
-    "reason": "damaged",
-    "refund_amount": "119.00",
-    "created_at": "2024-04-09T18:52:30.753603Z"
+    "order_id": "ord-000000088",
+    "order_item_id": "item-000000088-01",
+    "reason": "not_as_expected",
+    "refund_amount": "60.90",
+    "created_at": "2024-04-22T10:42:57.367350Z"
   },
   {
     "id": "ret-000000007",
-    "order_id": "ord-000000045",
-    "order_item_id": "item-000000045-02",
-    "reason": "damaged",
-    "refund_amount": "179.00",
-    "created_at": "2024-03-25T11:26:54.034567Z"
+    "order_id": "ord-000000094",
+    "order_item_id": "item-000000094-02",
+    "reason": "not_as_expected",
+    "refund_amount": "72.90",
+    "created_at": "2024-05-04T07:59:41.679166Z"
   },
   {
     "id": "ret-000000008",
-    "order_id": "ord-000000054",
-    "order_item_id": "item-000000054-01",
-    "reason": "damaged",
-    "refund_amount": "165.00",
-    "created_at": "2024-04-16T19:07:09.396466Z"
+    "order_id": "ord-000000125",
+    "order_item_id": "item-000000125-01",
+    "reason": "defective",
+    "refund_amount": "60.80",
+    "created_at": "2024-06-13T11:58:41.449372Z"
   },
   {
     "id": "ret-000000009",
-    "order_id": "ord-000000071",
-    "order_item_id": "item-000000071-02",
-    "reason": "not_as_expected",
-    "refund_amount": "26.90",
-    "created_at": "2024-04-19T17:51:27.398106Z"
+    "order_id": "ord-000000134",
+    "order_item_id": "item-000000134-01",
+    "reason": "damaged",
+    "refund_amount": "28.90",
+    "created_at": "2024-06-26T17:18:25.470544Z"
   },
   {
     "id": "ret-000000010",
-    "order_id": "ord-000000080",
-    "order_item_id": "item-000000080-02",
-    "reason": "defective",
-    "refund_amount": "179.00",
-    "created_at": "2024-04-17T09:59:28.496416Z"
+    "order_id": "ord-000000158",
+    "order_item_id": "item-000000158-02",
+    "reason": "changed_mind",
+    "refund_amount": "119.00",
+    "created_at": "2024-07-14T06:06:02.510225Z"
   },
   {
     "id": "ret-000000011",
-    "order_id": "ord-000000101",
-    "order_item_id": "item-000000101-02",
-    "reason": "not_as_expected",
-    "refund_amount": "26.90",
-    "created_at": "2024-05-09T14:30:57.651670Z"
+    "order_id": "ord-000000208",
+    "order_item_id": "item-000000208-01",
+    "reason": "damaged",
+    "refund_amount": "83.90",
+    "created_at": "2024-08-09T10:47:41.632739Z"
   },
   {
     "id": "ret-000000012",
-    "order_id": "ord-000000112",
-    "order_item_id": "item-000000112-01",
+    "order_id": "ord-000000222",
+    "order_item_id": "item-000000222-03",
     "reason": "damaged",
-    "refund_amount": "42.90",
-    "created_at": "2024-05-13T07:34:28.793961Z"
+    "refund_amount": "68.90",
+    "created_at": "2024-08-13T19:18:03.912037Z"
   },
   {
     "id": "ret-000000013",
-    "order_id": "ord-000000143",
-    "order_item_id": "item-000000143-03",
+    "order_id": "ord-000000227",
+    "order_item_id": "item-000000227-03",
     "reason": "too_large",
-    "refund_amount": "42.90",
-    "created_at": "2024-06-23T16:07:42.960956Z"
+    "refund_amount": "28.90",
+    "created_at": "2024-08-15T17:35:44.776250Z"
   },
   {
     "id": "ret-000000014",
-    "order_id": "ord-000000154",
-    "order_item_id": "item-000000154-03",
-    "reason": "not_as_expected",
+    "order_id": "ord-000000229",
+    "order_item_id": "item-000000229-01",
+    "reason": "damaged",
     "refund_amount": "26.90",
-    "created_at": "2024-07-01T16:58:09.251115Z"
+    "created_at": "2024-08-23T12:58:59.769584Z"
   },
   {
     "id": "ret-000000015",
-    "order_id": "ord-000000181",
-    "order_item_id": "item-000000181-04",
+    "order_id": "ord-000000237",
+    "order_item_id": "item-000000237-02",
     "reason": "not_as_expected",
-    "refund_amount": "62.90",
-    "created_at": "2024-07-14T17:31:14.891784Z"
+    "refund_amount": "165.00",
+    "created_at": "2024-08-29T20:49:46.901457Z"
   },
   {
     "id": "ret-000000016",
-    "order_id": "ord-000000182",
-    "order_item_id": "item-000000182-01",
+    "order_id": "ord-000000239",
+    "order_item_id": "item-000000239-01",
     "reason": "damaged",
-    "refund_amount": "68.90",
-    "created_at": "2024-07-15T08:36:12.405700Z"
+    "refund_amount": "23.81",
+    "created_at": "2024-09-10T18:53:59.510031Z"
   },
   {
     "id": "ret-000000017",
-    "order_id": "ord-000000228",
-    "order_item_id": "item-000000228-01",
-    "reason": "damaged",
-    "refund_amount": "83.90",
-    "created_at": "2024-08-14T16:23:58.219141Z"
+    "order_id": "ord-000000248",
+    "order_item_id": "item-000000248-03",
+    "reason": "defective",
+    "refund_amount": "114.83",
+    "created_at": "2024-09-22T14:30:19.871878Z"
   },
   {
     "id": "ret-000000018",
-    "order_id": "ord-000000242",
-    "order_item_id": "item-000000242-01",
+    "order_id": "ord-000000249",
+    "order_item_id": "item-000000249-01",
     "reason": "damaged",
-    "refund_amount": "28.90",
-    "created_at": "2024-09-03T18:19:13.955372Z"
+    "refund_amount": "288.00",
+    "created_at": "2024-09-02T19:26:06.742813Z"
   },
   {
     "id": "ret-000000019",
-    "order_id": "ord-000000246",
-    "order_item_id": "item-000000246-01",
+    "order_id": "ord-000000252",
+    "order_item_id": "item-000000252-02",
     "reason": "not_as_expected",
-    "refund_amount": "77.90",
-    "created_at": "2024-09-01T16:31:22.236786Z"
+    "refund_amount": "133.00",
+    "created_at": "2024-09-04T15:26:02.858532Z"
   },
   {
     "id": "ret-000000020",
-    "order_id": "ord-000000247",
-    "order_item_id": "item-000000247-01",
-    "reason": "damaged",
-    "refund_amount": "21.47",
-    "created_at": "2024-09-18T16:18:29.183627Z"
+    "order_id": "ord-000000253",
+    "order_item_id": "item-000000253-01",
+    "reason": "defective",
+    "refund_amount": "133.00",
+    "created_at": "2024-09-23T09:55:09.200882Z"
   },
   {
     "id": "ret-000000021",
-    "order_id": "ord-000000248",
-    "order_item_id": "item-000000248-01",
+    "order_id": "ord-000000258",
+    "order_item_id": "item-000000258-02",
     "reason": "damaged",
-    "refund_amount": "479.00",
-    "created_at": "2024-09-19T18:07:20.580812Z"
+    "refund_amount": "19.90",
+    "created_at": "2024-09-11T18:20:11.545632Z"
   },
   {
     "id": "ret-000000022",
-    "order_id": "ord-000000257",
-    "order_item_id": "item-000000257-01",
-    "reason": "damaged",
-    "refund_amount": "133.21",
-    "created_at": "2024-09-04T17:34:04.919306Z"
+    "order_id": "ord-000000263",
+    "order_item_id": "item-000000263-02",
+    "reason": "changed_mind",
+    "refund_amount": "77.90",
+    "created_at": "2024-10-01T07:27:58.258093Z"
   },
   {
     "id": "ret-000000023",
-    "order_id": "ord-000000257",
-    "order_item_id": "item-000000257-02",
-    "reason": "not_as_expected",
-    "refund_amount": "53.20",
-    "created_at": "2024-09-28T17:34:04.919306Z"
+    "order_id": "ord-000000265",
+    "order_item_id": "item-000000265-01",
+    "reason": "too_large",
+    "refund_amount": "257.00",
+    "created_at": "2024-10-05T16:38:27.384899Z"
   },
   {
     "id": "ret-000000024",
-    "order_id": "ord-000000263",
-    "order_item_id": "item-000000263-01",
+    "order_id": "ord-000000265",
+    "order_item_id": "item-000000265-02",
     "reason": "damaged",
-    "refund_amount": "136.63",
-    "created_at": "2024-09-13T16:09:45.733726Z"
+    "refund_amount": "83.90",
+    "created_at": "2024-09-14T16:38:27.384899Z"
   },
   {
     "id": "ret-000000025",
-    "order_id": "ord-000000264",
-    "order_item_id": "item-000000264-01",
-    "reason": "changed_mind",
-    "refund_amount": "479.00",
-    "created_at": "2024-09-21T15:40:30.219567Z"
+    "order_id": "ord-000000273",
+    "order_item_id": "item-000000273-01",
+    "reason": "defective",
+    "refund_amount": "179.00",
+    "created_at": "2024-09-27T09:11:16.524380Z"
   },
   {
     "id": "ret-000000026",
-    "order_id": "ord-000000279",
-    "order_item_id": "item-000000279-01",
+    "order_id": "ord-000000289",
+    "order_item_id": "item-000000289-01",
     "reason": "damaged",
-    "refund_amount": "370.70",
-    "created_at": "2024-09-23T14:46:20.781661Z"
+    "refund_amount": "151.00",
+    "created_at": "2024-11-03T17:41:45.302731Z"
   },
   {
     "id": "ret-000000027",
-    "order_id": "ord-000000284",
-    "order_item_id": "item-000000284-01",
-    "reason": "not_as_expected",
-    "refund_amount": "133.00",
-    "created_at": "2024-10-05T08:10:36.978378Z"
+    "order_id": "ord-000000294",
+    "order_item_id": "item-000000294-01",
+    "reason": "defective",
+    "refund_amount": "108.28",
+    "created_at": "2024-10-28T15:03:42.101171Z"
   },
   {
     "id": "ret-000000028",
-    "order_id": "ord-000000284",
-    "order_item_id": "item-000000284-02",
-    "reason": "changed_mind",
-    "refund_amount": "60.90",
-    "created_at": "2024-10-15T08:10:36.978378Z"
+    "order_id": "ord-000000297",
+    "order_item_id": "item-000000297-01",
+    "reason": "too_large",
+    "refund_amount": "288.00",
+    "created_at": "2024-11-08T21:39:04.005492Z"
   },
   {
     "id": "ret-000000029",
-    "order_id": "ord-000000285",
-    "order_item_id": "item-000000285-02",
+    "order_id": "ord-000000301",
+    "order_item_id": "item-000000301-01",
     "reason": "damaged",
-    "refund_amount": "28.90",
-    "created_at": "2024-09-24T08:10:28.846408Z"
+    "refund_amount": "188.04",
+    "created_at": "2024-11-11T16:16:47.972292Z"
   },
   {
     "id": "ret-000000030",
-    "order_id": "ord-000000293",
-    "order_item_id": "item-000000293-01",
-    "reason": "damaged",
-    "refund_amount": "257.00",
-    "created_at": "2024-10-13T11:17:19.417657Z"
+    "order_id": "ord-000000302",
+    "order_item_id": "item-000000302-01",
+    "reason": "changed_mind",
+    "refund_amount": "62.90",
+    "created_at": "2024-11-06T16:07:49.360611Z"
   },
   {
     "id": "ret-000000031",
-    "order_id": "ord-000000309",
-    "order_item_id": "item-000000309-01",
-    "reason": "damaged",
-    "refund_amount": "179.00",
-    "created_at": "2024-11-11T17:49:20.009466Z"
+    "order_id": "ord-000000320",
+    "order_item_id": "item-000000320-06",
+    "reason": "changed_mind",
+    "refund_amount": "23.87",
+    "created_at": "2024-12-03T20:13:13.161769Z"
   },
   {
     "id": "ret-000000032",
-    "order_id": "ord-000000312",
-    "order_item_id": "item-000000312-01",
-    "reason": "damaged",
-    "refund_amount": "66.43",
-    "created_at": "2024-11-17T08:32:40.928781Z"
+    "order_id": "ord-000000335",
+    "order_item_id": "item-000000335-02",
+    "reason": "not_as_expected",
+    "refund_amount": "77.90",
+    "created_at": "2024-12-13T11:03:57.635406Z"
   },
   {
     "id": "ret-000000033",
-    "order_id": "ord-000000316",
-    "order_item_id": "item-000000316-01",
-    "reason": "not_as_expected",
-    "refund_amount": "60.90",
-    "created_at": "2024-11-05T14:37:17.188337Z"
+    "order_id": "ord-000000340",
+    "order_item_id": "item-000000340-02",
+    "reason": "too_large",
+    "refund_amount": "42.90",
+    "created_at": "2024-12-05T17:47:17.984406Z"
   },
   {
     "id": "ret-000000034",
-    "order_id": "ord-000000319",
-    "order_item_id": "item-000000319-01",
-    "reason": "not_as_expected",
-    "refund_amount": "68.90",
-    "created_at": "2024-11-17T16:55:20.795621Z"
+    "order_id": "ord-000000350",
+    "order_item_id": "item-000000350-01",
+    "reason": "damaged",
+    "refund_amount": "19.90",
+    "created_at": "2024-12-14T20:32:00.359662Z"
   },
   {
     "id": "ret-000000035",
-    "order_id": "ord-000000322",
-    "order_item_id": "item-000000322-01",
-    "reason": "damaged",
+    "order_id": "ord-000000352",
+    "order_item_id": "item-000000352-01",
+    "reason": "not_as_expected",
     "refund_amount": "77.90",
-    "created_at": "2024-11-21T17:35:57.859058Z"
+    "created_at": "2024-12-24T19:18:24.895297Z"
   },
   {
     "id": "ret-000000036",
-    "order_id": "ord-000000323",
-    "order_item_id": "item-000000323-03",
+    "order_id": "ord-000000367",
+    "order_item_id": "item-000000367-03",
     "reason": "changed_mind",
-    "refund_amount": "26.90",
-    "created_at": "2024-11-17T19:05:40.868513Z"
+    "refund_amount": "19.90",
+    "created_at": "2025-01-13T18:19:04.491861Z"
   },
   {
     "id": "ret-000000037",
-    "order_id": "ord-000000344",
-    "order_item_id": "item-000000344-01",
-    "reason": "changed_mind",
-    "refund_amount": "179.00",
-    "created_at": "2024-12-18T20:27:45.627236Z"
-  },
-  {
-    "id": "ret-000000038",
-    "order_id": "ord-000000358",
-    "order_item_id": "item-000000358-01",
-    "reason": "not_as_expected",
-    "refund_amount": "257.00",
-    "created_at": "2025-01-02T12:24:49.555993Z"
-  },
-  {
-    "id": "ret-000000039",
-    "order_id": "ord-000000362",
-    "order_item_id": "item-000000362-01",
-    "reason": "too_large",
-    "refund_amount": "28.90",
-    "created_at": "2024-12-23T16:29:43.488104Z"
-  },
-  {
-    "id": "ret-000000040",
-    "order_id": "ord-000000371",
-    "order_item_id": "item-000000371-01",
+    "order_id": "ord-000000378",
+    "order_item_id": "item-000000378-03",
     "reason": "damaged",
-    "refund_amount": "19.90",
-    "created_at": "2025-01-03T13:44:21.810730Z"
+    "refund_amount": "73.90",
+    "created_at": "2025-01-06T20:21:47.070542Z"
   }
 ]

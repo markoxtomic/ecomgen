@@ -18,63 +18,63 @@
   "files": {
     "customers.csv": {
       "rows": 500,
-      "sha256": "51e74915414eed0c4334483fe9fc87877e38a133b2bb401f0fa1d1b3bc359250"
+      "sha256": "c7f6203b4169fd4e56a5ec5a40f6d4ce68212a02a9d4d662b23618884a2e7daa"
     },
     "customers.json": {
       "rows": 500,
-      "sha256": "2226d336eea3648b8eef47e028d711f59304616e39ed6de6fde8dfefa390e06a"
+      "sha256": "8da743b7190251c4f2deacb83f71ddb909e3c874f3455a904063c24f6e07f544"
     },
     "marketing_spend.csv": {
       "rows": 5490,
-      "sha256": "5bf48809f9e6ad9fea252bbf9fcb93f740556cbb13f6cd4e8a8c0af006cde724"
+      "sha256": "8bffde6dc83952c50cb457e79f2dc261690870eab80d1c9ac66de89579f06b35"
     },
     "marketing_spend.json": {
       "rows": 5490,
-      "sha256": "a51181451ea805a556ce7db36b38d56063fcd709e9e71748c948192972945b9c"
+      "sha256": "43bc09ef00664034dedcba30cd841c052ede118ba5bb5674fba80bd46f5b251d"
     },
     "order_items.csv": {
-      "rows": 623,
-      "sha256": "5a39407271a5e91288679ba26c430d4b93e09cbb033c3c83ff1dc3af12e68205"
+      "rows": 632,
+      "sha256": "b5d43fe20bef83382f886e280af73e4661e99a696c734c18bc26a7bcea5c17ba"
     },
     "order_items.json": {
-      "rows": 623,
-      "sha256": "75a56a4dcff71d1a5e2559050aa9199581652b3be601c8f6fe6b4a5e4d6c42e7"
+      "rows": 632,
+      "sha256": "20597ce4e32961692216bd550c30cbf3bb21addae6ae021e46d0abd889d551d1"
     },
     "orders.csv": {
-      "rows": 373,
-      "sha256": "fe31297b49d4c0c6b6ad75ac3fe575c0e3fa3e72756d91dd9dd369b376d536b4"
+      "rows": 378,
+      "sha256": "8ff8772853dca5a334bdb1d4b70df1d02834b14174e4a7b4b502c416cccd95f2"
     },
     "orders.json": {
-      "rows": 373,
-      "sha256": "2c23f35120b0804f7942fed4fe7b61a2a35846d74f2492fe50ffc13f323d9934"
+      "rows": 378,
+      "sha256": "db834cd754767f6edb615ce948c5ff046701fa9138e1dc813ec9cb0647f0a698"
     },
     "products.csv": {
       "rows": 36,
-      "sha256": "6b9f9862675afb50c346e65c75b12426f2c6a2d79c67b29ea56c04827faa3d64"
+      "sha256": "0eb291140a214446fc5e6f542e1ca9fbca8e8f88ab511dfa8ededaa738b44884"
     },
     "products.json": {
       "rows": 36,
-      "sha256": "93a233c6b908ca000e2e57ba8e488599b02cf3e054e3ed6860b5cbc09a0bc436"
+      "sha256": "f41b6b4f46221bc2e79f909b51cdba86df6a3ddb4b8065c7674fb4185a0770b3"
     },
     "products_shopify.csv": {
       "rows": 102,
-      "sha256": "4e50dbd9c4c5c9ae15ee97e5690c27669ea2dce784b5e4b25938bd9fea7a831b"
+      "sha256": "20721f06ee893e4bd467dcf15bd6940060bf69588b7d815634af5d726aa92449"
     },
     "returns.csv": {
-      "rows": 40,
-      "sha256": "79b839ee8215afc2ca657d80c08edbe0f13fe06b90bcb5d0d96972813cc8dec7"
+      "rows": 37,
+      "sha256": "3fe8f1abc08a6d3df9b36302e169838f851b53989f99305559549c7d94f4a528"
     },
     "returns.json": {
-      "rows": 40,
-      "sha256": "68ef92ea1545d58f299b67534116102d41e0d1e496ec815c56cf5b5b3ea61c86"
+      "rows": 37,
+      "sha256": "4291efb28833b65ca77dbb0b8f3d6f5f31cca176f7d79a740cd5b7a38700075b"
     },
     "variants.csv": {
       "rows": 102,
-      "sha256": "6c50d7b88c5131e4c46eb20ef8cb679bb0a218a19f372dc7c296db1ecbff11be"
+      "sha256": "bc8c7b0ab01c24dba7021e0f3902d41db7dcf467ccb5c00eeeae8a2c295ecd1d"
     },
     "variants.json": {
       "rows": 102,
-      "sha256": "b9c5eb4dcdfc17ffaae9e11c8251dc454855b442c2d1bab19195841bc63aa127"
+      "sha256": "ae14dd42da68317461347de5403990b5ff6b19d7ccf3fc1a2a7617aac394d366"
     }
   },
   "metadata": {
