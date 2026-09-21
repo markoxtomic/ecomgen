@@ -4,7 +4,7 @@ import sys
 import warnings
 from calendar import monthrange
 from collections import defaultdict
-from datetime import date
+from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
 from pathlib import Path
@@ -74,6 +74,8 @@ MIN_START_DATE = date(1970, 1, 1)
 # Returns are dated up to 30 days after their order, so dates up to this many
 # days past the generation window must still be representable.
 RETURN_WINDOW_DAYS = 30
+# Typer renders the default from this string; the option itself parses to a date.
+DEFAULT_START_DATE_TEXT = DEFAULT_START_DATE.isoformat()
 
 app = typer.Typer(
     help="Generate realistic synthetic e-commerce datasets.",
@@ -156,7 +158,14 @@ def generate(
             help=f"Length of the generation window in months, 1 to {MAX_MONTHS}.",
         ),
     ] = DEFAULT_MONTHS,
-    start_date: Annotated[str, typer.Option("--start-date")] = DEFAULT_START_DATE.isoformat(),
+    start_date: Annotated[
+        datetime,
+        typer.Option(
+            "--start-date",
+            formats=["%Y-%m-%d"],
+            help="First day of the generation window, as YYYY-MM-DD.",
+        ),
+    ] = DEFAULT_START_DATE_TEXT,  # type: ignore[assignment]
     seed: Annotated[
         int, typer.Option("--seed", min=0, help="Random seed; a non-negative integer.")
     ] = DEFAULT_SEED,
@@ -173,7 +182,7 @@ def generate(
             market_codes=market_codes,
             customers=customers,
             months=months,
-            start_date=start_date,
+            start_date=start_date.date(),
             seed=seed,
             out=out,
             format=format,
@@ -223,7 +232,7 @@ def _generate_and_export(
     market_codes: tuple[str, ...],
     customers: int,
     months: int,
-    start_date: str,
+    start_date: date,
     seed: int,
     out: Path,
     format: ExportFormat,
@@ -231,7 +240,7 @@ def _generate_and_export(
 ) -> tuple[Dataset, list[str]]:
     """Generate and export; return the dataset and any generation warnings."""
 
-    parsed_start_date = date.fromisoformat(start_date)
+    parsed_start_date = start_date
     _check_window(parsed_start_date, months)
     check_output_dir(out)
     # Rich switches the bar to ASCII itself on narrow encodings. Off a terminal

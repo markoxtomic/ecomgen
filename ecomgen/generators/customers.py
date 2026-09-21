@@ -119,13 +119,14 @@ def _acquired_customers(
         planned.sort()
         for market_number, (created_at, channel) in enumerate(planned, start=1):
             customer_id = f"cust-{market_code}-{market_number:06d}"
+            first_name, last_name = faker.first_name(), faker.last_name()
             customers.append(
                 Customer(
                     id=customer_id,
                     market=market_code,
-                    email=_email(faker, customer_id),
-                    first_name=faker.first_name(),
-                    last_name=faker.last_name(),
+                    email=_email(first_name, last_name, customer_id),
+                    first_name=first_name,
+                    last_name=last_name,
                     city=faker.city(),
                     created_at=created_at,
                     acquisition_channel=channel,
@@ -134,9 +135,11 @@ def _acquired_customers(
     return customers
 
 
-def _email(faker: Faker, customer_id: str) -> str:
-    local_part = faker.user_name().encode("ascii", "ignore").decode().casefold()
-    local_part = _NON_EMAIL_COMPONENT.sub(".", local_part).strip(".") or "customer"
+def _email(first_name: str, last_name: str, customer_id: str) -> str:
+    """Build an address from the customer's own name, as a real sign-up would."""
+
+    name = f"{first_name}.{last_name}".encode("ascii", "ignore").decode().casefold()
+    local_part = _NON_EMAIL_COMPONENT.sub(".", name).strip(".") or "customer"
     return f"{local_part}.{customer_id}@example.test"
 
 
@@ -180,13 +183,14 @@ def generate_customers(
         for market_number in range(1, allocations[market_code] + 1):
             customer_id = f"cust-{market_code}-{market_number:06d}"
             sampler = samplers[int(rng.integers(len(samplers)))]
+            first_name, last_name = faker.first_name(), faker.last_name()
             customers.append(
                 Customer(
                     id=customer_id,
                     market=market_code,
-                    email=_email(faker, customer_id),
-                    first_name=faker.first_name(),
-                    last_name=faker.last_name(),
+                    email=_email(first_name, last_name, customer_id),
+                    first_name=first_name,
+                    last_name=last_name,
                     city=faker.city(),
                     created_at=sampler.sample(rng),
                     acquisition_channel=_channel(config, rng),
