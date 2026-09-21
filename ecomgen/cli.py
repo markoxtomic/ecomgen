@@ -308,10 +308,16 @@ def validate(
         console.print("[red]Validation failed:[/red]")
         for error in report.errors:
             console.print(f"  - {error}", highlight=False)
+        for warning in report.warnings:
+            console.print(f"[yellow]Warning:[/yellow] {warning}", highlight=False)
         raise typer.Exit(code=1)
 
     total = sum(report.row_counts.values())
     console.print(f"[green]Valid dataset[/green]: {total:,} rows across 7 tables")
+    # Plausibility concerns do not make a dataset invalid, so they never change the
+    # exit status; CI can gate on the status and still see them in the log.
+    for warning in report.warnings:
+        console.print(f"[yellow]Warning:[/yellow] {warning}", highlight=False)
 
 
 if __name__ == "__main__":

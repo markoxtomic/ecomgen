@@ -8,7 +8,7 @@ import json
 import re
 from collections import defaultdict
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import UTC, date, datetime, time
 from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
 from pathlib import Path
@@ -69,6 +69,17 @@ _REQUIRED_METADATA = frozenset(
 )
 _SAVE_CODE = re.compile(r"SAVE([1-9]\d?|100)")
 _PAID_CHANNELS = frozenset({"email", "google", "meta"})
+# A trailing month holding less than this share of the median active month is a dead
+# tail: the symptom of stock-outs silently suppressing demand.
+_TAIL_SHARE = Decimal("0.05")
+# Plausibility bands. Outside these a dataset is self-consistent but not realistic,
+# so they raise warnings, never errors.
+_REALISM_RANGES: dict[str, tuple[Decimal, Decimal]] = {
+    "repeat order share": (Decimal("0.02"), Decimal("0.60")),
+    "item return rate": (Decimal("0.005"), Decimal("0.50")),
+    "orders per buyer": (Decimal(1), Decimal(6)),
+    "discounted order share": (Decimal(0), Decimal("0.80")),
+}
 
 
 class DatasetLoadError(ValueError):
@@ -77,8 +88,16 @@ class DatasetLoadError(ValueError):
 
 @dataclass(frozen=True, slots=True)
 class ValidationReport:
+    """Validation outcome.
+
+    ``errors`` are integrity failures and make the dataset invalid. ``warnings``
+    are plausibility concerns: the data is self-consistent but sits outside the
+    range a real store would produce, so they never affect ``valid``.
+    """
+
     errors: list[str]
     row_counts: dict[str, int]
+    warnings: list[str] = field(default_factory=list)
 
     @property
     def valid(self) -> bool:
@@ -232,12 +251,12 @@ def _manifest_metadata_errors(manifest: Mapping[str, Any] | None) -> list[str]:
     ):
         errors.append(f"{MANIFEST_NAME}: metadata return_delay_days must be an ordered range")
     parsed_dates: dict[str, date] = {}
-    for field in ("order_window_start", "order_window_end", "return_cutoff"):
-        value = metadata.get(field)
+    for key in ("order_window_start", "order_window_end", "return_cutoff"):
+        value = metadata.get(key)
         try:
-            parsed_dates[field] = date.fromisoformat(value)
+            parsed_dates[key] = date.fromisoformat(value)
         except (TypeError, ValueError):
-            errors.append(f"{MANIFEST_NAME}: metadata {field} must be an ISO date")
+            errors.append(f"{MANIFEST_NAME}: metadata {key} must be an ISO date")
     if len(parsed_dates) == 3 and not (
         parsed_dates["order_window_start"]
         <= parsed_dates["order_window_end"]
@@ -527,7 +546,98 @@ def validate_dataset(
                 f"marketing {key}: new_customers {actual} does not reconcile "
                 f"to customer acquisitions {expected}"
             )
-    return ValidationReport(errors=errors, row_counts=rows)
+    errors.extend(_zero_order_tail_errors(dataset, manifest))
+    return ValidationReport(errors=errors, row_counts=rows, warnings=_realism_warnings(dataset))
+
+
+def _month_key(moment: datetime) -> tuple[int, int]:
+    utc = _as_utc(moment)
+    return utc.year, utc.month
+
+
+def _expected_months(dataset: Dataset, manifest: Mapping[str, Any] | None) -> list[tuple[int, int]]:
+    """Every month the dataset claims to cover, from the manifest when available."""
+
+    metadata = manifest.get("metadata") if isinstance(manifest, Mapping) else None
+    start = end = None
+    if isinstance(metadata, Mapping):
+        try:
+            start = date.fromisoformat(str(metadata["order_window_start"]))
+            end = date.fromisoformat(str(metadata["order_window_end"]))
+        except (KeyError, TypeError, ValueError):
+            start = end = None
+    if start is None or end is None:
+        moments = [_as_utc(order.created_at) for order in dataset.orders]
+        if not moments:
+            return []
+        start, end = min(moments).date(), max(moments).date()
+    months: list[tuple[int, int]] = []
+    year, month = start.year, start.month
+    while (year, month) <= (end.year, end.month):
+        months.append((year, month))
+        year, month = (year + 1, 1) if month == 12 else (year, month + 1)
+    # The window end is exclusive, so drop it unless it is the only month.
+    if len(months) > 1 and (end.day == 1 or (end.year, end.month) != months[-1]):
+        months.pop()
+    return months
+
+
+def _zero_order_tail_errors(dataset: Dataset, manifest: Mapping[str, Any] | None) -> list[str]:
+    """Reject datasets whose trailing months stop carrying orders (report C1)."""
+
+    if not dataset.orders:
+        return []
+    months = _expected_months(dataset, manifest)
+    if len(months) < 3:
+        return []
+    counts: defaultdict[tuple[int, int], int] = defaultdict(int)
+    for order in dataset.orders:
+        counts[_month_key(order.created_at)] += 1
+    active = sorted(count for count in counts.values() if count)
+    if not active:
+        return []
+    median = Decimal(active[len(active) // 2])
+    floor = median * _TAIL_SHARE
+    tail: list[tuple[int, int]] = []
+    for month in reversed(months):
+        if Decimal(counts.get(month, 0)) > floor:
+            break
+        tail.append(month)
+    if not tail or len(tail) == len(months):
+        return []
+    labels = ", ".join(f"{year:04d}-{month:02d}" for year, month in reversed(tail))
+    return [
+        (
+            f"orders: the last {len(tail)} of {len(months)} months have no orders "
+            f"(or under {_TAIL_SHARE:.0%} of the median month): {labels}; "
+            "generation stopped early, so the dataset misrepresents demand"
+        )
+    ]
+
+
+def _realism_warnings(dataset: Dataset) -> list[str]:
+    """Flag self-consistent datasets whose headline metrics are implausible."""
+
+    warnings: list[str] = []
+    orders = dataset.orders
+    if not orders:
+        return warnings
+    buyers: defaultdict[str, int] = defaultdict(int)
+    for order in orders:
+        buyers[order.customer_id] += 1
+    measured = {
+        "repeat order share": Decimal(sum(order.is_repeat for order in orders)) / len(orders),
+        "orders per buyer": Decimal(len(orders)) / len(buyers),
+        "discounted order share": Decimal(sum(order.discount > 0 for order in orders))
+        / len(orders),
+    }
+    if dataset.order_items:
+        measured["item return rate"] = Decimal(len(dataset.returns)) / len(dataset.order_items)
+    for name, value in measured.items():
+        low, high = _REALISM_RANGES[name]
+        if not low <= value <= high:
+            warnings.append(f"{name} {value:.3f} is outside the plausible range [{low}, {high}]")
+    return warnings
 
 
 def _representation_table(error: str) -> str | None:
@@ -595,6 +705,7 @@ def validate_path(
     source = Path(path)
     directory = source.parent if source.is_file() else source
     errors: list[str] = []
+    warnings: list[str] = []
     row_counts: dict[str, int] = {}
     manifest_path = directory / MANIFEST_NAME
     manifest = read_manifest(directory)
@@ -624,6 +735,7 @@ def validate_path(
         report = validate_dataset(dataset, markets=markets, manifest=manifest)
         if not row_counts:
             row_counts = report.row_counts
+            warnings.extend(report.warnings)
         errors.extend(_format_errors(format_name, report.errors))
 
     if not datasets:
@@ -634,4 +746,4 @@ def validate_path(
         errors.append("CSV and JSON dataset representations differ semantically")
 
     errors.extend(_optional_shopify_errors(directory))
-    return ValidationReport(errors=errors, row_counts=row_counts)
+    return ValidationReport(errors=errors, row_counts=row_counts, warnings=warnings)
