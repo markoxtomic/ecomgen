@@ -1,0 +1,45 @@
+name: Feature request
+description: A new preset, market, export format, or generator behaviour
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: |
+        Describe the downstream use, not just the feature. "My cohort dashboard needs
+        two years of history" tells us more than "add a --years flag".
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - New preset (vertical)
+        - New market
+        - Export format
+        - Generator realism
+        - Validation
+        - CLI
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: shape
+    attributes:
+      label: What would the output look like?
+      description: |
+        New or changed columns, new tables, or a CLI sketch. Note whether existing
+        columns would change meaning, since that breaks pinned-seed fixtures.
+    validations:
+      required: false
+  - type: checkboxes
+    id: awareness
+    attributes:
+      label: Compatibility
+      options:
+        - label: This would change the bytes a fixed seed produces.
+          required: false
+        - label: This would change an existing column's meaning or the accounting contract.
+          required: false

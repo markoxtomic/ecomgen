@@ -1,0 +1,67 @@
+name: Incorrect or implausible data
+description: A generated dataset validates, but a value or distribution is wrong
+labels: ["data-correctness"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when `ecomgen` produced a dataset that is *wrong* rather than broken:
+        totals that do not reconcile, relationships that do not hold, or a metric no
+        real store would produce. Silently wrong data is the most serious kind of bug
+        here, so thank you for reporting it.
+  - type: input
+    id: command
+    attributes:
+      label: Exact command
+      description: Include every option, especially `--seed`, so the dataset can be reproduced.
+      placeholder: ecomgen generate --preset fashion --markets de,uk --customers 5000 --months 12 --seed 42 --out ./out
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: ecomgen version
+      description: "`python -c \"import ecomgen; print(ecomgen.__version__)\"`, or the commit SHA."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and what you got
+      description: |
+        Name the table and column, and give the concrete values. Row ids help a lot.
+      placeholder: |
+        orders.csv, order ord-000001234: subtotal 129.80 - discount 12.98 + shipping 4.90
+        is 121.72, but total says 134.70.
+    validations:
+      required: true
+  - type: textarea
+    id: validate
+    attributes:
+      label: Output of `ecomgen validate --path <your export>`
+      description: Paste it as-is, including any warnings. Note if it reports the dataset valid.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: manifest
+    attributes:
+      label: manifest.json
+      description: The manifest records the arguments and digests of the run, which pins it exactly.
+      render: json
+    validations:
+      required: false
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options: ["Linux", "macOS", "Windows", "Other"]
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: "3.11.16"
+    validations:
+      required: true

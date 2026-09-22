@@ -549,7 +549,15 @@ Run the test suite and linter:
 ```bash
 python -m pytest
 python -m ruff check .
+python -m ruff format --check .
 ```
+
+CI runs those on Ubuntu and Windows against Python 3.11 and 3.14.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request: it lists the
+invariants a change has to preserve (determinism, the gross VAT-inclusive accounting
+contract, manifest digests, atomic export) and what to do when a change alters the
+output of a fixed seed.
 
 ## Roadmap
 

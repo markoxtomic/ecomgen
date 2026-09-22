@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Contributing guide
+    url: https://github.com/markoxtomic/ecomgen/blob/main/CONTRIBUTING.md
+    about: Setup, the invariants a change must preserve, and how to run the checks.
+  - name: Data model and semantics
+    url: https://github.com/markoxtomic/ecomgen/blob/main/README.md#data-model
+    about: Column reference, the gross VAT-inclusive accounting contract, and the manifest.
