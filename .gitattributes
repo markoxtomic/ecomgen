@@ -1,0 +1,8 @@
+# Normal text handling for source, docs and configuration.
+* text=auto
+
+# Generated dataset files are byte-exact artifacts described by manifest.json, so git
+# must store and check them out verbatim. Any line-ending translation changes their
+# SHA-256 digests and makes `ecomgen validate` fail on a fresh clone. This rule comes
+# last on purpose: for gitattributes the last matching pattern wins.
+examples/sample_output/** -text

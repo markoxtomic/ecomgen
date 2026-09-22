@@ -19,7 +19,10 @@ def export_json(dataset: Dataset, output_dir: str | Path) -> list[Path]:
     for table_name, records in dataset.tables().items():
         path = destination / f"{table_name}.json"
         rows = [record_values(record) for record in records]
-        with path.open("w", encoding="utf-8") as handle:
+        # newline="\n" keeps the bytes identical on every platform: in text mode
+        # Windows would translate to CRLF, so the same seed produced different
+        # digests per OS and broke manifest verification after a clone.
+        with path.open("w", encoding="utf-8", newline="\n") as handle:
             handle.write(json.dumps(rows, ensure_ascii=False, indent=2))
             sync_file(handle)
         paths.append(path)

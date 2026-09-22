@@ -34,3 +34,7 @@ jobs:
       - name: Smoke validate
         working-directory: ${{ runner.temp }}
         run: ecomgen validate --path ecomgen-smoke
+      # Validates the export committed to the repository, exactly as a fresh clone
+      # receives it. Catches line-ending translation that would break its digests.
+      - name: Validate the committed sample export
+        run: ecomgen validate --path examples/sample_output

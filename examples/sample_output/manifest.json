@@ -1,6 +1,6 @@
 {
   "generator": "ecomgen",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "arguments": {
     "preset": "garden-decor",
     "markets": [
@@ -22,7 +22,7 @@
     },
     "customers.json": {
       "rows": 500,
-      "sha256": "8da743b7190251c4f2deacb83f71ddb909e3c874f3455a904063c24f6e07f544"
+      "sha256": "a74f217703a8feb1c7da8b9e0d980312ca2d57ae3348158bb07b1157e43b08d7"
     },
     "marketing_spend.csv": {
       "rows": 5490,
@@ -30,7 +30,7 @@
     },
     "marketing_spend.json": {
       "rows": 5490,
-      "sha256": "43bc09ef00664034dedcba30cd841c052ede118ba5bb5674fba80bd46f5b251d"
+      "sha256": "ab9c897dfcb56c30923e94ae6f0ca23ea8ca518c8c395b532c2a9d6fa16e0c0b"
     },
     "order_items.csv": {
       "rows": 632,
@@ -38,7 +38,7 @@
     },
     "order_items.json": {
       "rows": 632,
-      "sha256": "20597ce4e32961692216bd550c30cbf3bb21addae6ae021e46d0abd889d551d1"
+      "sha256": "71dd313983cfa37c0cd58019c1a9f59f43c8d89d1dd291708be79e890fdbe942"
     },
     "orders.csv": {
       "rows": 378,
@@ -46,7 +46,7 @@
     },
     "orders.json": {
       "rows": 378,
-      "sha256": "db834cd754767f6edb615ce948c5ff046701fa9138e1dc813ec9cb0647f0a698"
+      "sha256": "181ee89e720dc760f87b0d5d14f62eaabb97b4e4316bb929f55edf15048d3e1e"
     },
     "products.csv": {
       "rows": 36,
@@ -54,7 +54,7 @@
     },
     "products.json": {
       "rows": 36,
-      "sha256": "f41b6b4f46221bc2e79f909b51cdba86df6a3ddb4b8065c7674fb4185a0770b3"
+      "sha256": "a125a53b2db71d105a64117ffb162455beafde4263fb3157df268f706fa4782a"
     },
     "products_shopify.csv": {
       "rows": 102,
@@ -66,7 +66,7 @@
     },
     "returns.json": {
       "rows": 37,
-      "sha256": "4291efb28833b65ca77dbb0b8f3d6f5f31cca176f7d79a740cd5b7a38700075b"
+      "sha256": "ca10c63bc519bb751d249ee3676dbc8e79869d677a2cb0a2dde071d34b1099e9"
     },
     "variants.csv": {
       "rows": 102,
@@ -74,7 +74,7 @@
     },
     "variants.json": {
       "rows": 102,
-      "sha256": "ae14dd42da68317461347de5403990b5ff6b19d7ccf3fc1a2a7617aac394d366"
+      "sha256": "0b9fa79bd89a3424dc4ddab250e618efdc6d5aa9b1a4df298654595c841424e2"
     }
   },
   "metadata": {
