@@ -3,6 +3,7 @@
 from datetime import date
 
 import pytest
+from conftest import PLAIN_CONSOLE, plain
 from typer.testing import CliRunner
 
 from ecomgen import cli
@@ -14,14 +15,10 @@ DATASET = generate_dataset(
 )
 
 
-def _text(output: str) -> str:
-    """Collapse Rich panel borders and line wrapping into plain text."""
-
-    return " ".join(output.replace("│", " ").replace("|", " ").split())
-
-
 def _invoke(tmp_path, *args: str):
-    return CliRunner().invoke(app, ["generate", "--out", str(tmp_path / "out"), *args])
+    return CliRunner(env=PLAIN_CONSOLE).invoke(
+        app, ["generate", "--out", str(tmp_path / "out"), *args]
+    )
 
 
 @pytest.fixture
@@ -46,7 +43,7 @@ def test_values_above_the_upper_bound_are_rejected(tmp_path, calls, option, valu
     result = _invoke(tmp_path, option, value)
 
     assert result.exit_code == 2
-    text = _text(result.output)
+    text = plain(result.output)
     assert option in text
     assert value in text
     assert calls == []
@@ -64,14 +61,14 @@ def test_negative_seed_error_names_the_option(tmp_path, calls) -> None:
     result = _invoke(tmp_path, "--seed", "-1")
 
     assert result.exit_code == 2
-    assert "--seed" in _text(result.output)
+    assert "--seed" in plain(result.output)
     assert calls == []
 
 
 def test_help_states_the_bounds() -> None:
-    result = CliRunner().invoke(app, ["generate", "--help"], env={"COLUMNS": "200"})
+    result = CliRunner().invoke(app, ["generate", "--help"], env=PLAIN_CONSOLE)
 
-    text = _text(result.output)
+    text = plain(result.output)
     assert "500000" in text or "500,000" in text
     assert "120" in text
 
@@ -83,7 +80,7 @@ def test_window_past_year_9999_names_start_date_and_months(tmp_path, start, mont
     result = _invoke(tmp_path, "--start-date", start, "--months", months)
 
     assert result.exit_code == 1
-    text = _text(result.output)
+    text = plain(result.output)
     assert "--start-date" in text
     assert "--months" in text
     assert "year must be in" not in text

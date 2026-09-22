@@ -3,6 +3,7 @@
 import warnings
 from datetime import date
 
+from conftest import PLAIN_CONSOLE, plain
 from typer.testing import CliRunner
 
 from ecomgen import cli
@@ -21,7 +22,7 @@ MESSAGES = (
 
 def _invoke(tmp_path, monkeypatch, fake):
     monkeypatch.setattr(cli, "generate_dataset", fake)
-    return CliRunner().invoke(app, ["generate", "--out", str(tmp_path / "out")])
+    return CliRunner(env=PLAIN_CONSOLE).invoke(app, ["generate", "--out", str(tmp_path / "out")])
 
 
 def test_generation_warnings_are_printed_after_the_summary(tmp_path, monkeypatch) -> None:
@@ -34,7 +35,7 @@ def test_generation_warnings_are_printed_after_the_summary(tmp_path, monkeypatch
     result = _invoke(tmp_path, monkeypatch, fake)
 
     assert result.exit_code == 0, result.output
-    lines = [" ".join(line.split()) for line in result.output.splitlines()]
+    lines = [plain(line) for line in result.output.splitlines()]
     warning_lines = [line for line in lines if line.startswith("Warning:")]
     assert warning_lines == [f"Warning: {message}" for message in (*MESSAGES, MESSAGES[0])]
     summary_end = max(index for index, line in enumerate(lines) if "Return rate" in line)
@@ -49,7 +50,7 @@ def test_stockout_error_prints_a_clean_error_and_exits_1(tmp_path, monkeypatch) 
     result = _invoke(tmp_path, monkeypatch, fake)
 
     assert result.exit_code == 1
-    output = " ".join(result.output.split())
+    output = plain(result.output)
     assert "Error: stock-outs suppressed 62% of demand; add inventory" in output
-    assert "Traceback" not in result.output
+    assert "Traceback" not in plain(result.output)
     assert not (tmp_path / "out").exists()
